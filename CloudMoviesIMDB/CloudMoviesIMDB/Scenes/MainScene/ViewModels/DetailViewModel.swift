@@ -7,14 +7,17 @@
 
 import UIKit
 
-protocol SubMainViewModelProtocol {
+protocol DetailViewModelProtocol {
     var movie: Movies.Movie { get }
 }
 
-final class SubMainViewModel: SubMainViewModelProtocol {
+final class DetailViewModel: DetailViewModelProtocol {
     let movie: Movies.Movie
-    
     init(movie: Movies.Movie) {
         self.movie = movie
+        print("DetailViewModel init")
+    }
+    deinit {
+        print("DetailViewModel deinit")
     }
 }

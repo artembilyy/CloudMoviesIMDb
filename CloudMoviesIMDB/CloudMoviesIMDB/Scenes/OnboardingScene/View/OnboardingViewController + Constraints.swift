@@ -25,7 +25,7 @@ extension OnboardingViewController {
         let buttonConstraints = [
             button.topAnchor.constraint(equalTo: pageControl.bottomAnchor),
             button.heightAnchor.constraint(equalToConstant: 50),
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ]
         NSLayoutConstraint.activate(collectionViewConstraints)
         NSLayoutConstraint.activate(pageControlConstraints)

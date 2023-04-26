@@ -24,53 +24,38 @@ final class TabBarCoordinator: TabbarCoordinatorProtocol {
     }
     func start() {
         addFirstPage()
-//        addSecondPage()
+        addSecondPage()
 //        addThirdPage()
 //        addFourthPage()
     }
     func addFirstPage() {
         if let assemblyBuilder {
-            let coordinator = MainPageCoordinator(navigationController: UINavigationController(), assemblyBuilder: assemblyBuilder)
+            let coordinator = MainPageCoordinator(
+                navigationController: UINavigationController(),
+                assemblyBuilder: assemblyBuilder
+            )
             guard let navigation = coordinator.navigationController else { return }
-            let image = UIImage(systemName: "eye")
+            let image = UIImage(systemName: "house.fill")?.withTintColor(.deepGreen)
             navigation.tabBarItem = UITabBarItem(title: "", image: image, tag: 0)
             tabBarController.viewControllers?.append(navigation)
             addChildCoordinator(coordinator)
             coordinator.start()
         }
     }
-//    func addSecondPage() {
-//        if let assemblyBuilder {
-//            let coordinator = SecondPageCoordinator(navigationController: UINavigationController(), assemblyBuilder: assemblyBuilder)
-//            guard let navigation = coordinator.navigationController else { return }
-//            let image = UIImage(named: "group")
-//            navigation.tabBarItem = UITabBarItem(title: "", image: image, tag: 1)
-//            tabBarController.viewControllers?.append(navigation)
-//            addChildCoordinator(coordinator)
-//            coordinator.start()
-//        }
-//    }
-//    func addThirdPage() {
-//        if let assemblyBuilder {
-//            let coordinator = ThirdPageCoordinator(navigationController: UINavigationController(), assemblyBuilder: assemblyBuilder)
-//            guard let navigation = coordinator.navigationController else { return }
-//            let image = UIImage(named: "transactions")
-//            navigation.tabBarItem = UITabBarItem(title: "", image: image, tag: 2)
-//            tabBarController.viewControllers?.append(navigation)
-//            addChildCoordinator(coordinator)
-//            coordinator.start()
-//        }
-//    }
-//    func addFourthPage() {
-//        if let assemblyBuilder {
-//            let coordinator = AccountPageCoordinator(navigationController: UINavigationController(), assemblyBuilder: assemblyBuilder)
-//            guard let navigation = coordinator.navigationController else { return }
-//            let image = UIImage(named: "account")
-//            navigation.tabBarItem = UITabBarItem(title: "", image: image, tag: 3)
-//            tabBarController.viewControllers?.append(navigation)
-//            addChildCoordinator(coordinator)
-//            coordinator.start()
-//        }
+    func addSecondPage() {
+        if let assemblyBuilder {
+            let coordinator = SearchPageCoordinator(
+                navigationController: UINavigationController(),
+                assemblyBuilder: assemblyBuilder
+            )
+            guard let navigation = coordinator.navigationController else { return }
+            let image = UIImage(systemName: "eye")
+            navigation.tabBarItem = UITabBarItem(title: "eye", image: image, tag: 1)
+            tabBarController.viewControllers?.append(navigation)
+            addChildCoordinator(coordinator)
+            coordinator.start()
+        }
+    }
     func deinitViewControllers() {
         tabBarController.viewControllers = []
     }

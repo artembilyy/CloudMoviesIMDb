@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED197A0D29F90367006E4DAF /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED197A0C29F90367006E4DAF /* Task.swift */; };
+		ED197A1029F90676006E4DAF /* SearchPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED197A0F29F90676006E4DAF /* SearchPageCoordinator.swift */; };
+		ED197A1529F9084B006E4DAF /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED197A1429F9084B006E4DAF /* SearchViewModel.swift */; };
+		ED197A1729F9090B006E4DAF /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED197A1629F9090B006E4DAF /* SearchViewController.swift */; };
 		ED653A2029F847A300A8FBC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653A1F29F847A300A8FBC1 /* AppDelegate.swift */; };
 		ED653A2229F847A300A8FBC1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653A2129F847A300A8FBC1 /* SceneDelegate.swift */; };
 		ED653A2429F847A300A8FBC1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653A2329F847A300A8FBC1 /* MainViewController.swift */; };
@@ -26,7 +30,7 @@
 		ED653A6C29F84C7100A8FBC1 /* OnboardingViewController + DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653A6B29F84C7100A8FBC1 /* OnboardingViewController + DataSource.swift */; };
 		ED653A6E29F84C8300A8FBC1 /* OnboardingViewController + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653A6D29F84C8300A8FBC1 /* OnboardingViewController + Delegate.swift */; };
 		ED653A7029F84C9200A8FBC1 /* OnboardingViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653A6F29F84C9200A8FBC1 /* OnboardingViewController + Extension.swift */; };
-		ED653A7229F84CAB00A8FBC1 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653A7129F84CAB00A8FBC1 /* OnboardingCollectionViewCell.swift */; };
+		ED653A7229F84CAB00A8FBC1 /* OnboardingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653A7129F84CAB00A8FBC1 /* OnboardingCell.swift */; };
 		ED653A7429F84D1B00A8FBC1 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653A7329F84D1B00A8FBC1 /* MainViewModel.swift */; };
 		ED653A7729F84D7800A8FBC1 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653A7629F84D7800A8FBC1 /* TabBarController.swift */; };
 		ED653A7929F84DD300A8FBC1 /* TabbarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653A7829F84DD300A8FBC1 /* TabbarCoordinator.swift */; };
@@ -65,11 +69,11 @@
 		ED653AC429F8BE3900A8FBC1 /* OnboardingViewController + Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653AC329F8BE3900A8FBC1 /* OnboardingViewController + Constraints.swift */; };
 		ED653AC629F8CF6A00A8FBC1 /* ImageLoadingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653AC529F8CF6A00A8FBC1 /* ImageLoadingManager.swift */; };
 		ED653AC829F8D25A00A8FBC1 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653AC729F8D25A00A8FBC1 /* NetworkError.swift */; };
-		ED653ACA29F8E1D500A8FBC1 /* SubMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653AC929F8E1D500A8FBC1 /* SubMainViewController.swift */; };
+		ED653ACA29F8E1D500A8FBC1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653AC929F8E1D500A8FBC1 /* DetailViewController.swift */; };
 		ED653ACC29F8E59600A8FBC1 /* UILabel + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653ACB29F8E59600A8FBC1 /* UILabel + Extension.swift */; };
-		ED653ACE29F8E89200A8FBC1 /* SubMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653ACD29F8E89200A8FBC1 /* SubMainViewModel.swift */; };
-		ED653AD029F8F1A000A8FBC1 /* SubMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653ACF29F8F1A000A8FBC1 /* SubMainView.swift */; };
-		ED653AD229F8F1EB00A8FBC1 /* SubMainView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653AD129F8F1EB00A8FBC1 /* SubMainView + Extension.swift */; };
+		ED653ACE29F8E89200A8FBC1 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653ACD29F8E89200A8FBC1 /* DetailViewModel.swift */; };
+		ED653AD029F8F1A000A8FBC1 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653ACF29F8F1A000A8FBC1 /* DetailView.swift */; };
+		ED653AD229F8F1EB00A8FBC1 /* DetailView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653AD129F8F1EB00A8FBC1 /* DetailView + Extension.swift */; };
 		ED653AD429F8FEE100A8FBC1 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653AD329F8FEE100A8FBC1 /* Endpoints.swift */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +95,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		ED197A0C29F90367006E4DAF /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		ED197A0F29F90676006E4DAF /* SearchPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPageCoordinator.swift; sourceTree = "<group>"; };
+		ED197A1429F9084B006E4DAF /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		ED197A1629F9090B006E4DAF /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		ED653A1C29F847A300A8FBC1 /* CloudMoviesIMDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudMoviesIMDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED653A1F29F847A300A8FBC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ED653A2129F847A300A8FBC1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -114,7 +122,7 @@
 		ED653A6B29F84C7100A8FBC1 /* OnboardingViewController + DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingViewController + DataSource.swift"; sourceTree = "<group>"; };
 		ED653A6D29F84C8300A8FBC1 /* OnboardingViewController + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingViewController + Delegate.swift"; sourceTree = "<group>"; };
 		ED653A6F29F84C9200A8FBC1 /* OnboardingViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingViewController + Extension.swift"; sourceTree = "<group>"; };
-		ED653A7129F84CAB00A8FBC1 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
+		ED653A7129F84CAB00A8FBC1 /* OnboardingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCell.swift; sourceTree = "<group>"; };
 		ED653A7329F84D1B00A8FBC1 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		ED653A7629F84D7800A8FBC1 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		ED653A7829F84DD300A8FBC1 /* TabbarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarCoordinator.swift; sourceTree = "<group>"; };
@@ -153,11 +161,11 @@
 		ED653AC329F8BE3900A8FBC1 /* OnboardingViewController + Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingViewController + Constraints.swift"; sourceTree = "<group>"; };
 		ED653AC529F8CF6A00A8FBC1 /* ImageLoadingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadingManager.swift; sourceTree = "<group>"; };
 		ED653AC729F8D25A00A8FBC1 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
-		ED653AC929F8E1D500A8FBC1 /* SubMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubMainViewController.swift; sourceTree = "<group>"; };
+		ED653AC929F8E1D500A8FBC1 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		ED653ACB29F8E59600A8FBC1 /* UILabel + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel + Extension.swift"; sourceTree = "<group>"; };
-		ED653ACD29F8E89200A8FBC1 /* SubMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubMainViewModel.swift; sourceTree = "<group>"; };
-		ED653ACF29F8F1A000A8FBC1 /* SubMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubMainView.swift; sourceTree = "<group>"; };
-		ED653AD129F8F1EB00A8FBC1 /* SubMainView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubMainView + Extension.swift"; sourceTree = "<group>"; };
+		ED653ACD29F8E89200A8FBC1 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		ED653ACF29F8F1A000A8FBC1 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		ED653AD129F8F1EB00A8FBC1 /* DetailView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailView + Extension.swift"; sourceTree = "<group>"; };
 		ED653AD329F8FEE100A8FBC1 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -186,6 +194,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		ED197A0E29F9066A006E4DAF /* SearchScene */ = {
+			isa = PBXGroup;
+			children = (
+				ED197A0F29F90676006E4DAF /* SearchPageCoordinator.swift */,
+				ED197A1329F90769006E4DAF /* Model */,
+				ED197A1229F90765006E4DAF /* View */,
+				ED197A1129F90755006E4DAF /* ViewModel */,
+			);
+			path = SearchScene;
+			sourceTree = "<group>";
+		};
+		ED197A1129F90755006E4DAF /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				ED197A1429F9084B006E4DAF /* SearchViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		ED197A1229F90765006E4DAF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				ED197A1629F9090B006E4DAF /* SearchViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		ED197A1329F90769006E4DAF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		ED653A1329F847A300A8FBC1 = {
 			isa = PBXGroup;
 			children = (
@@ -276,6 +318,7 @@
 				ED653A5F29F84B4200A8FBC1 /* OnboardingScene */,
 				ED653A7529F84D5400A8FBC1 /* TabBarScene */,
 				ED653A4F29F848B500A8FBC1 /* MainScene */,
+				ED197A0E29F9066A006E4DAF /* SearchScene */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -290,9 +333,9 @@
 				ED653ABF29F8B6E600A8FBC1 /* MediaCell + Extension.swift */,
 				ED653AC129F8BB1900A8FBC1 /* MediaCell + Constrains.swift */,
 				ED653ABB29F88B1200A8FBC1 /* MainViewFooter.swift */,
-				ED653AC929F8E1D500A8FBC1 /* SubMainViewController.swift */,
-				ED653ACF29F8F1A000A8FBC1 /* SubMainView.swift */,
-				ED653AD129F8F1EB00A8FBC1 /* SubMainView + Extension.swift */,
+				ED653AC929F8E1D500A8FBC1 /* DetailViewController.swift */,
+				ED653ACF29F8F1A000A8FBC1 /* DetailView.swift */,
+				ED653AD129F8F1EB00A8FBC1 /* DetailView + Extension.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -301,7 +344,7 @@
 			isa = PBXGroup;
 			children = (
 				ED653A7329F84D1B00A8FBC1 /* MainViewModel.swift */,
-				ED653ACD29F8E89200A8FBC1 /* SubMainViewModel.swift */,
+				ED653ACD29F8E89200A8FBC1 /* DetailViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -341,7 +384,7 @@
 				ED653A6D29F84C8300A8FBC1 /* OnboardingViewController + Delegate.swift */,
 				ED653A6F29F84C9200A8FBC1 /* OnboardingViewController + Extension.swift */,
 				ED653AC329F8BE3900A8FBC1 /* OnboardingViewController + Constraints.swift */,
-				ED653A7129F84CAB00A8FBC1 /* OnboardingCollectionViewCell.swift */,
+				ED653A7129F84CAB00A8FBC1 /* OnboardingCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -379,6 +422,7 @@
 				ED653AAB29F852F200A8FBC1 /* UIView + Extension.swift */,
 				ED653ACB29F8E59600A8FBC1 /* UILabel + Extension.swift */,
 				ED653AB929F8795300A8FBC1 /* IdentifiableCell.swift */,
+				ED197A0C29F90367006E4DAF /* Task.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -438,6 +482,7 @@
 				ED653A1829F847A300A8FBC1 /* Sources */,
 				ED653A1929F847A300A8FBC1 /* Frameworks */,
 				ED653A1A29F847A300A8FBC1 /* Resources */,
+				ED197A1929F97C1B006E4DAF /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -571,6 +616,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		ED197A1929F97C1B006E4DAF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = " export PATH=\"$PATH:/opt/homebrew/bin\"\n if which swiftlint > /dev/null; then\n  swiftlint\n else\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n   fi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		ED653A1829F847A300A8FBC1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -578,19 +643,19 @@
 			files = (
 				ED653AC029F8B6E600A8FBC1 /* MediaCell + Extension.swift in Sources */,
 				ED653AAA29F851E400A8FBC1 /* UIColor + Extension.swift in Sources */,
-				ED653AD229F8F1EB00A8FBC1 /* SubMainView + Extension.swift in Sources */,
+				ED653AD229F8F1EB00A8FBC1 /* DetailView + Extension.swift in Sources */,
 				ED653AB429F8727400A8FBC1 /* MainViewController + Extension.swift in Sources */,
 				ED653A7E29F84F1800A8FBC1 /* UIFont + Extension.swift in Sources */,
-				ED653ACA29F8E1D500A8FBC1 /* SubMainViewController.swift in Sources */,
+				ED653ACA29F8E1D500A8FBC1 /* DetailViewController.swift in Sources */,
 				ED653A6829F84C2500A8FBC1 /* OnboardingSlide.swift in Sources */,
 				ED653A5C29F84AB100A8FBC1 /* AppCoordinator.swift in Sources */,
 				ED653AC229F8BB1900A8FBC1 /* MediaCell + Constrains.swift in Sources */,
 				ED653AAC29F852F300A8FBC1 /* UIView + Extension.swift in Sources */,
 				ED653ABC29F88B1200A8FBC1 /* MainViewFooter.swift in Sources */,
 				ED653AD429F8FEE100A8FBC1 /* Endpoints.swift in Sources */,
-				ED653A7229F84CAB00A8FBC1 /* OnboardingCollectionViewCell.swift in Sources */,
+				ED653A7229F84CAB00A8FBC1 /* OnboardingCell.swift in Sources */,
 				ED653AB029F85E9600A8FBC1 /* NetworkService.swift in Sources */,
-				ED653ACE29F8E89200A8FBC1 /* SubMainViewModel.swift in Sources */,
+				ED653ACE29F8E89200A8FBC1 /* DetailViewModel.swift in Sources */,
 				ED653ACC29F8E59600A8FBC1 /* UILabel + Extension.swift in Sources */,
 				ED653A6C29F84C7100A8FBC1 /* OnboardingViewController + DataSource.swift in Sources */,
 				ED653A7B29F84E4B00A8FBC1 /* MainPageCoordinator.swift in Sources */,
@@ -598,12 +663,15 @@
 				ED653A5E29F84AE900A8FBC1 /* LocalState.swift in Sources */,
 				ED653AC629F8CF6A00A8FBC1 /* ImageLoadingManager.swift in Sources */,
 				ED653A5729F849EB00A8FBC1 /* Coordinator.swift in Sources */,
+				ED197A1529F9084B006E4DAF /* SearchViewModel.swift in Sources */,
 				ED653AB829F8745500A8FBC1 /* MediaCell.swift in Sources */,
+				ED197A1029F90676006E4DAF /* SearchPageCoordinator.swift in Sources */,
 				ED653AB229F8608900A8FBC1 /* MovieModel.swift in Sources */,
-				ED653AD029F8F1A000A8FBC1 /* SubMainView.swift in Sources */,
+				ED653AD029F8F1A000A8FBC1 /* DetailView.swift in Sources */,
 				ED653A7729F84D7800A8FBC1 /* TabBarController.swift in Sources */,
 				ED653A5A29F84A6F00A8FBC1 /* Assembly.swift in Sources */,
 				ED653A6629F84C0200A8FBC1 /* OnboardingViewModel.swift in Sources */,
+				ED197A1729F9090B006E4DAF /* SearchViewController.swift in Sources */,
 				ED653ABE29F8A99B00A8FBC1 /* Listener.swift in Sources */,
 				ED653A2429F847A300A8FBC1 /* MainViewController.swift in Sources */,
 				ED653A6E29F84C8300A8FBC1 /* OnboardingViewController + Delegate.swift in Sources */,
@@ -616,6 +684,7 @@
 				ED653AC429F8BE3900A8FBC1 /* OnboardingViewController + Constraints.swift in Sources */,
 				ED653ABA29F8795300A8FBC1 /* IdentifiableCell.swift in Sources */,
 				ED653A7429F84D1B00A8FBC1 /* MainViewModel.swift in Sources */,
+				ED197A0D29F90367006E4DAF /* Task.swift in Sources */,
 				ED653AB629F872A500A8FBC1 /* MainViewController + CompositionalLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

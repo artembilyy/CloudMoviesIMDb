@@ -8,6 +8,7 @@
 import UIKit
 
 protocol AppCoordinatorProtocol: Coordinator {
+    /// Scene Delegate
     var window: UIWindow? { get }
     func showMainFlow()
     func showOnboarding()
@@ -20,9 +21,9 @@ final class AppCoordinator: AppCoordinatorProtocol {
     var assemblyBuilder: AssemblyProtocol?
     var window: UIWindow?
     init(window: UIWindow?, assemblyBuilder: AssemblyProtocol) {
-        print("App Coordinator init")
         self.window = window
         self.assemblyBuilder = assemblyBuilder
+        print("App Coordinator init")
     }
     func start() {
         if LocalState.hasOnboarded {
@@ -34,7 +35,8 @@ final class AppCoordinator: AppCoordinatorProtocol {
     func showMainFlow() {
         if let assemblyBuilder {
             let tabBar = assemblyBuilder.createTabBarController()
-            let tabBarContollerCoordinator = TabBarCoordinator(tabBarController: tabBar, assemblyBuilder: assemblyBuilder)
+            let tabBarContollerCoordinator = TabBarCoordinator(tabBarController: tabBar,
+                                                               assemblyBuilder: assemblyBuilder)
             addChildCoordinator(tabBarContollerCoordinator)
             tabBarContollerCoordinator.start()
             window?.rootViewController = tabBarContollerCoordinator.tabBarController
@@ -43,7 +45,8 @@ final class AppCoordinator: AppCoordinatorProtocol {
     func showOnboarding() {
         if let assemblyBuilder {
             let navigationController = UINavigationController()
-            let onboardingCoordinator = OnboardingCoordinator(navigationController: navigationController, assemblyBuilder: assemblyBuilder)
+            let onboardingCoordinator = OnboardingCoordinator(navigationController: navigationController,
+                                                              assemblyBuilder: assemblyBuilder)
             addChildCoordinator(onboardingCoordinator)
             onboardingCoordinator.start()
             window?.rootViewController = navigationController

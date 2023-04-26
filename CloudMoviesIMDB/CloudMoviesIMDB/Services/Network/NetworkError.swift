@@ -10,7 +10,7 @@ import Foundation
 enum NetworkError: Error {
     case invalidURL
     case noImage
-    
+    /// describing
     var describing: String {
         switch self {
         case .invalidURL:

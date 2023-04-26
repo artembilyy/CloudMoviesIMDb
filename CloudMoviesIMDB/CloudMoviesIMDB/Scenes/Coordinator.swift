@@ -12,6 +12,7 @@ protocol Coordinator: AnyObject {
     var assemblyBuilder: AssemblyProtocol? { get }
     var parentCoordinator: Coordinator? { get set }
     var navigationController: UINavigationController? { get }
+    /// default methods
     func start()
     func didFinish()
     func addChildCoordinator(_ coordinator: Coordinator)
@@ -31,4 +32,3 @@ extension Coordinator {
         childCoordinators.removeAll()
     }
 }
-

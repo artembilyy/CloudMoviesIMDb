@@ -7,16 +7,17 @@
 
 import UIKit
 
-extension SubMainView {
+extension DetailView {
     func createPosterView() -> UIImageView {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFill
+        view.backgroundColor = .black
+        view.contentMode = .scaleAspectFit
         view.dropShadow()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }
     func createBlur() -> UIVisualEffectView {
-        let blur = UIBlurEffect(style: .systemUltraThinMaterialLight)
+        let blur = UIBlurEffect(style: .light)
         let view = UIVisualEffectView(effect: blur)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true

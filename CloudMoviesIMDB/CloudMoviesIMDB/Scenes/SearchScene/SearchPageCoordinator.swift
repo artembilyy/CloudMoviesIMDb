@@ -1,13 +1,13 @@
 //
-//  MainPageCoordinator.swift
+//  SearchPageCoordinator.swift
 //  CloudMoviesIMDB
 //
-//  Created by Artem Bilyi on 25.04.2023.
+//  Created by Artem Bilyi on 26.04.2023.
 //
 
 import UIKit
 
-final class MainPageCoordinator: Coordinator {
+final class SearchPageCoordinator: Coordinator {
     let navigationController: UINavigationController?
     var childCoordinators: [Coordinator] = []
     var assemblyBuilder: AssemblyProtocol?
@@ -17,10 +17,10 @@ final class MainPageCoordinator: Coordinator {
         self.assemblyBuilder = assemblyBuilder
     }
     func start() {
-        let mainViewController = assemblyBuilder?.createMainController(coordinatorDelegate: self)
+        let mainViewController = assemblyBuilder?.createSearchController(coordinatorDelegate: self)
         guard let navigationController,
               let mainViewController else { return }
-        navigationController.title = "Top 250"
+        navigationController.title = "Search"
         navigationController.setViewControllers([mainViewController], animated: true)
     }
     deinit {
@@ -28,11 +28,5 @@ final class MainPageCoordinator: Coordinator {
     }
 }
 
-extension MainPageCoordinator: MainPageViewModelCoordinatorDelegate {
-    func openMainSubControllerDelegate(_ data: Movies.Movie) {
-        let mainSubViewController = assemblyBuilder?.createDetailController(data: data)
-        guard let mainSubViewController else { return }
-        mainSubViewController.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(mainSubViewController, animated: true)
-    }
+extension SearchPageCoordinator: SearchViewModelCoordinatorDelegate {
 }

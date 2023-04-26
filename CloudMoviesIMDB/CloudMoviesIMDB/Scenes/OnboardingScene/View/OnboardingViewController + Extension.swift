@@ -21,7 +21,7 @@ extension OnboardingViewController {
         collectionView.allowsSelection = true
         collectionView.isUserInteractionEnabled = true
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(OnboardingCollectionViewCell.self, forCellWithReuseIdentifier: OnboardingCollectionViewCell.identifier)
+        collectionView.register(OnboardingCell.self, forCellWithReuseIdentifier: OnboardingCell.identifier)
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
@@ -42,7 +42,11 @@ extension OnboardingViewController {
                                       range: NSRange(location: 0, length: fullText.count))
         return attributedString
     }
-    func makeButton(attributedString: NSAttributedString? = NSAttributedString(), action: UIAction, borderWidth: CGFloat = 0) -> UIButton {
+    func makeButton(
+        attributedString: NSAttributedString? = NSAttributedString(),
+        action: UIAction,
+        borderWidth: CGFloat = 0
+    ) -> UIButton {
         let button = UIButton(type: .system)
         button.setAttributedTitle(attributedString, for: .normal)
         button.addAction(action, for: .touchUpInside)

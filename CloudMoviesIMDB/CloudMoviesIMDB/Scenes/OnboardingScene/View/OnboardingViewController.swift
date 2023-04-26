@@ -11,7 +11,10 @@ final class OnboardingViewController: UIViewController {
     let viewModel: OnboardingViewModelProtocol
     lazy var collectionView = makeCollectionView()
     lazy var pageControl = makePageControl()
-    lazy var button = makeButton(attributedString: makeAttributedString(fullText: "Next"), action: action(), borderWidth: 0)
+    lazy var button = makeButton(attributedString:
+                                    makeAttributedString(fullText: "Next"),
+                                 action: action(),
+                                 borderWidth: 0)
     var buttonWidthConstraint: NSLayoutConstraint?
     var isWidth = false
     var currentPage = 0 {
@@ -19,7 +22,6 @@ final class OnboardingViewController: UIViewController {
             changeUI()
         }
     }
-    
     init(viewModel: OnboardingViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)

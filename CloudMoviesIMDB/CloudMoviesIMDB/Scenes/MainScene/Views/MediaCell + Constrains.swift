@@ -17,14 +17,14 @@ extension MediaCell {
             container.widthAnchor.constraint(equalTo: container.heightAnchor, multiplier: 0.66)
         ]
         let posterImageConstraints = [
-            posterImage.centerYAnchor.constraint(equalTo: container.centerYAnchor),
-            posterImage.centerXAnchor.constraint(equalTo: container.centerXAnchor),
-            posterImage.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1),
-            posterImage.widthAnchor.constraint(equalTo: container.heightAnchor, multiplier: 0.66),
+            posterImage.topAnchor.constraint(equalTo: container.topAnchor),
+            posterImage.bottomAnchor.constraint(equalTo: container.bottomAnchor),
+            posterImage.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            posterImage.widthAnchor.constraint(equalTo: container.heightAnchor, multiplier: 0.66)
         ]
         let titleConstraints = [
-            titleLabel.leadingAnchor.constraint(equalTo: container.trailingAnchor, constant: 8),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            titleLabel.leadingAnchor.constraint(equalTo: container.trailingAnchor, constant: 16),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             titleLabel.heightAnchor.constraint(equalToConstant: 50)
         ]

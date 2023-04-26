@@ -7,21 +7,29 @@
 
 import UIKit
 
-final class OnboardingCollectionViewCell: UICollectionViewCell {
-    
-    static let identifier = String(describing: OnboardingCollectionViewCell.self)
-    
-    private lazy var titleLabel = makeLabel(text: nil, font: UIFont.setFont(name: Poppins.bold.rawValue, size: 28), color: .black, aligment: .left)
-    private lazy var descriptionLabel = makeLabel(text: nil, font: UIFont.setFont(name: Poppins.medium.rawValue, size: 18), color: .black, aligment: .left)
+final class OnboardingCell: UICollectionViewCell, IdentifiableCell {
+
+    private lazy var titleLabel = makeLabel(
+        text: nil,
+        font: UIFont.setFont(
+            name: Poppins.bold.rawValue,
+            size: 28
+        ), color: .black, aligment: .left)
+    private lazy var descriptionLabel = makeLabel(
+        text: nil,
+        font: UIFont.setFont(
+            name: Poppins.medium.rawValue,
+            size: 18
+        ), color: .black, aligment: .left)
     private lazy var topImage: UIImageView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.contentMode = .scaleAspectFit
         return $0
     }(UIImageView())
-    
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupUI()
+        addSubview(topImage)
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -29,9 +37,6 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         layout()
-    }
-    private func setupUI() {
-        addSubview(topImage)
     }
     func setup(_ slide: OnboardingSlide) {
         topImage.image = slide.image
@@ -54,7 +59,7 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
         let descriptionLabelConstraints = [
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
             descriptionLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            descriptionLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+            descriptionLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor)
         ]
         NSLayoutConstraint.activate(topImageConstraints)
         NSLayoutConstraint.activate(titleLabelConstraints)

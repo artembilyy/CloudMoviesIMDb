@@ -18,7 +18,7 @@ final class Observable<T> {
     init(_ value: T) {
         self.value = value
     }
-
+    /// bind ViewModel with View
     func bind(listener: Listener?) {
         self.listener = listener
         listener?(value)

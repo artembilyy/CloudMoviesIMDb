@@ -8,7 +8,6 @@
 import UIKit
 
 final class MediaCell: UICollectionViewCell, IdentifiableCell {
-    // MARK: identifier
     // MARK: - MovieCell UI Elements
     lazy var container = makeContainer()
     lazy var activityIndicatorView = makeActivityIndicatorView()
@@ -16,13 +15,13 @@ final class MediaCell: UICollectionViewCell, IdentifiableCell {
     lazy var rankLabel = makeLabel(text: nil, font: UIFont.setFont(name: Poppins.medium.rawValue, size: 16))
     lazy var posterImage: UIImageView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.contentMode = .scaleToFill
+        $0.contentMode = .scaleAspectFill
         $0.addSubview(activityIndicatorView)
         return $0
     }(UIImageView())
-    
+    /// LoadingManager
     private var imageLoadingManager: ImageLoadingManagerProtocol?
-    
+    // MARK: Init
     override init(frame: CGRect) {
         imageLoadingManager = ImageLoadingManager()
         super.init(frame: frame)
@@ -36,8 +35,13 @@ final class MediaCell: UICollectionViewCell, IdentifiableCell {
         super.layoutSubviews()
         setupContraints()
     }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        posterImage.image = nil
+        titleLabel.text = nil
+        rankLabel.text = nil
+    }
     // MARK: - Configure
-    @MainActor
     func configure(media: Movies.Movie) {
         showLoadingIndicator()
         Task(priority: .userInitiated) {
@@ -49,12 +53,12 @@ final class MediaCell: UICollectionViewCell, IdentifiableCell {
             hideLoadingIndicator()
         }
     }
-    func showLoadingIndicator() {
+    private func showLoadingIndicator() {
         activityIndicatorView.isHidden = false
         activityIndicatorView.startAnimating()
         posterImage.bringSubviewToFront(activityIndicatorView)
     }
-    func hideLoadingIndicator() {
+    private func hideLoadingIndicator() {
         activityIndicatorView.isHidden = true
         activityIndicatorView.stopAnimating()
     }

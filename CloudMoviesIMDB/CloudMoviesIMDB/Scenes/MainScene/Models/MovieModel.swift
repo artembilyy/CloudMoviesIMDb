@@ -24,5 +24,20 @@ extension Movies {
         let crew: String?
         let imDBRating: String?
         let imDBRatingCount: String?
+        var rankInt: Int {
+            return Int(rank ?? "") ?? 0
+        }
+    }
+}
+
+extension Movies.Movie {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
+
+extension Movies.Movie: Equatable {
+    static func == (lhs: Movies.Movie, rhs: Movies.Movie) -> Bool {
+        return lhs.id == rhs.id
     }
 }
