@@ -19,7 +19,7 @@ protocol MainViewModelProtocol {
 
 final class MainViewModel: MainViewModelProtocol {
     // MARK: - Network
-    private var networkService: NetworkServiceProtocol
+    private var networkService: NetworkMainServiceProtocol
     // MARK: - Properties
     private(set) var top250Movies: [Movies.Movie] = []
     private var allMovies: [Movies.Movie] = []
@@ -28,7 +28,7 @@ final class MainViewModel: MainViewModelProtocol {
     var snapshotUpdate: Observable<Bool> = Observable(false)
     weak var coordinatorDelegate: MainPageViewModelCoordinatorDelegate?
     // MARK: - Init
-    init(networkService: NetworkServiceProtocol) {
+    init(networkService: NetworkMainServiceProtocol) {
         self.networkService = networkService
     }
     // MARK: - Methods

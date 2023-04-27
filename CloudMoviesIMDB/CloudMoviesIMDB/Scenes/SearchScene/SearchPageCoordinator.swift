@@ -17,11 +17,13 @@ final class SearchPageCoordinator: Coordinator {
         self.assemblyBuilder = assemblyBuilder
     }
     func start() {
-        let mainViewController = assemblyBuilder?.createSearchController(coordinatorDelegate: self)
+        let searchViewController = assemblyBuilder?.createSearchController(coordinatorDelegate: self)
         guard let navigationController,
-              let mainViewController else { return }
-        navigationController.title = "Search"
-        navigationController.setViewControllers([mainViewController], animated: true)
+              let searchViewController else { return }
+        searchViewController.title = "Search"
+        navigationController.navigationItem.largeTitleDisplayMode = .always
+        navigationController.navigationBar.prefersLargeTitles = true
+        navigationController.setViewControllers([searchViewController], animated: true)
     }
     deinit {
         print("FirstPageCoordinator deinit")

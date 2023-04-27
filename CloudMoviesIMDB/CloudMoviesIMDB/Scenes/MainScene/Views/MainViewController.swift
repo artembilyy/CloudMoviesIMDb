@@ -10,7 +10,7 @@ import UIKit
 final class MainViewController: UICollectionViewController {
     var viewModel: MainViewModelProtocol!
     var dataSource: DataSource!
-    enum Section: Int, CaseIterable {
+    enum MainSection: Int, CaseIterable {
         case movies
     }
     let refreshControl = UIRefreshControl()

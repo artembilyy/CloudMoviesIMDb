@@ -36,7 +36,8 @@ final class TabBarCoordinator: TabbarCoordinatorProtocol {
             )
             guard let navigation = coordinator.navigationController else { return }
             let image = UIImage(systemName: "house.fill")?.withTintColor(.deepGreen)
-            navigation.tabBarItem = UITabBarItem(title: "", image: image, tag: 0)
+            navigation.tabBarItem = UITabBarItem(title: "Home", image: image, tag: 0)
+            navigation.navigationController?.navigationBar.tintColor = .deepGreen
             tabBarController.viewControllers?.append(navigation)
             addChildCoordinator(coordinator)
             coordinator.start()
@@ -49,8 +50,8 @@ final class TabBarCoordinator: TabbarCoordinatorProtocol {
                 assemblyBuilder: assemblyBuilder
             )
             guard let navigation = coordinator.navigationController else { return }
-            let image = UIImage(systemName: "eye")
-            navigation.tabBarItem = UITabBarItem(title: "eye", image: image, tag: 1)
+            let image = UIImage(systemName: "magnifyingglass")
+            navigation.tabBarItem = UITabBarItem(title: "Search", image: image, tag: 1)
             tabBarController.viewControllers?.append(navigation)
             addChildCoordinator(coordinator)
             coordinator.start()

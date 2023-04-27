@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED0D54C429F9EEF50005FA8C /* SeatchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0D54C329F9EEF50005FA8C /* SeatchModel.swift */; };
+		ED0D54C629F9FE070005FA8C /* SearchViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0D54C529F9FE070005FA8C /* SearchViewController + Extension.swift */; };
+		ED0D54C829FA00A00005FA8C /* SearchViewController + CompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0D54C729FA00A00005FA8C /* SearchViewController + CompositionalLayout.swift */; };
 		ED197A0D29F90367006E4DAF /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED197A0C29F90367006E4DAF /* Task.swift */; };
 		ED197A1029F90676006E4DAF /* SearchPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED197A0F29F90676006E4DAF /* SearchPageCoordinator.swift */; };
 		ED197A1529F9084B006E4DAF /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED197A1429F9084B006E4DAF /* SearchViewModel.swift */; };
@@ -95,6 +98,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		ED0D54C329F9EEF50005FA8C /* SeatchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatchModel.swift; sourceTree = "<group>"; };
+		ED0D54C529F9FE070005FA8C /* SearchViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController + Extension.swift"; sourceTree = "<group>"; };
+		ED0D54C729FA00A00005FA8C /* SearchViewController + CompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController + CompositionalLayout.swift"; sourceTree = "<group>"; };
 		ED197A0C29F90367006E4DAF /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		ED197A0F29F90676006E4DAF /* SearchPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPageCoordinator.swift; sourceTree = "<group>"; };
 		ED197A1429F9084B006E4DAF /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
@@ -217,6 +223,8 @@
 			isa = PBXGroup;
 			children = (
 				ED197A1629F9090B006E4DAF /* SearchViewController.swift */,
+				ED0D54C529F9FE070005FA8C /* SearchViewController + Extension.swift */,
+				ED0D54C729FA00A00005FA8C /* SearchViewController + CompositionalLayout.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -224,6 +232,7 @@
 		ED197A1329F90769006E4DAF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				ED0D54C329F9EEF50005FA8C /* SeatchModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -251,12 +260,12 @@
 		ED653A1E29F847A300A8FBC1 /* CloudMoviesIMDB */ = {
 			isa = PBXGroup;
 			children = (
-				ED653AAD29F85E8600A8FBC1 /* Services */,
-				ED653A5229F849A800A8FBC1 /* Scenes */,
 				ED653A5829F84A4500A8FBC1 /* Builder */,
+				ED653A5229F849A800A8FBC1 /* Scenes */,
+				ED653AAD29F85E8600A8FBC1 /* Services */,
 				ED653A7C29F84ED700A8FBC1 /* Extensions */,
-				ED653A5129F8491800A8FBC1 /* Resources */,
 				ED653A5029F848FE00A8FBC1 /* Application */,
+				ED653A5129F8491800A8FBC1 /* Resources */,
 				ED653A8429F8508100A8FBC1 /* Fonts */,
 			);
 			path = CloudMoviesIMDB;
@@ -455,7 +464,6 @@
 		ED653AAD29F85E8600A8FBC1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				ED653AC529F8CF6A00A8FBC1 /* ImageLoadingManager.swift */,
 				ED653ABD29F8A99B00A8FBC1 /* Listener.swift */,
 				ED653AAE29F85E8D00A8FBC1 /* Network */,
 			);
@@ -465,6 +473,7 @@
 		ED653AAE29F85E8D00A8FBC1 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				ED653AC529F8CF6A00A8FBC1 /* ImageLoadingManager.swift */,
 				ED653AAF29F85E9600A8FBC1 /* NetworkService.swift */,
 				ED653AC729F8D25A00A8FBC1 /* NetworkError.swift */,
 				ED653AD329F8FEE100A8FBC1 /* Endpoints.swift */,
@@ -632,7 +641,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = " export PATH=\"$PATH:/opt/homebrew/bin\"\n if which swiftlint > /dev/null; then\n  swiftlint\n else\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n   fi\n";
+			shellScript = "# export PATH=\"$PATH:/opt/homebrew/bin\"\n# if which swiftlint > /dev/null; then\n#  swiftlint\n# else\n#  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n#   fi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -669,11 +678,13 @@
 				ED653AB229F8608900A8FBC1 /* MovieModel.swift in Sources */,
 				ED653AD029F8F1A000A8FBC1 /* DetailView.swift in Sources */,
 				ED653A7729F84D7800A8FBC1 /* TabBarController.swift in Sources */,
+				ED0D54C829FA00A00005FA8C /* SearchViewController + CompositionalLayout.swift in Sources */,
 				ED653A5A29F84A6F00A8FBC1 /* Assembly.swift in Sources */,
 				ED653A6629F84C0200A8FBC1 /* OnboardingViewModel.swift in Sources */,
 				ED197A1729F9090B006E4DAF /* SearchViewController.swift in Sources */,
 				ED653ABE29F8A99B00A8FBC1 /* Listener.swift in Sources */,
 				ED653A2429F847A300A8FBC1 /* MainViewController.swift in Sources */,
+				ED0D54C629F9FE070005FA8C /* SearchViewController + Extension.swift in Sources */,
 				ED653A6E29F84C8300A8FBC1 /* OnboardingViewController + Delegate.swift in Sources */,
 				ED653A6129F84B5B00A8FBC1 /* OnboardingCoordinator.swift in Sources */,
 				ED653A2029F847A300A8FBC1 /* AppDelegate.swift in Sources */,
@@ -682,6 +693,7 @@
 				ED653AC829F8D25A00A8FBC1 /* NetworkError.swift in Sources */,
 				ED653A2229F847A300A8FBC1 /* SceneDelegate.swift in Sources */,
 				ED653AC429F8BE3900A8FBC1 /* OnboardingViewController + Constraints.swift in Sources */,
+				ED0D54C429F9EEF50005FA8C /* SeatchModel.swift in Sources */,
 				ED653ABA29F8795300A8FBC1 /* IdentifiableCell.swift in Sources */,
 				ED653A7429F84D1B00A8FBC1 /* MainViewModel.swift in Sources */,
 				ED197A0D29F90367006E4DAF /* Task.swift in Sources */,

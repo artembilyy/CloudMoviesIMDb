@@ -1,19 +1,19 @@
 //
-//  MainViewController + Extension.swift
+//  SearchViewController + Extension.swift
 //  CloudMoviesIMDB
 //
-//  Created by Artem Bilyi on 25.04.2023.
+//  Created by Artem Bilyi on 27.04.2023.
 //
 
 import UIKit
 
-extension MainViewController {
-    typealias DataSource = UICollectionViewDiffableDataSource<MainSection, Movies.Movie>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<MainSection, Movies.Movie>
+extension SearchViewController {
+    typealias DataSource = UICollectionViewDiffableDataSource<SearchSection, SearchResult.Movie>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<SearchSection, SearchResult.Movie>
     // MARK: - Diffable Data Source
     func setupDataSource() {
         dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, item in
-            guard let section = MainSection(rawValue: indexPath.section) else { return UICollectionViewCell() }
+            guard let section = SearchSection(rawValue: indexPath.section) else { return UICollectionViewCell() }
             switch section {
             case .movies:
                 guard let cell = collectionView.dequeueReusableCell(
@@ -21,6 +21,7 @@ extension MainViewController {
                     for: indexPath
                 ) as? MediaCell else { return UICollectionViewCell() }
                 cell.configure(media: item)
+//                cell.configure(media: item)
                 return cell
             }
         }
@@ -30,14 +31,17 @@ extension MainViewController {
                 withReuseIdentifier: MainViewFooter.identifier,
                 for: indexPath
             ) as? MainViewFooter else { return UICollectionReusableView() }
-            footerView.toggleLoading(isEnabled: isPaginating)
+//            footerView.toggleLoading(isEnabled: isPaginating)
             return footerView
         }
     }
     func updateSnapshot() {
         var snapshot = Snapshot()
-        snapshot.appendSections([.movies])
-        snapshot.appendItems(viewModel.top250Movies, toSection: .movies)
-        dataSource.apply(snapshot, animatingDifferences: true)
+        if viewModel.movies.count != 0 {
+            snapshot.appendSections([.movies])
+            snapshot.appendItems(viewModel.movies, toSection: .movies)
+            dataSource.apply(snapshot)
+            dataSource.apply(snapshot, animatingDifferences: true)
+        }
     }
 }

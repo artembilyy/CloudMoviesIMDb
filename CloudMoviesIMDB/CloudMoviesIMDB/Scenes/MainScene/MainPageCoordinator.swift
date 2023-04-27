@@ -20,7 +20,9 @@ final class MainPageCoordinator: Coordinator {
         let mainViewController = assemblyBuilder?.createMainController(coordinatorDelegate: self)
         guard let navigationController,
               let mainViewController else { return }
-        navigationController.title = "Top 250"
+        mainViewController.title = "Top 250 Movies"
+        navigationController.navigationItem.largeTitleDisplayMode = .always
+        navigationController.navigationBar.prefersLargeTitles = true
         navigationController.setViewControllers([mainViewController], animated: true)
     }
     deinit {

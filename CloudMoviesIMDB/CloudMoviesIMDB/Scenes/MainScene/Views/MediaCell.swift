@@ -53,6 +53,20 @@ final class MediaCell: UICollectionViewCell, IdentifiableCell {
             hideLoadingIndicator()
         }
     }
+    func configure(media: SearchResult.Movie) {
+        showLoadingIndicator()
+        Task(priority: .userInitiated) {
+            print(media)
+            guard let path = media.image else { return }
+            let result = try await imageLoadingManager?.getImage(from: path.absoluteString)
+            print(path)
+            posterImage.image = result
+            titleLabel.text = media.title
+            rankLabel.text = "Rank: \(media.title ?? "")
+            hideLoadingIndicator()
+            print(media.title)
+        }
+    }
     private func showLoadingIndicator() {
         activityIndicatorView.isHidden = false
         activityIndicatorView.startAnimating()
