@@ -36,7 +36,7 @@ final class MainViewController: UICollectionViewController {
         collectionView.addSubview(refreshControl)
         collectionView.backgroundColor = .white
         refreshControl.addAction(pullToRefresh(), for: .valueChanged)
-        collectionView.register(MediaCell.self, forCellWithReuseIdentifier: MediaCell.identifier)
+        collectionView.register(MainMovieCell.self, forCellWithReuseIdentifier: MainMovieCell.identifier)
         collectionView.register(
             MainViewFooter.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
@@ -93,8 +93,8 @@ final class MainViewController: UICollectionViewController {
 extension MainViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let movie = viewModel.top250Movies[indexPath.item]
-        viewModel.openMainSubController(movie)
         collectionView.deselectItem(at: indexPath, animated: true)
+        viewModel.openMainSubController(movie)
     }
 }
 

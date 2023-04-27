@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension MediaCell {
+extension MainMovieCell {
     func makeContainer() -> UIView {
         let container = UIView()
         container.clipsToBounds = true

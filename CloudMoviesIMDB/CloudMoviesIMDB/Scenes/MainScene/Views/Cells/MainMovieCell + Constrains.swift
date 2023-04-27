@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension MediaCell {
+extension MainMovieCell {
     // MARK: - MovieCell Contraints
     func setupContraints() {
         let containerConstraints = [

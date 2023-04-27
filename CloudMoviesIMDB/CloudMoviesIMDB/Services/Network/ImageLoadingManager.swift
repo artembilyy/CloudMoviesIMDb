@@ -8,6 +8,7 @@ import UIKit
 
 protocol ImageLoadingManagerProtocol {
     func getImage(from url: String) async throws -> UIImage?
+    func getSearchImage(from url: URL) async throws -> UIImage?
 }
 
 final class ImageLoadingManager: ImageLoadingManagerProtocol {
@@ -38,6 +39,21 @@ final class ImageLoadingManager: ImageLoadingManagerProtocol {
             throw error
         }
     }
+    func getSearchImage(from url: URL) async throws -> UIImage? {
+        do {
+            let (data, response) = try await URLSession.shared.data(from: url)
+            guard let image = UIImage(data: data) else {
+                throw NetworkError.noImage
+            }
+//            saveDataToCache(with: data, response: response)
+            self.image = image
+            return image
+        } catch {
+            print(error.localizedDescription)
+            throw error
+        }
+    }
+    
     // MARK: Method for get URL with scaled image
     private func getURL(resizeFactor: Int, url: String) -> URL? {
         /// Regex for pattern matching relevant parts of the URL

@@ -35,8 +35,10 @@ final class AppCoordinator: AppCoordinatorProtocol {
     func showMainFlow() {
         if let assemblyBuilder {
             let tabBar = assemblyBuilder.createTabBarController()
-            let tabBarContollerCoordinator = TabBarCoordinator(tabBarController: tabBar,
-                                                               assemblyBuilder: assemblyBuilder)
+            let tabBarContollerCoordinator = TabBarCoordinator(
+                tabBarController: tabBar,
+                assemblyBuilder: assemblyBuilder
+            )
             addChildCoordinator(tabBarContollerCoordinator)
             tabBarContollerCoordinator.start()
             window?.rootViewController = tabBarContollerCoordinator.tabBarController
@@ -45,8 +47,10 @@ final class AppCoordinator: AppCoordinatorProtocol {
     func showOnboarding() {
         if let assemblyBuilder {
             let navigationController = UINavigationController()
-            let onboardingCoordinator = OnboardingCoordinator(navigationController: navigationController,
-                                                              assemblyBuilder: assemblyBuilder)
+            let onboardingCoordinator = OnboardingCoordinator(
+                navigationController: navigationController,
+                assemblyBuilder: assemblyBuilder
+            )
             addChildCoordinator(onboardingCoordinator)
             onboardingCoordinator.start()
             window?.rootViewController = navigationController

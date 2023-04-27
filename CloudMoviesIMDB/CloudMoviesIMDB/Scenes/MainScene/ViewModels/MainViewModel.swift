@@ -40,7 +40,7 @@ final class MainViewModel: MainViewModelProtocol {
         Task {
             do {
                 let result = try await networkService.getTop250Movies()
-                if let movies = result?.items {
+                if let movies = result.items {
                     self.allMovies = movies
                     self.fetchFinished.value = true
                 }

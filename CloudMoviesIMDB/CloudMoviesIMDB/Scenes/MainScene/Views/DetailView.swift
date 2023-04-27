@@ -10,11 +10,12 @@ import UIKit
 final class DetailView: UIView {
     private var imageLoadingManager: ImageLoadingManagerProtocol
     private lazy var posterView = createPosterView()
-    private lazy var mainLabel = makeLabel(text: nil,
-                                           font: UIFont.setFont(
-                                            name: Poppins.medium.rawValue,
-                                            size: 20
-                                           ), color: .white, aligment: .center)
+    private lazy var mainLabel = makeLabel(
+        text: nil,
+        font: UIFont.setFont(
+            name: Poppins.medium.rawValue,
+            size: 20
+        ), color: .white, aligment: .center)
     private lazy var blur = createBlur()
     lazy var backgroundView: UIImageView = {
         let view = UIImageView()
@@ -46,12 +47,20 @@ final class DetailView: UIView {
     }
     func configure(data: Movies.Movie?) {
         Task(priority: .userInitiated) {
-            guard let path = data?.image else { return }
+            guard let data else { return }
+            guard let path = data.image else { return }
             let result = try await imageLoadingManager.getImage(from: path)
             posterView.image = result
             backgroundView.image = result
-            guard let charactersCount = data?.title?.count else { return }
-            configureAttributedText(count: String(charactersCount), data: data!)
+            /// avoid whitespaces
+            guard let charactersCount = data.title?
+                .lowercased()
+                .filter({ !$0.isWhitespace })
+                .count else {
+                return
+            }
+            let charachersString = String(charactersCount)
+            configureAttributedText(count: charachersString, data: data)
         }
         UIView.animate(withDuration: 2, delay: 0.0, options: [.curveEaseInOut, .transitionCurlUp], animations: {
             self.mainLabel.isHidden = false

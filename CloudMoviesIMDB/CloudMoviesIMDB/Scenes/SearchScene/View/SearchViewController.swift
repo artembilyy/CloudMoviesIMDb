@@ -15,7 +15,7 @@ final class SearchViewController: UIViewController {
     var dataSource: DataSource!
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
-        collectionView.register(MediaCell.self, forCellWithReuseIdentifier: MediaCell.identifier)
+        collectionView.register(SearchMovieCell.self, forCellWithReuseIdentifier: SearchMovieCell.identifier)
         return collectionView
     }()
     private let searchController: UISearchController = {
@@ -37,25 +37,23 @@ final class SearchViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.frame = view.bounds
-        view.addSubview(collectionView)
         setup()
         setupDataSource()
         delegate()
         observers()
-        collectionView.backgroundColor = .white
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-            self.collectionView.reloadData()
-        }
     }
     
     private func delegate() {
+        collectionView.delegate = self
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.searchBar.searchTextField.delegate = self
         searchController.searchBar.searchTextField.delegate = self
     }
     private func setup() {
+        collectionView.backgroundColor = .white
+        collectionView.frame = view.bounds
+        view.addSubview(collectionView)
         view.backgroundColor = .white
         navigationItem.searchController = searchController
         searchController.searchBar.keyboardType = .asciiCapable
@@ -77,10 +75,7 @@ extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let query = searchController.searchBar.text, !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
         viewModel.getSearchResultsMovies(queryString: query)
-        print(query)
     }
-    
-    
 }
 
 extension SearchViewController: UISearchBarDelegate {
@@ -89,4 +84,15 @@ extension SearchViewController: UISearchBarDelegate {
 
 extension SearchViewController: UITextFieldDelegate {
     
+}
+
+extension SearchViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        searchController.searchBar.searchTextField.endEditing(true)
+        guard let selectedItem = dataSource.itemIdentifier(for: indexPath) else {
+            return
+        }
+        viewModel.openDetailController(selectedItem)
+    }
 }

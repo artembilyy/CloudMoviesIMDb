@@ -10,5 +10,5 @@ import Foundation
 struct Endpoints {
     static let top250MoviesURL = "https://imdb-api.com/en/API/Top250Movies"
     static let searchMovies = "https://imdb-api.com/en/API/SearchMovie"
-    static let apiKey = "k_h15xx3we"
+    static let apiKey = "k_k222a64p"
 }

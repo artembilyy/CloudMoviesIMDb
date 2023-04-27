@@ -1,18 +1,18 @@
 //
-//  MediaCell.swift
+//  SearchMovieCell.swift
 //  CloudMoviesIMDB
 //
-//  Created by Artem Bilyi on 25.04.2023.
+//  Created by Artem Bilyi on 27.04.2023.
 //
 
 import UIKit
 
-final class MediaCell: UICollectionViewCell, IdentifiableCell {
+final class SearchMovieCell: UICollectionViewCell, IdentifiableCell {
     // MARK: - MovieCell UI Elements
     lazy var container = makeContainer()
     lazy var activityIndicatorView = makeActivityIndicatorView()
     lazy var titleLabel = makeLabel(text: nil, font: UIFont.setFont(name: Poppins.semiBold.rawValue, size: 16))
-    lazy var rankLabel = makeLabel(text: nil, font: UIFont.setFont(name: Poppins.medium.rawValue, size: 16))
+    lazy var descriptionLabel = makeLabel(text: nil, font: UIFont.setFont(name: Poppins.medium.rawValue, size: 16))
     lazy var posterImage: UIImageView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.contentMode = .scaleAspectFill
@@ -39,32 +39,18 @@ final class MediaCell: UICollectionViewCell, IdentifiableCell {
         super.prepareForReuse()
         posterImage.image = nil
         titleLabel.text = nil
-        rankLabel.text = nil
+        descriptionLabel.text = nil
     }
     // MARK: - Configure
-    func configure(media: Movies.Movie) {
-        showLoadingIndicator()
-        Task(priority: .userInitiated) {
-            guard let path = media.image else { return }
-            let result = try await imageLoadingManager?.getImage(from: path)
-            posterImage.image = result
-            titleLabel.text = media.title
-            rankLabel.text = "Rank: \(media.rank ?? "")"
-            hideLoadingIndicator()
-        }
-    }
     func configure(media: SearchResult.Movie) {
         showLoadingIndicator()
-        Task(priority: .userInitiated) {
-            print(media)
+        Task {
             guard let path = media.image else { return }
-            let result = try await imageLoadingManager?.getImage(from: path.absoluteString)
-            print(path)
+            let result = try await imageLoadingManager?.getSearchImage(from: path)
             posterImage.image = result
             titleLabel.text = media.title
-            rankLabel.text = "Rank: \(media.title ?? "")
+            descriptionLabel.text = "\(media.description ?? "")"
             hideLoadingIndicator()
-            print(media.title)
         }
     }
     private func showLoadingIndicator() {

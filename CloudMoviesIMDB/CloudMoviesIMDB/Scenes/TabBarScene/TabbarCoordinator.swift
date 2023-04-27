@@ -43,6 +43,8 @@ final class TabBarCoordinator: TabbarCoordinatorProtocol {
             coordinator.start()
         }
     }
+//    tabBar.tintColor = .deepGreen
+//    tabBar.unselectedItemTintColor = .black
     func addSecondPage() {
         if let assemblyBuilder {
             let coordinator = SearchPageCoordinator(

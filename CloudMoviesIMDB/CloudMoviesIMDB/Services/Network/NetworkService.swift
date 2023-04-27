@@ -8,12 +8,14 @@
 import UIKit
 
 protocol NetworkMainServiceProtocol {
-    func getTop250Movies() async throws -> Movies?
+    func getTop250Movies() async throws -> Movies
 }
 protocol NetworkSearchServiceProtocol {
-    func getSearchedMovies(query: String) async throws -> [SearchResult.Movie]?
+    func getSearchedMovies(query: String) async throws -> [SearchResult.Movie]
 }
-
+protocol NetworkCustomDetailServiceProtocol {
+    func getDetailMovie() async throws -> Movies.Movie
+}
 final class NetworkService {
     fileprivate let decoder: JSONDecoder = {
         $0.keyDecodingStrategy = .convertFromSnakeCase
@@ -29,7 +31,7 @@ final class NetworkService {
 }
 
 extension NetworkService: NetworkMainServiceProtocol {
-    func getTop250Movies() async throws -> Movies? {
+    func getTop250Movies() async throws -> Movies {
         var components = URLComponents(string: Endpoints.top250MoviesURL)!
         components.queryItems = [
             URLQueryItem(name: "apiKey", value: Endpoints.apiKey)
@@ -55,8 +57,10 @@ extension NetworkService: NetworkMainServiceProtocol {
 }
 
 extension NetworkService: NetworkSearchServiceProtocol {
-    func getSearchedMovies(query: String) async throws -> [SearchResult.Movie]? {
-        let queryPathComponent = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+    func getSearchedMovies(query: String) async throws -> [SearchResult.Movie] {
+        guard let queryPathComponent = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            throw NetworkError.invalidURL
+        }
         let urlString = Endpoints.searchMovies + "/" + Endpoints.apiKey + "/" + queryPathComponent
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
@@ -66,7 +70,11 @@ extension NetworkService: NetworkSearchServiceProtocol {
         let (data, _) = try await URLSession.shared.data(from: url)
         do {
             let result = try decoder.decode(SearchResult.self, from: data)
-            return result.results
+            guard let movies = result.results else {
+                /// change it!!
+                throw NetworkError.invalidURL
+            }
+            return movies
         } catch {
             /// add Error in future
             print(error.localizedDescription)

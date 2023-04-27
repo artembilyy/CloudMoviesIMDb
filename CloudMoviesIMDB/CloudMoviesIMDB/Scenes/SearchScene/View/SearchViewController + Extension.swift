@@ -17,31 +17,19 @@ extension SearchViewController {
             switch section {
             case .movies:
                 guard let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: MediaCell.identifier,
+                    withReuseIdentifier: SearchMovieCell.identifier,
                     for: indexPath
-                ) as? MediaCell else { return UICollectionViewCell() }
+                ) as? SearchMovieCell else { return UICollectionViewCell() }
                 cell.configure(media: item)
-//                cell.configure(media: item)
                 return cell
             }
-        }
-        dataSource.supplementaryViewProvider = { [unowned self] (_, _, indexPath) in
-            guard let footerView = self.collectionView.dequeueReusableSupplementaryView(
-                ofKind: UICollectionView.elementKindSectionFooter,
-                withReuseIdentifier: MainViewFooter.identifier,
-                for: indexPath
-            ) as? MainViewFooter else { return UICollectionReusableView() }
-//            footerView.toggleLoading(isEnabled: isPaginating)
-            return footerView
         }
     }
     func updateSnapshot() {
         var snapshot = Snapshot()
-        if viewModel.movies.count != 0 {
-            snapshot.appendSections([.movies])
-            snapshot.appendItems(viewModel.movies, toSection: .movies)
-            dataSource.apply(snapshot)
-            dataSource.apply(snapshot, animatingDifferences: true)
-        }
+        snapshot.appendSections([.movies])
+        snapshot.appendItems(viewModel.movies, toSection: .movies)
+        dataSource.apply(snapshot)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 }

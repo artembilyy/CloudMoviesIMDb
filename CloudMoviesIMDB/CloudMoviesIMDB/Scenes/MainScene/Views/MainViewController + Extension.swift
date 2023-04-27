@@ -17,9 +17,9 @@ extension MainViewController {
             switch section {
             case .movies:
                 guard let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: MediaCell.identifier,
+                    withReuseIdentifier: MainMovieCell.identifier,
                     for: indexPath
-                ) as? MediaCell else { return UICollectionViewCell() }
+                ) as? MainMovieCell else { return UICollectionViewCell() }
                 cell.configure(media: item)
                 return cell
             }

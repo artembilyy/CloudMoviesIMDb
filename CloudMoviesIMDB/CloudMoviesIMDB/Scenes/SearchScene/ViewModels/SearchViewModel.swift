@@ -12,11 +12,11 @@ protocol SearchViewModelProtocol {
     var snapshotUpdate: Observable<Bool> { get }
     var errorMessage: Observable<String?> { get }
     func getSearchResultsMovies(queryString: String)
+    func openDetailController(_ data: SearchResult.Movie)
 }
 final class SearchViewModel: SearchViewModelProtocol {
     
     private(set) var movies: [SearchResult.Movie] = []
-    // MARK: Counter
     
     var snapshotUpdate: Observable<Bool> = Observable(false)
     var errorMessage: Observable<String?> = Observable(nil)
@@ -31,21 +31,24 @@ final class SearchViewModel: SearchViewModelProtocol {
     
     func reload() {
         movies.removeAll()
+        snapshotUpdate.value = true
     }
     func getSearchResultsMovies(queryString: String) {
         Task {
             do {
                 let result = try await self.networkService.getSearchedMovies(query: queryString)
-                guard let result else { return }
                 movies = result
                 snapshotUpdate.value = true
             } catch {
-                /// add more cathes
                 print(error.localizedDescription)
             }
         }
     }
+    func openDetailController(_ data: SearchResult.Movie) {
+        coordinatorDelegate?.openDetailController(data)
+    }
 }
 
 protocol SearchViewModelCoordinatorDelegate: AnyObject {
+    func openDetailController(_ data: SearchResult.Movie)
 }
