@@ -25,6 +25,7 @@ extension SearchViewController {
             }
         }
     }
+    @MainActor
     func updateSnapshot() {
         var snapshot = Snapshot()
         snapshot.appendSections([.movies])

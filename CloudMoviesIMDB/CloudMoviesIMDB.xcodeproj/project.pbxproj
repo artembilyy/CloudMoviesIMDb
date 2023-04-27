@@ -85,6 +85,8 @@
 		EDD3B2E229FAABB600374E8E /* CustomDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2E129FAABB600374E8E /* CustomDetailViewController.swift */; };
 		EDD3B2E429FAAE6200374E8E /* CustomDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2E329FAAE6200374E8E /* CustomDetailView.swift */; };
 		EDD3B2E629FAAF9800374E8E /* CustomDetailView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2E529FAAF9800374E8E /* CustomDetailView + Extension.swift */; };
+		EDD3B2EA29FAFAD200374E8E /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2E929FAFAD200374E8E /* ImageCacheManager.swift */; };
+		EDD3B2EC29FAFBDA00374E8E /* DetailView + Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2EB29FAFBDA00374E8E /* DetailView + Constraints.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -187,6 +189,8 @@
 		EDD3B2E129FAABB600374E8E /* CustomDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDetailViewController.swift; sourceTree = "<group>"; };
 		EDD3B2E329FAAE6200374E8E /* CustomDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDetailView.swift; sourceTree = "<group>"; };
 		EDD3B2E529FAAF9800374E8E /* CustomDetailView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomDetailView + Extension.swift"; sourceTree = "<group>"; };
+		EDD3B2E929FAFAD200374E8E /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
+		EDD3B2EB29FAFBDA00374E8E /* DetailView + Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailView + Constraints.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -311,7 +315,7 @@
 			isa = PBXGroup;
 			children = (
 				ED653A7A29F84E4B00A8FBC1 /* MainPageCoordinator.swift */,
-				ED653A5529F849D200A8FBC1 /* Models */,
+				ED653A5529F849D200A8FBC1 /* Model */,
 				ED653A5429F849C800A8FBC1 /* ViewModels */,
 				ED653A5329F849C300A8FBC1 /* Views */,
 			);
@@ -360,6 +364,7 @@
 				ED653AB529F872A500A8FBC1 /* MainViewController + CompositionalLayout.swift */,
 				ED653AC929F8E1D500A8FBC1 /* DetailViewController.swift */,
 				ED653ACF29F8F1A000A8FBC1 /* DetailView.swift */,
+				EDD3B2EB29FAFBDA00374E8E /* DetailView + Constraints.swift */,
 				ED653AD129F8F1EB00A8FBC1 /* DetailView + Extension.swift */,
 			);
 			path = Views;
@@ -374,12 +379,12 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		ED653A5529F849D200A8FBC1 /* Models */ = {
+		ED653A5529F849D200A8FBC1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				ED653AB129F8608900A8FBC1 /* MovieModel.swift */,
 			);
-			path = Models;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		ED653A5829F84A4500A8FBC1 /* Builder */ = {
@@ -448,6 +453,7 @@
 				ED653ACB29F8E59600A8FBC1 /* UILabel + Extension.swift */,
 				ED653AB929F8795300A8FBC1 /* IdentifiableCell.swift */,
 				ED197A0C29F90367006E4DAF /* Task.swift */,
+				ED653ABD29F8A99B00A8FBC1 /* Listener.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -480,7 +486,7 @@
 		ED653AAD29F85E8600A8FBC1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				ED653ABD29F8A99B00A8FBC1 /* Listener.swift */,
+				EDD3B2E929FAFAD200374E8E /* ImageCacheManager.swift */,
 				ED653AAE29F85E8D00A8FBC1 /* Network */,
 			);
 			path = Services;
@@ -723,6 +729,7 @@
 				ED653ABE29F8A99B00A8FBC1 /* Listener.swift in Sources */,
 				ED653A2429F847A300A8FBC1 /* MainViewController.swift in Sources */,
 				EDD3B2DE29FA9A2200374E8E /* SearchMovieCell + Constraints.swift in Sources */,
+				EDD3B2EA29FAFAD200374E8E /* ImageCacheManager.swift in Sources */,
 				ED0D54C629F9FE070005FA8C /* SearchViewController + Extension.swift in Sources */,
 				ED653A6E29F84C8300A8FBC1 /* OnboardingViewController + Delegate.swift in Sources */,
 				ED653A6129F84B5B00A8FBC1 /* OnboardingCoordinator.swift in Sources */,
@@ -739,6 +746,7 @@
 				EDD3B2E029FAAB7700374E8E /* CustomDetailViewModel.swift in Sources */,
 				EDD3B2E429FAAE6200374E8E /* CustomDetailView.swift in Sources */,
 				EDD3B2DA29FA999700374E8E /* SearchMovieCell.swift in Sources */,
+				EDD3B2EC29FAFBDA00374E8E /* DetailView + Constraints.swift in Sources */,
 				ED197A0D29F90367006E4DAF /* Task.swift in Sources */,
 				EDD3B2E629FAAF9800374E8E /* CustomDetailView + Extension.swift in Sources */,
 				ED653AB629F872A500A8FBC1 /* MainViewController + CompositionalLayout.swift in Sources */,

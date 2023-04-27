@@ -9,14 +9,14 @@ import UIKit
 
 final class DetailView: UIView {
     private var imageLoadingManager: ImageLoadingManagerProtocol
-    private lazy var posterView = createPosterView()
-    private lazy var mainLabel = makeLabel(
+    lazy var posterView = createPosterView()
+    lazy var mainLabel = makeLabel(
         text: nil,
         font: UIFont.setFont(
             name: Poppins.medium.rawValue,
             size: 20
         ), color: .white, aligment: .center)
-    private lazy var blur = createBlur()
+    lazy var blur = createBlur()
     lazy var backgroundView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleToFill

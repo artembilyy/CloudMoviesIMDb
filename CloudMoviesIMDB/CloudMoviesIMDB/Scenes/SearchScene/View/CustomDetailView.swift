@@ -47,8 +47,8 @@ final class CustomDetailView: UIView {
         Task(priority: .userInitiated) {
             guard let data else { return }
             guard let path = data.image else { return }
-            let result = try await imageLoadingManager.getSearchImage(from: path)
-            posterView.image = result
+//            let result = try await imageLoadingManager.getSearchImage(from: path)
+//            posterView.image = result
             descriptionLabel.text = data.description
             /// avoid whitespaces
             configureAttributedText(data: data)

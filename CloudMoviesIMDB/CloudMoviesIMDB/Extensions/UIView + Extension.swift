@@ -8,8 +8,7 @@ import UIKit
 
 extension UIView {
     func makeActivityIndicatorView() -> UIActivityIndicatorView {
-        let indicatorView = UIActivityIndicatorView(style: .large)
-        indicatorView.color = .lightGrey
+        let indicatorView = UIActivityIndicatorView(style: .medium)
         indicatorView.translatesAutoresizingMaskIntoConstraints = false
         return indicatorView
     }

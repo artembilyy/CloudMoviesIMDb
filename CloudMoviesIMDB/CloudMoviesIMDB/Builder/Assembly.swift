@@ -41,7 +41,8 @@ final class Assembly: AssemblyProtocol {
         return viewController
     }
     func createCustomDetailController(data: SearchResult.Movie) -> UIViewController {
-        let viewModel = CustomDetailViewModel(movie: data)
+        let networkService = NetworkService()
+        let viewModel = CustomDetailViewModel(movie: data, network: networkService)
         let viewController = CustomDetailViewController(viewModel: viewModel)
         return viewController
     }

@@ -24,8 +24,6 @@ final class SearchViewController: UIViewController {
         return search
     }()
     
-    
-    
     let viewModel: SearchViewModelProtocol
     // MARK: - Init
     init(viewModel: SearchViewModelProtocol) {
@@ -64,8 +62,10 @@ final class SearchViewController: UIViewController {
     private func observers() {
         viewModel.snapshotUpdate.bind { [weak self] value in
             guard let self else { return }
-            if value {
-                self.updateSnapshot()
+            Task {
+                await MainActor.run {
+                    self.updateSnapshot()
+                }
             }
         }
     }
@@ -73,17 +73,27 @@ final class SearchViewController: UIViewController {
 
 extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let query = searchController.searchBar.text, !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
-        viewModel.getSearchResultsMovies(queryString: query)
+        //        guard let query = searchController.searchBar.text, !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
+        //        viewModel.getSearchResultsMovies(queryString: query)
     }
 }
 
 extension SearchViewController: UISearchBarDelegate {
-    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.reload()
+        guard let query = searchBar.text, !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
+        viewModel.getSearchResultsMovies(queryString: query)
+    }
 }
 
 extension SearchViewController: UITextFieldDelegate {
-    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
 }
 
 extension SearchViewController: UICollectionViewDelegate {

@@ -42,6 +42,7 @@ final class MainMovieCell: UICollectionViewCell, IdentifiableCell {
         rankLabel.text = nil
     }
     // MARK: - Configure
+    @MainActor
     func configure(media: Movies.Movie) {
         showLoadingIndicator()
         Task {

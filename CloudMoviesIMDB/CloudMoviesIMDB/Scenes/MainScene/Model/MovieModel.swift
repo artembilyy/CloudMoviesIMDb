@@ -20,6 +20,7 @@ extension Movies {
         let title: String?
         let fullTitle: String?
         let year: String?
+        let genres: String?
         let image: String?
         let crew: String?
         let imDBRating: String?
@@ -27,6 +28,19 @@ extension Movies {
         var rankInt: Int {
             return Int(rank ?? "") ?? 0
         }
+        /// add to make detail screen in future
+        let originalTitle: String?
+        let type: String?
+        let releaseDate: String?
+        let runtimeMins: String?
+        let runtimeStr: String?
+        let plot: String?
+        let plotLocal: String?
+        let plotLocalIsRtl: Bool?
+        let awards: String?
+        let directors: String?
+        let writers: String?
+        let stars: String?
     }
 }
 

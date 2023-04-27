@@ -8,11 +8,13 @@
 import UIKit
 
 final class MainViewController: UICollectionViewController {
-    var viewModel: MainViewModelProtocol!
-    var dataSource: DataSource!
     enum MainSection: Int, CaseIterable {
         case movies
     }
+    
+    var viewModel: MainViewModelProtocol!
+    var dataSource: DataSource!
+    
     let refreshControl = UIRefreshControl()
     var isPaginating = false
     // MARK: - Init
@@ -26,13 +28,13 @@ final class MainViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        viewModel.getMovies()
         observe()
         setupDataSource()
+        viewModel.getMovies(useCache: true)
     }
     private func setupUI() {
-        refreshControl.tintColor = UIColor.systemRed
         refreshControl.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+        view.addSubview(collectionView)
         collectionView.addSubview(refreshControl)
         collectionView.backgroundColor = .white
         refreshControl.addAction(pullToRefresh(), for: .valueChanged)
@@ -44,7 +46,6 @@ final class MainViewController: UICollectionViewController {
         )
         setupDataSource()
         collectionView.collectionViewLayout = createLayout()
-        view.addSubview(collectionView)
         collectionView.dataSource = dataSource
         navigationItem.backButtonTitle = ""
         view.backgroundColor = .white
@@ -53,8 +54,12 @@ final class MainViewController: UICollectionViewController {
     private func pullToRefresh() -> UIAction {
         UIAction { [weak self] _ in
             guard let self else { return }
-            self.viewModel.getMovies()
+            ImageCacheManager.shared.clearCache()
             self.perfomanceUI()
+            Task {
+                try await Task.sleep(seconds: 1)
+                self.viewModel.getMovies(useCache: false)
+            }
         }
     }
     private func perfomanceUI() {
@@ -109,8 +114,8 @@ extension MainViewController {
             isPaginating = true
             Task {
                 try await Task.sleep(seconds: 1)
-                viewModel.addToScreen()
                 self.isPaginating = false
+                viewModel.addToScreen()
             }
         }
     }

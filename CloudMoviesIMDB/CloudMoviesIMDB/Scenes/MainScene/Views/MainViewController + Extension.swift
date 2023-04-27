@@ -20,7 +20,11 @@ extension MainViewController {
                     withReuseIdentifier: MainMovieCell.identifier,
                     for: indexPath
                 ) as? MainMovieCell else { return UICollectionViewCell() }
-                cell.configure(media: item)
+                Task {
+                    await MainActor.run {
+                        cell.configure(media: item)
+                    }
+                }
                 return cell
             }
         }
@@ -34,6 +38,7 @@ extension MainViewController {
             return footerView
         }
     }
+    @MainActor
     func updateSnapshot() {
         var snapshot = Snapshot()
         snapshot.appendSections([.movies])

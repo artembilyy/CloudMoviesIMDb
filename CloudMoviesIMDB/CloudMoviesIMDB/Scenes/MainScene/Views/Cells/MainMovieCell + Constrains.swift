@@ -11,7 +11,7 @@ extension MainMovieCell {
     // MARK: - MovieCell Contraints
     func setupContraints() {
         let containerConstraints = [
-            container.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            container.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             container.centerYAnchor.constraint(equalTo: centerYAnchor),
             container.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1),
             container.widthAnchor.constraint(equalTo: container.heightAnchor, multiplier: 0.66)
@@ -20,7 +20,7 @@ extension MainMovieCell {
             posterImage.topAnchor.constraint(equalTo: container.topAnchor),
             posterImage.bottomAnchor.constraint(equalTo: container.bottomAnchor),
             posterImage.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            posterImage.widthAnchor.constraint(equalTo: container.heightAnchor, multiplier: 0.66)
+            posterImage.trailingAnchor.constraint(equalTo: container.trailingAnchor)
         ]
         let titleConstraints = [
             titleLabel.leadingAnchor.constraint(equalTo: container.trailingAnchor, constant: 16),

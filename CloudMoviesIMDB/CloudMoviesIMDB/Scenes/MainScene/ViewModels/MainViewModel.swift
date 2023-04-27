@@ -7,12 +7,16 @@
 
 import Foundation
 
+protocol MainPageViewModelCoordinatorDelegate: AnyObject {
+    func openMainSubControllerDelegate(_ data: Movies.Movie)
+}
+
 protocol MainViewModelProtocol {
     var top250Movies: [Movies.Movie] { get }
     var fetchFinished: Observable<Bool> { get }
     var snapshotUpdate: Observable<Bool> { get }
     var errorMessage: Observable<String?> { get }
-    func getMovies()
+    func getMovies(useCache: Bool)
     func addToScreen()
     func openMainSubController(_ data: Movies.Movie)
 }
@@ -32,14 +36,14 @@ final class MainViewModel: MainViewModelProtocol {
         self.networkService = networkService
     }
     // MARK: - Methods
-    func getMovies() {
+    func getMovies(useCache: Bool) {
         /// avoid duplicates
         self.allMovies.removeAll()
         self.top250Movies.removeAll()
         snapshotUpdate.value = true
         Task {
             do {
-                let result = try await networkService.getTop250Movies()
+                let result = try await networkService.getTop250Movies(useCache: useCache)
                 if let movies = result.items {
                     self.allMovies = movies
                     self.fetchFinished.value = true
@@ -68,8 +72,4 @@ final class MainViewModel: MainViewModelProtocol {
     deinit {
         print("MainViewModel deinit")
     }
-}
-
-protocol MainPageViewModelCoordinatorDelegate: AnyObject {
-    func openMainSubControllerDelegate(_ data: Movies.Movie)
 }

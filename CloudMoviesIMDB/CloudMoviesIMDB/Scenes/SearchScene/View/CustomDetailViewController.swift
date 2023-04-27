@@ -23,6 +23,9 @@ final class CustomDetailViewController: UIViewController {
         super.viewWillLayoutSubviews()
         setupConstraints()
     }
+    private func getData() {
+        
+    }
     // MARK: - Setup
     private func setup() {
         view.addSubview(customDetailView)
