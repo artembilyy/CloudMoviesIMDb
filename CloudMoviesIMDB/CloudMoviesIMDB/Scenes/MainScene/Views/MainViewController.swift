@@ -37,6 +37,7 @@ final class MainViewController: UICollectionViewController {
         setupDataSource()
         viewModel.getMovies(useCache: true)
     }
+    // MARK: - Methods
     private func delegate() {
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
@@ -72,6 +73,7 @@ final class MainViewController: UICollectionViewController {
         UIAction { [weak self] _ in
             guard let self else { return }
             ImageCacheManager.shared.clearCache()
+            URLCache.shared.removeAllCachedResponses()
             self.perfomanceUI()
             Task {
                 try await Task.sleep(seconds: 1)
@@ -91,7 +93,7 @@ final class MainViewController: UICollectionViewController {
         viewModel.fetchFinished.bind { [weak self] value in
             guard let self else { return }
             if value {
-                self.viewModel.addToScreen()
+                self.viewModel.showFirst10Movies()
                 Task {
                     await MainActor.run {
                         self.updateSnapshot()
@@ -111,18 +113,19 @@ final class MainViewController: UICollectionViewController {
         }
     }
 }
+// MARK: - UISearchBarDelegate
 extension MainViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
-        viewModel.addToScreen()
+        viewModel.showFirst10Movies()
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let query = searchBar.text, !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
         viewModel.textFromSearchBar = query
-        viewModel.makeSearch()
+        viewModel.makeLocalSearch()
     }
 }
-
+// MARK: - UITextFieldDelegate
 extension MainViewController: UITextFieldDelegate {
     
 }
@@ -133,7 +136,7 @@ extension MainViewController: UISearchResultsUpdating {
         //        viewModel.getSearchResultsMovies(queryString: query)
     }
 }
-
+// MARK: - Did select cell
 extension MainViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let movie = viewModel.top250Movies[indexPath.item]

@@ -8,20 +8,24 @@
 import UIKit
 
 final class OnboardingViewController: UIViewController {
-    let viewModel: OnboardingViewModelProtocol
+    // MARK: - UI
     lazy var collectionView = makeCollectionView()
     lazy var pageControl = makePageControl()
-    lazy var button = makeButton(attributedString:
-                                    makeAttributedString(fullText: "Next"),
-                                 action: action(),
-                                 borderWidth: 0)
+    lazy var button = makeButton(
+        attributedString: makeAttributedString(fullText: "Next"),
+        action: action(),
+        borderWidth: 0
+    )
     var buttonWidthConstraint: NSLayoutConstraint?
+    // MARK: - Properties
     var isWidth = false
     var currentPage = 0 {
         didSet {
             changeUI()
         }
     }
+    let viewModel: OnboardingViewModelProtocol
+    // MARK: - Init
     init(viewModel: OnboardingViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -29,6 +33,7 @@ final class OnboardingViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -37,6 +42,7 @@ final class OnboardingViewController: UIViewController {
         super.viewWillLayoutSubviews()
         layout()
     }
+    // MARK: - Methods
     private func setup() {
         view.backgroundColor = .white
         collectionView.delegate = self

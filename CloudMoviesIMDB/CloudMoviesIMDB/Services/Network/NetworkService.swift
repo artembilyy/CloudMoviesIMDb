@@ -78,10 +78,10 @@ extension NetworkService: NetworkSearchServiceProtocol {
         let (data, response) = try await URLSession.shared.data(from: url)
         do {
             let result = try decoder.decode(Movies.self, from: data)
-            saveDataToCache(with: data, response: response)
             guard let movies = result.results else {
                 throw NetworkError.invalidURL
             }
+            saveDataToCache(with: data, response: response)
             return movies
         } catch {
             /// add Errors
@@ -97,8 +97,11 @@ extension NetworkService: NetworkCustomDetailServiceProtocol {
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }
-//        let urlRequest = URLRequest(url: url)
-        
+        let urlRequest = URLRequest(url: url)
+        if let cachedResponse = URLCache.shared.cachedResponse(for: urlRequest),
+           let movies = try? decoder.decode(Movies.Movie.self, from: cachedResponse.data) {
+            return movies
+        }
         let (data, _) = try await URLSession.shared.data(from: url)
         do {
             let result = try decoder.decode(Movies.Movie.self, from: data)

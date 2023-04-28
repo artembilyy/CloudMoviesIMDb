@@ -10,10 +10,12 @@ import UIKit
 final class CustomDetailViewController: UIViewController {
     let viewModel: CustomDetailViewModel
     lazy var customDetailView = CustomDetailView()
+    // MARK: - Init
     init(viewModel: CustomDetailViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .blue
@@ -28,9 +30,9 @@ final class CustomDetailViewController: UIViewController {
     }
     // MARK: - Setup
     private func setup() {
+        navigationItem.backButtonTitle = ""
         view.addSubview(customDetailView)
         customDetailView.frame = view.bounds
-        navigationItem.backButtonTitle = ""
         customDetailView.configure(data: viewModel.movie)
     }
     private func setupConstraints() {

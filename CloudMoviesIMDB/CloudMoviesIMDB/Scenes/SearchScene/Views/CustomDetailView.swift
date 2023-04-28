@@ -1,21 +1,21 @@
 //
-//  SubMainView.swift
+//  CustomDetailView.swift
 //  CloudMoviesIMDB
 //
-//  Created by Artem Bilyi on 26.04.2023.
+//  Created by Artem Bilyi on 27.04.2023.
 //
 
 import UIKit
 
-final class DetailView: UIView {
+import UIKit
+
+final class CustomDetailView: UIView {
     private var imageLoadingManager: ImageLoadingManagerProtocol
     lazy var posterView = createPosterView()
-    lazy var mainLabel = makeLabel(
-        text: nil,
-        font: UIFont.setFont(
-            name: Poppins.medium.rawValue,
-            size: 20
-        ), color: .white, aligment: .center)
+    lazy var titleLabel = createLabel()
+    lazy var crewLabel = createLabel()
+    lazy var yearLabel = createLabel()
+    private let stackView = UIStackView(axis: .vertical, spacing: 8, distribution: .equalSpacing)
     lazy var blur = createBlur()
     lazy var backgroundView: UIImageView = {
         let view = UIImageView()
@@ -36,15 +36,14 @@ final class DetailView: UIView {
         layout()
     }
     private func setup() {
-        self.mainLabel.isHidden = true
-        self.mainLabel.alpha = 0.0
-        backgroundColor = .white
         addSubview(backgroundView)
         backgroundView.addSubview(blur)
         backgroundView.addSubview(posterView)
-        backgroundView.addSubview(mainLabel)
-        mainLabel.backgroundColor = .black
+        backgroundView.addSubview(titleLabel)
+        backgroundView.addSubview(stackView)
+        stackView.addArrangedSubviews([titleLabel, crewLabel, yearLabel])
     }
+    @MainActor
     func configure(data: Movies.Movie?) {
         Task(priority: .userInitiated) {
             guard let data else { return }
@@ -52,26 +51,10 @@ final class DetailView: UIView {
             let result = try await imageLoadingManager.getImage(from: path)
             posterView.image = result
             backgroundView.image = result
-            /// avoid whitespaces
-            guard let charactersCount = data.title?
-                .lowercased()
-                .filter({ !$0.isWhitespace })
-                .count else {
-                return
-            }
-            let charachersString = String(charactersCount)
-            configureAttributedText(count: charachersString, data: data)
+            titleLabel.text = data.title
+            crewLabel.text = "Crew: " + String(describing: data.crew)
+            yearLabel.text = "Year: " + String(describing: data.year)
         }
-        UIView.animate(withDuration: 2, delay: 0.0, options: [.curveEaseInOut, .transitionCurlUp], animations: {
-            self.mainLabel.isHidden = false
-            self.mainLabel.alpha = 1.0
-        }, completion: nil)
-    }
-    private func configureAttributedText(count: String, data: Movies.Movie) {
-        let attributedText = NSMutableAttributedString(string: "  Characters count in the title: ")
-        let charAttr = [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
-        attributedText.append(NSAttributedString(string: count + "  ", attributes: charAttr))
-        mainLabel.attributedText = attributedText
     }
     private func layout() {
         let backgroundViewConstraints = [
@@ -81,15 +64,15 @@ final class DetailView: UIView {
             backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ]
         let posterViewConstraints = [
+            posterView.topAnchor.constraint(equalTo: topAnchor, constant: 100),
+            posterView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
             posterView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
-            posterView.heightAnchor.constraint(equalTo: posterView.widthAnchor, multiplier: 1.3),
-            posterView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            posterView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -(frame.height / 7))
+            posterView.heightAnchor.constraint(equalTo: posterView.widthAnchor, multiplier: 1.3)
         ]
-        let mainLabelConstraints = [
-            mainLabel.topAnchor.constraint(equalTo: posterView.bottomAnchor, constant: 16),
-            mainLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            mainLabel.heightAnchor.constraint(equalToConstant: 50)
+        let stackViewConstraints = [
+            stackView.topAnchor.constraint(equalTo: posterView.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: posterView.trailingAnchor, constant: 8),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
         ]
         let blurConstraints = [
             blur.topAnchor.constraint(equalTo: backgroundView.topAnchor),
@@ -97,7 +80,7 @@ final class DetailView: UIView {
             blur.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
             blur.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor)
         ]
-        NSLayoutConstraint.activate(mainLabelConstraints)
+        NSLayoutConstraint.activate(stackViewConstraints)
         NSLayoutConstraint.activate(backgroundViewConstraints)
         NSLayoutConstraint.activate(blurConstraints)
         NSLayoutConstraint.activate(posterViewConstraints)

@@ -18,14 +18,17 @@ extension OnboardingSlide {
         OnboardingSlide(
             title: "Find Movie or TV Show",
             description: "Don't forget to take some yummy :)",
-            image: UIImage(named: "onboarding1") ?? UIImage()),
+            image: UIImage(named: "onboarding1") ?? UIImage()
+        ),
         OnboardingSlide(
             title: "Call friends",
             description: "The best way to spend time together is to watch a good movie",
-            image: UIImage(named: "onboarding2") ?? UIImage()),
+            image: UIImage(named: "onboarding2") ?? UIImage()
+        ),
         OnboardingSlide(
             title: "Enjoy",
             description: "We sync your preferences across all devices. Have a fun.",
-            image: UIImage(named: "onboarding3") ?? UIImage())
+            image: UIImage(named: "onboarding3") ?? UIImage()
+        )
     ]
 }

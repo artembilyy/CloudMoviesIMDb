@@ -37,7 +37,9 @@ final class Assembly: AssemblyProtocol {
     }
     func createDetailController(data: Movies.Movie) -> UIViewController {
         let viewModel = DetailViewModel(movie: data)
-        let viewController = DetailViewController(viewModel: viewModel)
+        let layout = UICollectionViewLayout()
+        let viewController = DetailViewController(collectionViewLayout: layout)
+        viewController.viewModel = viewModel
         return viewController
     }
     func createCustomDetailController(data: Movies.Movie) -> UIViewController {

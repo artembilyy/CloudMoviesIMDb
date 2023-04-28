@@ -16,5 +16,5 @@ struct Endpoints {
     static let url = "&url="
     static let detail = "https://imdb-api.com/en/API/Title"
     static let query = "FullActor,FullCast,Posters,Images,Trailer,Ratings"
-    static let apiKey = "k_wx54awug" /// <--- Past your own API KEY HERE
+    static let apiKey = "k_l342t1pj" /// <--- Past your own API KEY HERE
 }

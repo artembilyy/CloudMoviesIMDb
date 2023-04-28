@@ -8,7 +8,7 @@
 import UIKit
 
 final class OnboardingCell: UICollectionViewCell, IdentifiableCell {
-
+    // MARK: - UI
     private lazy var titleLabel = makeLabel(
         text: nil,
         font: UIFont.setFont(
@@ -38,6 +38,7 @@ final class OnboardingCell: UICollectionViewCell, IdentifiableCell {
         super.layoutSubviews()
         layout()
     }
+    // MARK: - Methods
     func setup(_ slide: OnboardingSlide) {
         topImage.image = slide.image
         titleLabel.text = slide.title

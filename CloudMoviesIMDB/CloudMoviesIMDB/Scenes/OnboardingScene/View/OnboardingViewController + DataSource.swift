@@ -18,7 +18,8 @@ extension OnboardingViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: OnboardingCell.identifier,
             for: indexPath) as? OnboardingCell else { return UICollectionViewCell() }
-        cell.setup(viewModel.slides[indexPath.item])
+        cell.setup(viewModel.slides[indexPath.item]
+        )
         return cell
     }
 }

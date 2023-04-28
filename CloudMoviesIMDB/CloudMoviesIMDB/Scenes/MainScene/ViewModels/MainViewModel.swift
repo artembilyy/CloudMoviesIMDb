@@ -18,8 +18,8 @@ protocol MainViewModelProtocol {
     var snapshotUpdate: Observable<Bool> { get }
     var errorMessage: Observable<String?> { get }
     func getMovies(useCache: Bool)
-    func addToScreen()
-    func makeSearch()
+    func showFirst10Movies()
+    func makeLocalSearch()
     func openMainSubController(_ data: Movies.Movie)
 }
 
@@ -62,12 +62,12 @@ final class MainViewModel: MainViewModelProtocol {
             }
         }
     }
-    func addToScreen() {
+    func showFirst10Movies() {
         let top10Movies = allMovies.prefix(10).map { $0 }
         top250Movies = top10Movies
         snapshotUpdate.value = true
     }
-    func makeSearch() {
+    func makeLocalSearch() {
         let filteredMovies = allMovies.filter { movie in
             guard let title = movie.title else { return false }
             return title.contains(textFromSearchBar)

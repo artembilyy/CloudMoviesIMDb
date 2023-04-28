@@ -33,7 +33,7 @@ extension MainViewController {
             elementKind: UICollectionView.elementKindSectionFooter,
             alignment: .bottom
         )
-                let section = NSCollectionLayoutSection(group: group)
+        let section = NSCollectionLayoutSection(group: group)
         section.boundarySupplementaryItems = [footer]
         return section
     }

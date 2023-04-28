@@ -11,7 +11,6 @@ final class SearchViewController: UIViewController {
     enum SearchSection: Int, CaseIterable {
         case movies
     }
-    
     var dataSource: DataSource!
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
@@ -33,6 +32,7 @@ final class SearchViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -40,7 +40,7 @@ final class SearchViewController: UIViewController {
         delegate()
         observers()
     }
-    
+    // MARK: - Methods
     private func delegate() {
         collectionView.delegate = self
 //        searchController.searchResultsUpdater = self
@@ -52,12 +52,14 @@ final class SearchViewController: UIViewController {
         collectionView.frame = view.bounds
         view.addSubview(collectionView)
         view.backgroundColor = .white
+        navigationController?.navigationBar.tintColor = .deepGreen
         navigationItem.searchController = searchController
         searchController.searchBar.keyboardType = .asciiCapable
         searchController.searchBar.returnKeyType = .search
         searchController.searchBar.autocapitalizationType = .sentences
         searchController.hidesNavigationBarDuringPresentation = false
     }
+    // MARK: - Binding
     private func observers() {
         viewModel.snapshotUpdate.bind { [weak self] value in
             guard let self else { return }
@@ -69,7 +71,7 @@ final class SearchViewController: UIViewController {
         }
     }
 }
-
+// MARK: - UISearchBarDelegate
 extension SearchViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
@@ -79,7 +81,7 @@ extension SearchViewController: UISearchBarDelegate {
         viewModel.getSearchResultsMovies(queryString: query)
     }
 }
-
+// MARK: - UITextFieldDelegate
 extension SearchViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.becomeFirstResponder()
@@ -89,7 +91,7 @@ extension SearchViewController: UITextFieldDelegate {
         return true
     }
 }
-
+// MARK: - UICollectionViewDelegate
 extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)

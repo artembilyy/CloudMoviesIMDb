@@ -7,45 +7,69 @@
 
 import UIKit
 
-final class DetailViewController: UIViewController {
-    /// viewModel
-    let viewModel: DetailViewModelProtocol
-    /// view
-    lazy var detailView = DetailView()
+final class DetailViewController: UICollectionViewController {
+    enum СharacterSection: Int, CaseIterable {
+        case characters
+    }
+    // MARK: - ViewModel
+    var viewModel: DetailViewModelProtocol!
     // MARK: - Init
-    init(viewModel: DetailViewModelProtocol) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+    override init(collectionViewLayout layout: UICollectionViewLayout) {
+        super.init(collectionViewLayout: layout)
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        setupConstraints()
-    }
-    // MARK: - Setup
     private func setup() {
-        view.addSubview(detailView)
-        detailView.frame = view.bounds
-        navigationItem.backButtonTitle = ""
-        detailView.configure(data: viewModel.movie)
+        title = viewModel.movie?.title
+        collectionView.collectionViewLayout = createLayout()
+        collectionView.register(UICollectionViewListCell.self, forCellWithReuseIdentifier: "def")
     }
-    private func setupConstraints() {
-        let subMainViewConstraints = [
-            detailView.topAnchor.constraint(equalTo: view.topAnchor),
-            detailView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            detailView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            detailView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ]
-        NSLayoutConstraint.activate(subMainViewConstraints)
+    // MARK: - Cell configure
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "def", for: indexPath) as? UICollectionViewListCell else { return UICollectionViewListCell() }
+        guard let char = viewModel.charactersData?.data.keys.sorted(by: { viewModel.charactersData?.data[$0] ?? 0 > viewModel.charactersData?.data[$1] ?? 0 })[indexPath.item],
+              let number = viewModel.charactersData?.data[char] else { return UICollectionViewCell() }
+        let attributedString = createAttributedString(char: String(char), number: number)
+        let contentConfiguration = createContentConfiguration(attributedString: attributedString)
+        let backgroundConfiguration = createBackgroundConfiguration()
+        cell.contentConfiguration = contentConfiguration
+        cell.backgroundConfiguration = backgroundConfiguration
+        return cell
     }
-    deinit {
-        print("DetailViewController deinit")
+    // MARK: - Data Source
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        viewModel.charactersData?.data.keys.count ?? 0
+    }
+    // MARK: - Delegate
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+    }
+}
+// MARK: - Setup Cell
+extension DetailViewController {
+    private func createAttributedString(char: String, number: Int) -> NSMutableAttributedString {
+        let attributedString = NSMutableAttributedString(string: "\"\(char)\", ", attributes: [.font: UIFont.setFont(name: Poppins.semiBold.rawValue, size: 32), .foregroundColor: UIColor.black])
+        let timesString = NSAttributedString(string: "times: ", attributes: [.font: UIFont.setFont(name: Poppins.regular.rawValue, size: 20), .foregroundColor: UIColor.black])
+        let numberString = NSAttributedString(string: "\(number)", attributes: [.font: UIFont.setFont(name: Poppins.medium.rawValue, size: 24), .foregroundColor: UIColor.red])
+        attributedString.append(timesString)
+        attributedString.append(numberString)
+        return attributedString
+    }
+    private func createContentConfiguration(attributedString: NSMutableAttributedString) -> UIListContentConfiguration {
+        var contentConfiguration = UIListContentConfiguration.cell()
+        contentConfiguration.attributedText = attributedString
+        contentConfiguration.textProperties.color = .black
+        contentConfiguration.textProperties.alignment = .center
+        return contentConfiguration
+    }
+    private func createBackgroundConfiguration() -> UIBackgroundConfiguration {
+        var backgroundConfiguration = UIBackgroundConfiguration.listGroupedCell()
+        backgroundConfiguration.backgroundColor = .white
+        return backgroundConfiguration
     }
 }

@@ -20,11 +20,13 @@ final class AppCoordinator: AppCoordinatorProtocol {
     var childCoordinators: [Coordinator] = []
     var assemblyBuilder: AssemblyProtocol?
     var window: UIWindow?
+    // MARK: - Init
     init(window: UIWindow?, assemblyBuilder: AssemblyProtocol) {
         self.window = window
         self.assemblyBuilder = assemblyBuilder
         print("App Coordinator init")
     }
+    // MARK: - Load Flow
     func start() {
         if LocalState.hasOnboarded {
             showMainFlow()
@@ -33,27 +35,25 @@ final class AppCoordinator: AppCoordinatorProtocol {
         }
     }
     func showMainFlow() {
-        if let assemblyBuilder {
-            let tabBar = assemblyBuilder.createTabBarController()
-            let tabBarContollerCoordinator = TabBarCoordinator(
-                tabBarController: tabBar,
-                assemblyBuilder: assemblyBuilder
-            )
-            addChildCoordinator(tabBarContollerCoordinator)
-            tabBarContollerCoordinator.start()
-            window?.rootViewController = tabBarContollerCoordinator.tabBarController
-        }
+        guard let assemblyBuilder else { return }
+        let tabBar = assemblyBuilder.createTabBarController()
+        let tabBarContollerCoordinator = TabBarCoordinator(
+            tabBarController: tabBar,
+            assemblyBuilder: assemblyBuilder
+        )
+        addChildCoordinator(tabBarContollerCoordinator)
+        tabBarContollerCoordinator.start()
+        window?.rootViewController = tabBarContollerCoordinator.tabBarController
     }
     func showOnboarding() {
-        if let assemblyBuilder {
-            let navigationController = UINavigationController()
-            let onboardingCoordinator = OnboardingCoordinator(
-                navigationController: navigationController,
-                assemblyBuilder: assemblyBuilder
-            )
-            addChildCoordinator(onboardingCoordinator)
-            onboardingCoordinator.start()
-            window?.rootViewController = navigationController
-        }
+        guard let assemblyBuilder else { return }
+        let navigationController = UINavigationController()
+        let onboardingCoordinator = OnboardingCoordinator(
+            navigationController: navigationController,
+            assemblyBuilder: assemblyBuilder
+        )
+        addChildCoordinator(onboardingCoordinator)
+        onboardingCoordinator.start()
+        window?.rootViewController = navigationController
     }
 }

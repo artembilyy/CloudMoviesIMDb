@@ -38,6 +38,7 @@ extension MainViewController {
             return footerView
         }
     }
+    // MARK: - Snapshot
     @MainActor
     func updateSnapshot() {
         var snapshot = Snapshot()

@@ -12,6 +12,7 @@ final class SearchPageCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     var assemblyBuilder: AssemblyProtocol?
     weak var parentCoordinator: Coordinator?
+    // MARK: - Init
     init(navigationController: UINavigationController, assemblyBuilder: AssemblyProtocol) {
         self.navigationController = navigationController
         self.assemblyBuilder = assemblyBuilder

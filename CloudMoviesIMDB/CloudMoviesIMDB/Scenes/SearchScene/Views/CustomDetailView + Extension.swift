@@ -1,16 +1,15 @@
 //
-//  SubMainView + Extension.swift
+//  CustomDetailView + Extension.swift
 //  CloudMoviesIMDB
 //
-//  Created by Artem Bilyi on 26.04.2023.
+//  Created by Artem Bilyi on 27.04.2023.
 //
 
 import UIKit
 
-extension DetailView {
+extension CustomDetailView {
     func createPosterView() -> UIImageView {
         let view = UIImageView()
-        view.backgroundColor = .black
         view.contentMode = .scaleAspectFit
         view.dropShadow()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -22,5 +21,12 @@ extension DetailView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true
         return view
+    }
+    func createLabel() -> UILabel {
+        let label = UILabel()
+        label.textAlignment = .left
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        return label
     }
 }

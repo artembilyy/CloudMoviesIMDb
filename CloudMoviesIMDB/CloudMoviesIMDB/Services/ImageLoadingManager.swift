@@ -19,23 +19,26 @@ final class ImageLoadingManager: ImageLoadingManagerProtocol {
     @MainActor
     func getImage(from url: String) async throws -> UIImage? {
         imageUrlString = url
-        guard let url = getURL(resizeFactor: 2, url: url) else {
+        guard let resizedImageURL = getURL(resizeFactor: 2, url: url) else {
             throw NetworkError.invalidURL
         }
         /// returned from Cache
-        if let cachedImage = getCachedImage(from: url) {
+        if let cachedImage = ImageCacheManager.shared.getImageFromCache(resizedImageURL.absoluteString) {
             self.image = cachedImage
             return image
         }
         do {
-            let (data, response) = try await URLSession.shared.data(from: url)
+            let (data, response) = try await URLSession.shared.data(from: resizedImageURL.absoluteURL)
             guard let image = UIImage(data: data) else {
                 throw NetworkError.noImage
             }
-            guard let compressedData = image.jpegData(compressionQuality: 0.5) else {
+            guard let compressedData = image.jpegData(compressionQuality: 0.7) else {
                 throw NetworkError.invalidURL
             }
-            let compressedImage = UIImage(data: compressedData)
+            guard let compressedImage = UIImage(data: compressedData) else {
+                throw NetworkError.noImage
+            }
+            ImageCacheManager.shared.saveImageToCache(image: compressedImage, resizedImageURL.absoluteString)
             saveDataToCache(with: compressedData, response: response)
             self.image = compressedImage
             return compressedImage

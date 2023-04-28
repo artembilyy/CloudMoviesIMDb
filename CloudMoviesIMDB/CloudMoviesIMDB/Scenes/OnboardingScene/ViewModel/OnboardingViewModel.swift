@@ -10,6 +10,7 @@ import Foundation
 protocol OnboardingViewModelCoordinatorDelegate: AnyObject {
     func onboardingFinished()
 }
+
 protocol OnboardingViewModelProtocol {
     var slides: [OnboardingSlide] { get }
     var currentPage: Int { get }

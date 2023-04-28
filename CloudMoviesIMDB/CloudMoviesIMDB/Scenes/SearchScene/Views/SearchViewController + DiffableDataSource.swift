@@ -25,6 +25,7 @@ extension SearchViewController {
             }
         }
     }
+    // MARK: - Snapshot
     @MainActor
     func updateSnapshot() {
         var snapshot = Snapshot()

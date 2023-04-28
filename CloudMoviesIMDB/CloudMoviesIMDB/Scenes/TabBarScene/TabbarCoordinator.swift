@@ -27,33 +27,32 @@ final class TabBarCoordinator: TabbarCoordinatorProtocol {
         addSecondPage()
     }
     func addFirstPage() {
-        if let assemblyBuilder {
-            let coordinator = MainPageCoordinator(
-                navigationController: UINavigationController(),
-                assemblyBuilder: assemblyBuilder
-            )
-            guard let navigation = coordinator.navigationController else { return }
-            let image = UIImage(systemName: "house.fill")?.withTintColor(.deepGreen)
-            navigation.tabBarItem = UITabBarItem(title: "Home", image: image, tag: 0)
-            navigation.navigationController?.navigationBar.tintColor = .deepGreen
-            tabBarController.viewControllers?.append(navigation)
-            addChildCoordinator(coordinator)
-            coordinator.start()
-        }
+        guard let assemblyBuilder else { return }
+        let coordinator = MainPageCoordinator(
+            navigationController: UINavigationController(),
+            assemblyBuilder: assemblyBuilder
+        )
+        guard let navigation = coordinator.navigationController else { return }
+        let image = UIImage(systemName: "house.fill")?.withTintColor(.deepGreen)
+        navigation.tabBarItem = UITabBarItem(title: "Home", image: image, tag: 0)
+        navigation.navigationController?.navigationBar.tintColor = .deepGreen
+        tabBarController.viewControllers?.append(navigation)
+        addChildCoordinator(coordinator)
+        coordinator.start()
+        
     }
     func addSecondPage() {
-        if let assemblyBuilder {
-            let coordinator = SearchPageCoordinator(
-                navigationController: UINavigationController(),
-                assemblyBuilder: assemblyBuilder
-            )
-            guard let navigation = coordinator.navigationController else { return }
-            let image = UIImage(systemName: "magnifyingglass")
-            navigation.tabBarItem = UITabBarItem(title: "Search", image: image, tag: 1)
-            tabBarController.viewControllers?.append(navigation)
-            addChildCoordinator(coordinator)
-            coordinator.start()
-        }
+        guard let assemblyBuilder else { return }
+        let coordinator = SearchPageCoordinator(
+            navigationController: UINavigationController(),
+            assemblyBuilder: assemblyBuilder
+        )
+        guard let navigation = coordinator.navigationController else { return }
+        let image = UIImage(systemName: "magnifyingglass")
+        navigation.tabBarItem = UITabBarItem(title: "Search", image: image, tag: 1)
+        tabBarController.viewControllers?.append(navigation)
+        addChildCoordinator(coordinator)
+        coordinator.start()
     }
     func deinitViewControllers() {
         tabBarController.viewControllers = []

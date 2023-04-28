@@ -12,16 +12,16 @@ final class OnboardingCoordinator: Coordinator {
     var assemblyBuilder: AssemblyProtocol?
     var parentCoordinator: Coordinator?
     var navigationController: UINavigationController?
+    // MARK: - Init
     init(navigationController: UINavigationController, assemblyBuilder: AssemblyProtocol) {
         print("OnboardingCoordinator init")
         self.navigationController = navigationController
         self.assemblyBuilder = assemblyBuilder
     }
     func start() {
-        if let assemblyBuilder {
-            let onboardingViewController = assemblyBuilder.createOnboardingController(coordinatorDelegate: self)
-            navigationController?.pushViewController(onboardingViewController, animated: true)
-        }
+        guard let assemblyBuilder else { return }
+        let onboardingViewController = assemblyBuilder.createOnboardingController(coordinatorDelegate: self)
+        navigationController?.pushViewController(onboardingViewController, animated: true)
     }
     deinit {
         print("OnboardingCoordinator deinit")
