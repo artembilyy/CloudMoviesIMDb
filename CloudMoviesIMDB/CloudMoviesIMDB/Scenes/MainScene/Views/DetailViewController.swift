@@ -30,8 +30,13 @@ final class DetailViewController: UICollectionViewController {
         collectionView.register(UICollectionViewListCell.self, forCellWithReuseIdentifier: "def")
     }
     // MARK: - Cell configure
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "def", for: indexPath) as? UICollectionViewListCell else { return UICollectionViewListCell() }
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "def", for: indexPath
+        ) as? UICollectionViewListCell else { return UICollectionViewListCell() }
         guard let char = viewModel.charactersData?.data.keys.sorted(by: { viewModel.charactersData?.data[$0] ?? 0 > viewModel.charactersData?.data[$1] ?? 0 })[indexPath.item],
               let number = viewModel.charactersData?.data[char] else { return UICollectionViewCell() }
         let attributedString = createAttributedString(char: String(char), number: number)
@@ -53,9 +58,23 @@ final class DetailViewController: UICollectionViewController {
 // MARK: - Setup Cell
 extension DetailViewController {
     private func createAttributedString(char: String, number: Int) -> NSMutableAttributedString {
-        let attributedString = NSMutableAttributedString(string: "\"\(char)\", ", attributes: [.font: UIFont.setFont(name: Poppins.semiBold.rawValue, size: 24), .foregroundColor: UIColor.black])
-        let timesString = NSAttributedString(string: "times: ", attributes: [.font: UIFont.setFont(name: Poppins.regular.rawValue, size: 14), .foregroundColor: UIColor.black])
-        let numberString = NSAttributedString(string: "\(number)", attributes: [.font: UIFont.setFont(name: Poppins.medium.rawValue, size: 16), .foregroundColor: UIColor.red])
+        let attributedString = NSMutableAttributedString(
+            string: "\"\(char)\", ",
+            attributes: [.font: UIFont.setFont(
+                name: Poppins.semiBold.rawValue,
+                size: 24
+            ), .foregroundColor: UIColor.black])
+        let timesString = NSAttributedString(
+            string: "times: ",
+            attributes: [.font: UIFont.setFont(
+                name: Poppins.regular.rawValue,
+                size: 14
+            ), .foregroundColor: UIColor.black])
+        let numberString = NSAttributedString(
+            string: "\(number)",
+            attributes: [.font: UIFont.setFont(
+                name: Poppins.medium.rawValue,
+                size: 16), .foregroundColor: UIColor.red])
         attributedString.append(timesString)
         attributedString.append(numberString)
         return attributedString

@@ -22,7 +22,7 @@ final class NetworkService {
         $0.keyDecodingStrategy = .convertFromSnakeCase
         return $0
     }(JSONDecoder())
-    
+    /// chache
     fileprivate func saveDataToCache(with data: Data, response: URLResponse) {
         guard let url = response.url else { return }
         let urlRequest = URLRequest(url: url)
@@ -60,7 +60,7 @@ extension NetworkService: NetworkMainServiceProtocol {
     }
 }
 
-extension NetworkService: NetworkSearchServiceProtocol {    
+extension NetworkService: NetworkSearchServiceProtocol {
     func getSearchedMovies(query: String) async throws -> [Movies.Movie] {
         guard let queryPathComponent = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
             throw NetworkError.invalidURL

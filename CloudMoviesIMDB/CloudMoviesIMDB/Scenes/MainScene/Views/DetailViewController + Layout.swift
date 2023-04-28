@@ -27,7 +27,6 @@ extension DetailViewController {
         item.contentInsets.top = 10
         item.contentInsets.leading = 10
         item.contentInsets.bottom = 10
-        
         let flexibleSpacing = NSCollectionLayoutSpacing.flexible(10)
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),

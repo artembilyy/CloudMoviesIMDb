@@ -13,10 +13,9 @@ protocol CustomDetailViewModelProtocol {
 }
 
 final class CustomDetailViewModel: CustomDetailViewModelProtocol {
-    
     var movie: Movies.Movie
     let network: NetworkCustomDetailServiceProtocol
-    
+    // MARK: - Init
     init(movie: Movies.Movie, network: NetworkCustomDetailServiceProtocol) {
         self.movie = movie
         self.network = network

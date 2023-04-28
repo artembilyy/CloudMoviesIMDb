@@ -12,7 +12,12 @@ extension UIView {
         indicatorView.translatesAutoresizingMaskIntoConstraints = false
         return indicatorView
     }
-    func makeLabel(text: String? = nil, font: UIFont, color: UIColor = .black, aligment: NSTextAlignment = .left) -> UILabel {
+    func makeLabel(
+        text: String? = nil,
+        font: UIFont,
+        color: UIColor = .black,
+        aligment: NSTextAlignment = .left
+    ) -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = text

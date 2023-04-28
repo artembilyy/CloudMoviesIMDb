@@ -21,15 +21,15 @@ protocol SearchViewModelProtocol {
 }
 
 final class SearchViewModel: SearchViewModelProtocol {
-    
     private(set) var movies: [Movies.Movie] = []
-    
+    // MARK: - Binding
     var snapshotUpdate: Observable<Bool?> = Observable(nil)
     var errorMessage: Observable<String?> = Observable(nil)
-    
+    /// delegate
     weak var coordinatorDelegate: SearchViewModelCoordinatorDelegate?
-    
+    // MARK: - Network
     let networkService: NetworkSearchServiceProtocol
+    // MARK: - Init
     init(networkService: NetworkSearchServiceProtocol) {
         self.networkService = networkService
     }

@@ -26,7 +26,6 @@ final class SearchViewController: UIViewController {
         search.searchBar.placeholder = "Find best movie match"
         return search
     }()
-    
     let viewModel: SearchViewModelProtocol
     // MARK: - Init
     init(viewModel: SearchViewModelProtocol) {

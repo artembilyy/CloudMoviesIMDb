@@ -27,7 +27,6 @@ extension SearchViewController {
                                                heightDimension: .absolute(200))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize,
                                                      subitems: [item])
-        
         let section = NSCollectionLayoutSection(group: group)
         return section
     }

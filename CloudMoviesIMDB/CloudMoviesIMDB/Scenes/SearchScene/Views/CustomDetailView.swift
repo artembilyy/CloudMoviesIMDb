@@ -112,7 +112,7 @@ final class CustomDetailView: UIView {
         let descriptionLabelConstraints = [
             descriptionLabel.topAnchor.constraint(equalTo: posterView.bottomAnchor, constant: 8),
             descriptionLabel.leadingAnchor.constraint(equalTo: posterView.leadingAnchor, constant: 4),
-            descriptionLabel.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+            descriptionLabel.trailingAnchor.constraint(equalTo: stackView.trailingAnchor)
         ]
         NSLayoutConstraint.activate(stackViewConstraints)
         NSLayoutConstraint.activate(backgroundViewConstraints)

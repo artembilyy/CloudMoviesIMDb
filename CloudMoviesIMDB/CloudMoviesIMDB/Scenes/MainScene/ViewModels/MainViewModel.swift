@@ -29,12 +29,13 @@ final class MainViewModel: MainViewModelProtocol {
     // MARK: - Properties
     private(set) var top250Movies: [Movies.Movie] = []
     private var allMovies: [Movies.Movie] = []
+    // MARK: - Binding
     var errorMessage: Observable<String?> = Observable(nil)
     var fetchFinished: Observable<Bool> = Observable(false)
     var snapshotUpdate: Observable<Bool> = Observable(false)
-    
+    /// text from searcBar VC
     var textFromSearchBar: String = ""
-    
+    /// delegate
     weak var coordinatorDelegate: MainPageViewModelCoordinatorDelegate?
     // MARK: - Init
     init(networkService: NetworkMainServiceProtocol) {

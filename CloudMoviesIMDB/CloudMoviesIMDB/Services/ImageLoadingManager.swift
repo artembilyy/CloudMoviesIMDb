@@ -12,7 +12,7 @@ protocol ImageLoadingManagerProtocol {
 }
 
 final class ImageLoadingManager: ImageLoadingManagerProtocol {
-    
+    ///
     private var image: UIImage?
     private var imageUrlString: String = ""
     /// Prevent reusable

@@ -37,6 +37,10 @@ extension SearchMovieCell {
             activityIndicatorView.centerXAnchor.constraint(equalTo: posterImage.centerXAnchor),
             activityIndicatorView.centerYAnchor.constraint(equalTo: posterImage.centerYAnchor)
         ]
-        NSLayoutConstraint.activate(containerConstraints + posterImageConstraints + titleConstraints + descriptionLabelConstraints + activityIndicatorViewConstraints)
+        NSLayoutConstraint.activate(containerConstraints)
+        NSLayoutConstraint.activate(posterImageConstraints)
+        NSLayoutConstraint.activate(titleConstraints)
+        NSLayoutConstraint.activate(descriptionLabelConstraints)
+        NSLayoutConstraint.activate(activityIndicatorViewConstraints)
     }
 }

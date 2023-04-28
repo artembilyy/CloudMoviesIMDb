@@ -13,7 +13,7 @@ final class MainViewController: UICollectionViewController {
     }
     var viewModel: MainViewModelProtocol!
     var dataSource: DataSource!
-    
+    // MARK: - UI
     lazy var searchController = makeSearchController()
     let refreshControl = UIRefreshControl()
     var isPaginating = false
@@ -119,7 +119,7 @@ extension MainViewController {
     }
 }
 // MARK: - For paggination
-//extension MainViewController {
+// extension MainViewController {
 //    override func collectionView(
 //        _ collectionView: UICollectionView,
 //        willDisplay cell: UICollectionViewCell,
@@ -135,4 +135,4 @@ extension MainViewController {
 //            }
 //        }
 //    }
-//}
+// }

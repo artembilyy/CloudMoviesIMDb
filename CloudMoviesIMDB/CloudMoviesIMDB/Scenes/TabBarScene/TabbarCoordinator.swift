@@ -39,7 +39,6 @@ final class TabBarCoordinator: TabbarCoordinatorProtocol {
         tabBarController.viewControllers?.append(navigation)
         addChildCoordinator(coordinator)
         coordinator.start()
-        
     }
     func addSecondPage() {
         guard let assemblyBuilder else { return }

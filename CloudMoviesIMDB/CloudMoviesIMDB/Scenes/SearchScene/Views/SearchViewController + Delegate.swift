@@ -44,7 +44,8 @@ extension SearchViewController: UICollectionViewDelegate {
 // MARK: - Don't use this one if you haven't got PREMIUM API ACCESS :)
 // extension SearchViewController: UISearchResultsUpdating {
 //    func updateSearchResults(for searchController: UISearchController) {
-        //        guard let query = searchController.searchBar.text, !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
-        //        viewModel.getSearchResultsMovies(queryString: query)
+//                guard let query = searchController.searchBar.text,
+//                        !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
+//                viewModel.getSearchResultsMovies(queryString: query)
 //    }
 // }

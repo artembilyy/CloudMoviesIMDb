@@ -20,12 +20,12 @@ extension MainViewController: UISearchBarDelegate {
 }
 // MARK: - UITextFieldDelegate
 extension MainViewController: UITextFieldDelegate {
-    
 }
 // MARK: - Don't use this one if you haven't got PREMIUM API ACCESS :)
 extension MainViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        //        guard let query = searchController.searchBar.text, !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
+        //        guard let query = searchController.searchBar.text,
+//        !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
         //        viewModel.getSearchResultsMovies(queryString: query)
     }
 }
