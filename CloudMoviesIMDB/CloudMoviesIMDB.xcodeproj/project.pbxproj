@@ -87,6 +87,11 @@
 		EDD3B2F029FBC4D600374E8E /* UIStackView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2EF29FBC4D600374E8E /* UIStackView + Extension.swift */; };
 		EDD3B2F229FBCB6E00374E8E /* CharactersCountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2F129FBCB6E00374E8E /* CharactersCountModel.swift */; };
 		EDD3B2F629FBF48D00374E8E /* DetailViewController + Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2F529FBF48D00374E8E /* DetailViewController + Layout.swift */; };
+		EDD3B2F829FC010F00374E8E /* UIActivityIndicator + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2F729FC010F00374E8E /* UIActivityIndicator + Extension.swift */; };
+		EDD3B2FA29FC08EB00374E8E /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2F929FC08EB00374E8E /* UIViewController + Extension.swift */; };
+		EDD3B2FC29FC09A100374E8E /* MainViewController + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2FB29FC09A100374E8E /* MainViewController + Delegate.swift */; };
+		EDD3B2FE29FC0A8500374E8E /* SearchViewController + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2FD29FC0A8500374E8E /* SearchViewController + Delegate.swift */; };
+		EDD3B30029FC0B3300374E8E /* MainViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2FF29FC0B3300374E8E /* MainViewController + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -191,6 +196,11 @@
 		EDD3B2EF29FBC4D600374E8E /* UIStackView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView + Extension.swift"; sourceTree = "<group>"; };
 		EDD3B2F129FBCB6E00374E8E /* CharactersCountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersCountModel.swift; sourceTree = "<group>"; };
 		EDD3B2F529FBF48D00374E8E /* DetailViewController + Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailViewController + Layout.swift"; sourceTree = "<group>"; };
+		EDD3B2F729FC010F00374E8E /* UIActivityIndicator + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicator + Extension.swift"; sourceTree = "<group>"; };
+		EDD3B2F929FC08EB00374E8E /* UIViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extension.swift"; sourceTree = "<group>"; };
+		EDD3B2FB29FC09A100374E8E /* MainViewController + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController + Delegate.swift"; sourceTree = "<group>"; };
+		EDD3B2FD29FC0A8500374E8E /* SearchViewController + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController + Delegate.swift"; sourceTree = "<group>"; };
+		EDD3B2FF29FC0B3300374E8E /* MainViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,6 +253,7 @@
 			children = (
 				EDD3B2D829FA998300374E8E /* Cells */,
 				ED197A1629F9090B006E4DAF /* SearchViewController.swift */,
+				EDD3B2FD29FC0A8500374E8E /* SearchViewController + Delegate.swift */,
 				ED0D54C529F9FE070005FA8C /* SearchViewController + DiffableDataSource.swift */,
 				ED0D54C729FA00A00005FA8C /* SearchViewController + CompositionalLayout.swift */,
 				EDD3B2E129FAABB600374E8E /* CustomDetailViewController.swift */,
@@ -360,6 +371,8 @@
 			children = (
 				EDD3B2D729FA8F5900374E8E /* Cells */,
 				ED653A2329F847A300A8FBC1 /* MainViewController.swift */,
+				EDD3B2FF29FC0B3300374E8E /* MainViewController + Extension.swift */,
+				EDD3B2FB29FC09A100374E8E /* MainViewController + Delegate.swift */,
 				ED653AB329F8727400A8FBC1 /* MainViewController + DiffableDataSource.swift */,
 				ED653AB529F872A500A8FBC1 /* MainViewController + CompositionalLayout.swift */,
 				ED653AC929F8E1D500A8FBC1 /* DetailViewController.swift */,
@@ -454,6 +467,8 @@
 				ED197A0C29F90367006E4DAF /* Task.swift */,
 				ED653ABD29F8A99B00A8FBC1 /* Listener.swift */,
 				EDD3B2EF29FBC4D600374E8E /* UIStackView + Extension.swift */,
+				EDD3B2F729FC010F00374E8E /* UIActivityIndicator + Extension.swift */,
+				EDD3B2F929FC08EB00374E8E /* UIViewController + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -684,7 +699,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# export PATH=\"$PATH:/opt/homebrew/bin\"\n# if which swiftlint > /dev/null; then\n#  swiftlint\n# else\n#  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n#   fi\n";
+			shellScript = " export PATH=\"$PATH:/opt/homebrew/bin\"\n if which swiftlint > /dev/null; then\n  swiftlint\n else\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n   fi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -706,6 +721,7 @@
 				ED653ABC29F88B1200A8FBC1 /* MainViewFooter.swift in Sources */,
 				ED653AD429F8FEE100A8FBC1 /* Endpoints.swift in Sources */,
 				ED653A7229F84CAB00A8FBC1 /* OnboardingCell.swift in Sources */,
+				EDD3B30029FC0B3300374E8E /* MainViewController + Extension.swift in Sources */,
 				ED653AB029F85E9600A8FBC1 /* NetworkService.swift in Sources */,
 				EDD3B2F229FBCB6E00374E8E /* CharactersCountModel.swift in Sources */,
 				EDD3B2DC29FA99E500374E8E /* SearchMovieCell + Extension.swift in Sources */,
@@ -716,18 +732,21 @@
 				ED653A7B29F84E4B00A8FBC1 /* MainPageCoordinator.swift in Sources */,
 				ED653A7929F84DD300A8FBC1 /* TabbarCoordinator.swift in Sources */,
 				ED653A5E29F84AE900A8FBC1 /* LocalState.swift in Sources */,
+				EDD3B2FE29FC0A8500374E8E /* SearchViewController + Delegate.swift in Sources */,
 				ED653AC629F8CF6A00A8FBC1 /* ImageLoadingManager.swift in Sources */,
 				ED653A5729F849EB00A8FBC1 /* Coordinator.swift in Sources */,
 				ED197A1529F9084B006E4DAF /* SearchViewModel.swift in Sources */,
 				ED653AB829F8745500A8FBC1 /* MainMovieCell.swift in Sources */,
 				ED197A1029F90676006E4DAF /* SearchPageCoordinator.swift in Sources */,
 				ED653AB229F8608900A8FBC1 /* MovieModel.swift in Sources */,
+				EDD3B2FC29FC09A100374E8E /* MainViewController + Delegate.swift in Sources */,
 				ED653A7729F84D7800A8FBC1 /* TabBarController.swift in Sources */,
 				ED0D54C829FA00A00005FA8C /* SearchViewController + CompositionalLayout.swift in Sources */,
 				ED653A5A29F84A6F00A8FBC1 /* Assembly.swift in Sources */,
 				ED653A6629F84C0200A8FBC1 /* OnboardingViewModel.swift in Sources */,
 				ED197A1729F9090B006E4DAF /* SearchViewController.swift in Sources */,
 				ED653ABE29F8A99B00A8FBC1 /* Listener.swift in Sources */,
+				EDD3B2F829FC010F00374E8E /* UIActivityIndicator + Extension.swift in Sources */,
 				ED653A2429F847A300A8FBC1 /* MainViewController.swift in Sources */,
 				EDD3B2DE29FA9A2200374E8E /* SearchMovieCell + Constraints.swift in Sources */,
 				EDD3B2EA29FAFAD200374E8E /* ImageCacheManager.swift in Sources */,
@@ -742,6 +761,7 @@
 				ED653AC429F8BE3900A8FBC1 /* OnboardingViewController + Constraints.swift in Sources */,
 				EDD3B2E229FAABB600374E8E /* CustomDetailViewController.swift in Sources */,
 				ED653ABA29F8795300A8FBC1 /* IdentifiableCell.swift in Sources */,
+				EDD3B2FA29FC08EB00374E8E /* UIViewController + Extension.swift in Sources */,
 				ED653A7429F84D1B00A8FBC1 /* MainViewModel.swift in Sources */,
 				EDD3B2E029FAAB7700374E8E /* CustomDetailViewModel.swift in Sources */,
 				EDD3B2E429FAAE6200374E8E /* CustomDetailView.swift in Sources */,

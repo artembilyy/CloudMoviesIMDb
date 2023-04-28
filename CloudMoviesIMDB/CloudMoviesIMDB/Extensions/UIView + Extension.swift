@@ -12,7 +12,7 @@ extension UIView {
         indicatorView.translatesAutoresizingMaskIntoConstraints = false
         return indicatorView
     }
-    func makeLabel(text: String?, font: UIFont, color: UIColor = .black, aligment: NSTextAlignment = .left) -> UILabel {
+    func makeLabel(text: String? = nil, font: UIFont, color: UIColor = .black, aligment: NSTextAlignment = .left) -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = text
@@ -21,7 +21,6 @@ extension UIView {
         label.numberOfLines = 0
         label.minimumContentSizeCategory = .accessibilityLarge
         label.font = font
-        addSubview(label)
         return label
     }
     func dropShadow(scale: Bool = true) {

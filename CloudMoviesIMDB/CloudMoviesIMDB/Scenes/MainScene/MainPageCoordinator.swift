@@ -22,7 +22,7 @@ final class MainPageCoordinator: Coordinator {
         guard let navigationController,
               let mainViewController else { return }
         mainViewController.title = "Top 250 Movies"
-        navigationController.navigationItem.largeTitleDisplayMode = .always
+        navigationController.navigationItem.largeTitleDisplayMode = .automatic
         navigationController.navigationBar.prefersLargeTitles = true
         navigationController.setViewControllers([mainViewController], animated: true)
     }

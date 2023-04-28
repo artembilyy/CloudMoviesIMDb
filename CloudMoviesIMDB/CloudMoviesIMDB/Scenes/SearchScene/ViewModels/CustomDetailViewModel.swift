@@ -9,6 +9,7 @@ import Foundation
 
 protocol CustomDetailViewModelProtocol {
     var movie: Movies.Movie { get }
+    func getMovieInfo() async
 }
 
 final class CustomDetailViewModel: CustomDetailViewModelProtocol {
@@ -21,19 +22,16 @@ final class CustomDetailViewModel: CustomDetailViewModelProtocol {
         self.network = network
         print("CustomDetailViewModel init")
     }
-    func getMovieInfo() {
-        Task {
-            do {
-                guard let movieID = movie.id else { return }
-                let result = try await network.getDetailScreen(movieID: movieID)
-                self.movie = result
-            } catch {
-                print(error.localizedDescription)
-            }
+    @MainActor
+    func getMovieInfo() async {
+        do {
+            guard let movieID = movie.id else { return }
+            let result = try await network.getDetailScreen(movieID: movieID)
+            self.movie = result
+        } catch {
+            print(error.localizedDescription)
         }
     }
-    
-    
     deinit {
         print("CustomDetailViewModel deinit")
     }

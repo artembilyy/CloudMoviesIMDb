@@ -53,9 +53,9 @@ final class DetailViewController: UICollectionViewController {
 // MARK: - Setup Cell
 extension DetailViewController {
     private func createAttributedString(char: String, number: Int) -> NSMutableAttributedString {
-        let attributedString = NSMutableAttributedString(string: "\"\(char)\", ", attributes: [.font: UIFont.setFont(name: Poppins.semiBold.rawValue, size: 32), .foregroundColor: UIColor.black])
-        let timesString = NSAttributedString(string: "times: ", attributes: [.font: UIFont.setFont(name: Poppins.regular.rawValue, size: 20), .foregroundColor: UIColor.black])
-        let numberString = NSAttributedString(string: "\(number)", attributes: [.font: UIFont.setFont(name: Poppins.medium.rawValue, size: 24), .foregroundColor: UIColor.red])
+        let attributedString = NSMutableAttributedString(string: "\"\(char)\", ", attributes: [.font: UIFont.setFont(name: Poppins.semiBold.rawValue, size: 24), .foregroundColor: UIColor.black])
+        let timesString = NSAttributedString(string: "times: ", attributes: [.font: UIFont.setFont(name: Poppins.regular.rawValue, size: 14), .foregroundColor: UIColor.black])
+        let numberString = NSAttributedString(string: "\(number)", attributes: [.font: UIFont.setFont(name: Poppins.medium.rawValue, size: 16), .foregroundColor: UIColor.red])
         attributedString.append(timesString)
         attributedString.append(numberString)
         return attributedString
@@ -64,7 +64,6 @@ extension DetailViewController {
         var contentConfiguration = UIListContentConfiguration.cell()
         contentConfiguration.attributedText = attributedString
         contentConfiguration.textProperties.color = .black
-        contentConfiguration.textProperties.alignment = .center
         return contentConfiguration
     }
     private func createBackgroundConfiguration() -> UIBackgroundConfiguration {

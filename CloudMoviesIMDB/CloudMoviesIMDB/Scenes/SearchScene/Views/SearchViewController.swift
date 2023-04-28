@@ -17,7 +17,11 @@ final class SearchViewController: UIViewController {
         collectionView.register(SearchMovieCell.self, forCellWithReuseIdentifier: SearchMovieCell.identifier)
         return collectionView
     }()
-    private let searchController: UISearchController = {
+    private let activityIndicator: UIActivityIndicatorView = {
+        let indicatorView = UIActivityIndicatorView(style: .medium)
+        return indicatorView
+    }()
+    let searchController: UISearchController = {
         let search = UISearchController(searchResultsController: nil)
         search.searchBar.placeholder = "Find best movie match"
         return search
@@ -39,6 +43,7 @@ final class SearchViewController: UIViewController {
         setupDataSource()
         delegate()
         observers()
+        setupDismissKeyboardGesture()
     }
     // MARK: - Methods
     private func delegate() {
@@ -51,61 +56,31 @@ final class SearchViewController: UIViewController {
         collectionView.backgroundColor = .white
         collectionView.frame = view.bounds
         view.addSubview(collectionView)
+        view.addSubview(activityIndicator)
+        activityIndicator.frame = view.bounds
         view.backgroundColor = .white
         navigationController?.navigationBar.tintColor = .deepGreen
         navigationItem.searchController = searchController
-        searchController.searchBar.keyboardType = .asciiCapable
-        searchController.searchBar.returnKeyType = .search
-        searchController.searchBar.autocapitalizationType = .sentences
-        searchController.hidesNavigationBarDuringPresentation = false
     }
     // MARK: - Binding
     private func observers() {
         viewModel.snapshotUpdate.bind { [weak self] value in
-            guard let self else { return }
-            Task {
-                await MainActor.run {
-                    self.updateSnapshot()
+            guard let self, let value else { return }
+            switch value {
+            case true:
+                Task {
+                    await MainActor.run {
+                        self.updateSnapshot()
+                        self.activityIndicator.hideLoadingIndicator()
+                    }
+                }
+            case false:
+                Task {
+                    await MainActor.run {
+                        self.activityIndicator.showLoadingIndicator()
+                    }
                 }
             }
         }
     }
 }
-// MARK: - UISearchBarDelegate
-extension SearchViewController: UISearchBarDelegate {
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = ""
-    }
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let query = searchBar.text, !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
-        viewModel.getSearchResultsMovies(queryString: query)
-    }
-}
-// MARK: - UITextFieldDelegate
-extension SearchViewController: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.becomeFirstResponder()
-    }
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return true
-    }
-}
-// MARK: - UICollectionViewDelegate
-extension SearchViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
-        searchController.searchBar.searchTextField.endEditing(true)
-        guard let selectedItem = dataSource.itemIdentifier(for: indexPath) else {
-            return
-        }
-        viewModel.openDetailController(selectedItem)
-    }
-}
-// MARK: - Don't use this one if you haven't got PREMIUM API ACCESS :)
-//extension SearchViewController: UISearchResultsUpdating {
-//    func updateSearchResults(for searchController: UISearchController) {
-        //        guard let query = searchController.searchBar.text, !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
-        //        viewModel.getSearchResultsMovies(queryString: query)
-//    }
-//}

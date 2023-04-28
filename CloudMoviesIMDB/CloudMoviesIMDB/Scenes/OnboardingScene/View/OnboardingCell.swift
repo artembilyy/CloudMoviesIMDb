@@ -29,7 +29,7 @@ final class OnboardingCell: UICollectionViewCell, IdentifiableCell {
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(topImage)
+        setup()
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -43,6 +43,11 @@ final class OnboardingCell: UICollectionViewCell, IdentifiableCell {
         topImage.image = slide.image
         titleLabel.text = slide.title
         descriptionLabel.text = slide.description
+    }
+    private func setup() {
+        addSubview(topImage)
+        addSubview(titleLabel)
+        addSubview(descriptionLabel)
     }
     private func layout() {
         let topImageConstraints = [

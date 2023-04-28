@@ -14,11 +14,7 @@ final class MainViewController: UICollectionViewController {
     var viewModel: MainViewModelProtocol!
     var dataSource: DataSource!
     
-    private let searchController: UISearchController = {
-        let search = UISearchController(searchResultsController: nil)
-        search.searchBar.placeholder = "Find from Top 250 Movies"
-        return search
-    }()
+    lazy var searchController = makeSearchController()
     let refreshControl = UIRefreshControl()
     var isPaginating = false
     // MARK: - Init
@@ -35,6 +31,7 @@ final class MainViewController: UICollectionViewController {
         setupUI()
         observe()
         setupDataSource()
+        setupDismissKeyboardGesture()
         viewModel.getMovies(useCache: true)
     }
     // MARK: - Methods
@@ -42,32 +39,6 @@ final class MainViewController: UICollectionViewController {
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.searchBar.searchTextField.delegate = self
-    }
-    private func setupUI() {
-        navigationItem.searchController = searchController
-        searchController.searchBar.keyboardType = .asciiCapable
-        searchController.searchBar.returnKeyType = .search
-        searchController.searchBar.autocapitalizationType = .sentences
-        searchController.hidesNavigationBarDuringPresentation = false
-        
-    
-        refreshControl.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
-        view.addSubview(collectionView)
-        collectionView.addSubview(refreshControl)
-        collectionView.backgroundColor = .white
-        refreshControl.addAction(pullToRefresh(), for: .valueChanged)
-        collectionView.register(MainMovieCell.self, forCellWithReuseIdentifier: MainMovieCell.identifier)
-        collectionView.register(
-            MainViewFooter.self,
-            forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
-            withReuseIdentifier: MainViewFooter.identifier
-        )
-        setupDataSource()
-        collectionView.collectionViewLayout = createLayout()
-        collectionView.dataSource = dataSource
-        navigationItem.backButtonTitle = ""
-        view.backgroundColor = .white
-        navigationController?.navigationBar.tintColor = .deepGreen
     }
     private func pullToRefresh() -> UIAction {
         UIAction { [weak self] _ in
@@ -113,27 +84,30 @@ final class MainViewController: UICollectionViewController {
         }
     }
 }
-// MARK: - UISearchBarDelegate
-extension MainViewController: UISearchBarDelegate {
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = ""
-        viewModel.showFirst10Movies()
-    }
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let query = searchBar.text, !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
-        viewModel.textFromSearchBar = query
-        viewModel.makeLocalSearch()
-    }
-}
-// MARK: - UITextFieldDelegate
-extension MainViewController: UITextFieldDelegate {
-    
-}
-// MARK: - Don't use this one if you haven't got PREMIUM API ACCESS :)
-extension MainViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        //        guard let query = searchController.searchBar.text, !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
-        //        viewModel.getSearchResultsMovies(queryString: query)
+// MARK: - UI Setup
+extension MainViewController {
+    private func setupUI() {
+        navigationItem.searchController = searchController
+        refreshControl.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+        view.addSubview(collectionView)
+        collectionView.addSubview(refreshControl)
+        collectionView.backgroundColor = .white
+        refreshControl.addAction(pullToRefresh(), for: .valueChanged)
+        collectionView.register(
+            MainMovieCell.self,
+            forCellWithReuseIdentifier: MainMovieCell.identifier
+        )
+        collectionView.register(
+            MainViewFooter.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+            withReuseIdentifier: MainViewFooter.identifier
+        )
+        setupDataSource()
+        collectionView.collectionViewLayout = createLayout()
+        collectionView.dataSource = dataSource
+        navigationItem.backButtonTitle = ""
+        view.backgroundColor = .white
+        navigationController?.navigationBar.tintColor = .deepGreen
     }
 }
 // MARK: - Did select cell

@@ -13,7 +13,7 @@ protocol SearchViewModelCoordinatorDelegate: AnyObject {
 
 protocol SearchViewModelProtocol {
     var movies: [Movies.Movie] { get }
-    var snapshotUpdate: Observable<Bool> { get }
+    var snapshotUpdate: Observable<Bool?> { get }
     var errorMessage: Observable<String?> { get }
     func getSearchResultsMovies(queryString: String)
     func openDetailController(_ data: Movies.Movie)
@@ -24,7 +24,7 @@ final class SearchViewModel: SearchViewModelProtocol {
     
     private(set) var movies: [Movies.Movie] = []
     
-    var snapshotUpdate: Observable<Bool> = Observable(false)
+    var snapshotUpdate: Observable<Bool?> = Observable(nil)
     var errorMessage: Observable<String?> = Observable(nil)
     
     weak var coordinatorDelegate: SearchViewModelCoordinatorDelegate?
@@ -38,6 +38,7 @@ final class SearchViewModel: SearchViewModelProtocol {
         snapshotUpdate.value = true
     }
     func getSearchResultsMovies(queryString: String) {
+        snapshotUpdate.value = false
         Task {
             do {
                 let result = try await self.networkService.getSearchedMovies(query: queryString)
@@ -45,6 +46,7 @@ final class SearchViewModel: SearchViewModelProtocol {
                 snapshotUpdate.value = true
             } catch {
                 print(error.localizedDescription)
+                snapshotUpdate.value = true
             }
         }
     }

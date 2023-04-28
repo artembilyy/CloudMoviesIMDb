@@ -11,8 +11,8 @@ final class MainMovieCell: UICollectionViewCell, IdentifiableCell {
     // MARK: - MovieCell UI Elements
     lazy var container = makeContainer()
     lazy var activityIndicatorView = makeActivityIndicatorView()
-    lazy var titleLabel = makeLabel(text: nil, font: UIFont.setFont(name: Poppins.semiBold.rawValue, size: 16))
-    lazy var rankLabel = makeLabel(text: nil, font: UIFont.setFont(name: Poppins.medium.rawValue, size: 16))
+    lazy var titleLabel = makeLabel(font: UIFont.setFont(name: Poppins.semiBold.rawValue, size: 16))
+    lazy var rankLabel = makeLabel(font: UIFont.setFont(name: Poppins.medium.rawValue, size: 16))
     lazy var posterImage: UIImageView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.contentMode = .scaleAspectFill
@@ -25,7 +25,7 @@ final class MainMovieCell: UICollectionViewCell, IdentifiableCell {
     override init(frame: CGRect) {
         imageLoadingManager = ImageLoadingManager()
         super.init(frame: frame)
-        container.addSubview(posterImage)
+        setup()
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -41,26 +41,22 @@ final class MainMovieCell: UICollectionViewCell, IdentifiableCell {
         titleLabel.text = nil
         rankLabel.text = nil
     }
+    private func setup() {
+        addSubview(titleLabel)
+        addSubview(rankLabel)
+        container.addSubview(posterImage)
+    }
     // MARK: - Configure
     @MainActor
     func configure(media: Movies.Movie) {
-        showLoadingIndicator()
+        activityIndicatorView.showLoadingIndicator()
         Task {
             guard let path = media.image else { return }
             let result = try await imageLoadingManager?.getImage(from: path)
             posterImage.image = result
             titleLabel.text = media.title
             rankLabel.text = "Rank: \(media.rank ?? "")"
-            hideLoadingIndicator()
+            activityIndicatorView.hideLoadingIndicator()
         }
-    }
-    private func showLoadingIndicator() {
-        activityIndicatorView.isHidden = false
-        activityIndicatorView.startAnimating()
-        posterImage.bringSubviewToFront(activityIndicatorView)
-    }
-    private func hideLoadingIndicator() {
-        activityIndicatorView.isHidden = true
-        activityIndicatorView.stopAnimating()
     }
 }

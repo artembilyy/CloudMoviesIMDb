@@ -7,14 +7,37 @@
 
 import UIKit
 
-import UIKit
-
 final class CustomDetailView: UIView {
     private var imageLoadingManager: ImageLoadingManagerProtocol
-    lazy var posterView = createPosterView()
-    lazy var titleLabel = createLabel()
-    lazy var crewLabel = createLabel()
-    lazy var yearLabel = createLabel()
+    private lazy var posterView = createPosterView()
+    private lazy var titleLabel = makeLabel(
+        font: UIFont.setFont(
+            name: Poppins.semiBold.rawValue,
+            size: 24
+        ),
+        color: .black,
+        aligment: .left
+    )
+    private lazy var genreLabel = makeLabel(
+        font: UIFont.setFont(
+            name: Poppins.medium.rawValue,
+            size: 18),
+        color: .black,
+        aligment: .left
+    )
+    private lazy var releaseLabel = makeLabel(
+        font: UIFont.setFont(
+            name: Poppins.medium.rawValue,
+            size: 18),
+        color: .black,
+        aligment: .left
+    )
+    private lazy var descriptionLabel = makeLabel(
+        font: UIFont.setFont(
+            name: Poppins.medium.rawValue,
+            size: 18),
+        color: .black,
+        aligment: .left)
     private let stackView = UIStackView(axis: .vertical, spacing: 8, distribution: .equalSpacing)
     lazy var blur = createBlur()
     lazy var backgroundView: UIImageView = {
@@ -41,7 +64,8 @@ final class CustomDetailView: UIView {
         backgroundView.addSubview(posterView)
         backgroundView.addSubview(titleLabel)
         backgroundView.addSubview(stackView)
-        stackView.addArrangedSubviews([titleLabel, crewLabel, yearLabel])
+        backgroundView.addSubview(descriptionLabel)
+        stackView.addArrangedSubviews([titleLabel, genreLabel, releaseLabel])
     }
     @MainActor
     func configure(data: Movies.Movie?) {
@@ -52,8 +76,13 @@ final class CustomDetailView: UIView {
             posterView.image = result
             backgroundView.image = result
             titleLabel.text = data.title
-            crewLabel.text = "Crew: " + String(describing: data.crew)
-            yearLabel.text = "Year: " + String(describing: data.year)
+            genreLabel.text = String(describing: data.genres ?? "")
+            guard let formattedString = formattedDateFromString(
+                dateString: data.releaseDate ?? "",
+                withFormat: "MMM dd, yyyy"
+            ) else { return }
+            releaseLabel.text = String(describing: formattedString)
+            descriptionLabel.text = String(describing: data.plot ?? "")
         }
     }
     private func layout() {
@@ -72,7 +101,7 @@ final class CustomDetailView: UIView {
         let stackViewConstraints = [
             stackView.topAnchor.constraint(equalTo: posterView.topAnchor),
             stackView.leadingAnchor.constraint(equalTo: posterView.trailingAnchor, constant: 8),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12)
         ]
         let blurConstraints = [
             blur.topAnchor.constraint(equalTo: backgroundView.topAnchor),
@@ -80,9 +109,15 @@ final class CustomDetailView: UIView {
             blur.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
             blur.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor)
         ]
+        let descriptionLabelConstraints = [
+            descriptionLabel.topAnchor.constraint(equalTo: posterView.bottomAnchor, constant: 8),
+            descriptionLabel.leadingAnchor.constraint(equalTo: posterView.leadingAnchor, constant: 4),
+            descriptionLabel.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+        ]
         NSLayoutConstraint.activate(stackViewConstraints)
         NSLayoutConstraint.activate(backgroundViewConstraints)
         NSLayoutConstraint.activate(blurConstraints)
         NSLayoutConstraint.activate(posterViewConstraints)
+        NSLayoutConstraint.activate(descriptionLabelConstraints)
     }
 }

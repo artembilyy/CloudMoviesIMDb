@@ -21,6 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let builder = Assembly()
         self.appCoordinator = AppCoordinator(window: window, assemblyBuilder: builder)
         self.appCoordinator?.start()
+        window?.overrideUserInterfaceStyle = .light
         window?.makeKeyAndVisible()
     }
 

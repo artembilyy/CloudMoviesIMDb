@@ -19,7 +19,7 @@ extension DetailViewController {
     }
     func createСharactersLayout() -> NSCollectionLayoutSection? {
         let size = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(0.4),
+            widthDimension: .fractionalWidth(0.45),
             heightDimension: .absolute(80)
         )
         let item = NSCollectionLayoutItem(layoutSize: size)
