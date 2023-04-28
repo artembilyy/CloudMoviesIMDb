@@ -86,38 +86,29 @@ final class CustomDetailView: UIView {
         }
     }
     private func layout() {
-        let backgroundViewConstraints = [
+        NSLayoutConstraint.activate([
             backgroundView.topAnchor.constraint(equalTo: topAnchor),
             backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ]
-        let posterViewConstraints = [
+            backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            //
             posterView.topAnchor.constraint(equalTo: topAnchor, constant: 100),
             posterView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
             posterView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
-            posterView.heightAnchor.constraint(equalTo: posterView.widthAnchor, multiplier: 1.3)
-        ]
-        let stackViewConstraints = [
+            posterView.heightAnchor.constraint(equalTo: posterView.widthAnchor, multiplier: 1.3),
+            //
             stackView.topAnchor.constraint(equalTo: posterView.topAnchor),
             stackView.leadingAnchor.constraint(equalTo: posterView.trailingAnchor, constant: 8),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12)
-        ]
-        let blurConstraints = [
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            //
             blur.topAnchor.constraint(equalTo: backgroundView.topAnchor),
             blur.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
             blur.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
-            blur.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor)
-        ]
-        let descriptionLabelConstraints = [
+            blur.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor),
+            //
             descriptionLabel.topAnchor.constraint(equalTo: posterView.bottomAnchor, constant: 8),
             descriptionLabel.leadingAnchor.constraint(equalTo: posterView.leadingAnchor, constant: 4),
             descriptionLabel.trailingAnchor.constraint(equalTo: stackView.trailingAnchor)
-        ]
-        NSLayoutConstraint.activate(stackViewConstraints)
-        NSLayoutConstraint.activate(backgroundViewConstraints)
-        NSLayoutConstraint.activate(blurConstraints)
-        NSLayoutConstraint.activate(posterViewConstraints)
-        NSLayoutConstraint.activate(descriptionLabelConstraints)
+        ])
     }
 }

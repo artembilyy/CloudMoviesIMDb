@@ -50,25 +50,20 @@ final class OnboardingCell: UICollectionViewCell, IdentifiableCell {
         addSubview(descriptionLabel)
     }
     private func layout() {
-        let topImageConstraints = [
+        NSLayoutConstraint.activate([
             topImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: frame.height / 8),
             topImage.centerXAnchor.constraint(equalTo: centerXAnchor),
             topImage.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.4),
-            topImage.widthAnchor.constraint(equalTo: topImage.heightAnchor, multiplier: 1)
-        ]
-        let titleLabelConstraints = [
+            topImage.widthAnchor.constraint(equalTo: topImage.heightAnchor, multiplier: 1),
+            //
             titleLabel.topAnchor.constraint(equalTo: topImage.bottomAnchor, constant: 24),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
-            titleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2)
-        ]
-        let descriptionLabelConstraints = [
+            titleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2),
+            //
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
             descriptionLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             descriptionLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor)
-        ]
-        NSLayoutConstraint.activate(topImageConstraints)
-        NSLayoutConstraint.activate(titleLabelConstraints)
-        NSLayoutConstraint.activate(descriptionLabelConstraints)
+        ])
     }
 }

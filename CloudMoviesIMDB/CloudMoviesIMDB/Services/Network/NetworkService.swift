@@ -11,7 +11,7 @@ protocol NetworkMainServiceProtocol {
     func getTop250Movies(useCache: Bool) async throws -> Movies
 }
 protocol NetworkSearchServiceProtocol {
-    func getSearchedMovies(query: String) async throws -> [Movies.Movie]
+    func getSearchedMovies(query: String) async throws -> [SearchResult.SearchMovies]
 }
 protocol NetworkCustomDetailServiceProtocol {
     func getDetailScreen(movieID: String) async throws -> Movies.Movie
@@ -61,27 +61,31 @@ extension NetworkService: NetworkMainServiceProtocol {
 }
 
 extension NetworkService: NetworkSearchServiceProtocol {
-    func getSearchedMovies(query: String) async throws -> [Movies.Movie] {
-        guard let queryPathComponent = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+    func getSearchedMovies(query: String) async throws -> [SearchResult.SearchMovies] {
+        guard let safeQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
             throw NetworkError.invalidURL
         }
-        let urlString = Endpoints.searchMovies + "/" + Endpoints.apiKey + "/" + queryPathComponent
-        guard let url = URL(string: urlString) else {
+        let stringURL = "https://imdb-api.com/en/API/SearchMovie/\(Endpoints.apiKey)/\(String(describing: safeQuery))"
+//        guard let queryPathComponent = query. .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+//            throw NetworkError.invalidURL
+//        }
+//        let urlString = Endpoints.searchMovies + "/" + Endpoints.apiKey + "/" + queryPathComponent
+        guard let url = URL(string: stringURL) else {
             throw NetworkError.invalidURL
         }
         let urlRequest = URLRequest(url: url)
-        if let cachedResponse = URLCache.shared.cachedResponse(for: urlRequest),
-           let movies = try? decoder.decode([Movies.Movie].self, from: cachedResponse.data) {
-            return movies
-        }
+//        if let cachedResponse = URLCache.shared.cachedResponse(for: urlRequest),
+//           let movies = try? decoder.decode(SearchResult.self, from: cachedResponse.data) {
+//            return movies.results!
+//        }
         /// for cache if needed?
         let (data, response) = try await URLSession.shared.data(from: url)
         do {
-            let result = try decoder.decode(Movies.self, from: data)
+            let result = try JSONDecoder().decode(SearchResult.self, from: data)
             guard let movies = result.results else {
                 throw NetworkError.invalidURL
             }
-            saveDataToCache(with: data, response: response)
+//            saveDataToCache(with: data, response: response)
             return movies
         } catch {
             /// add Errors

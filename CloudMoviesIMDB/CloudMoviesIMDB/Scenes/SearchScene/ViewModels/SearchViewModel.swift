@@ -12,7 +12,7 @@ protocol SearchViewModelCoordinatorDelegate: AnyObject {
 }
 
 protocol SearchViewModelProtocol {
-    var movies: [Movies.Movie] { get }
+    var movies: [SearchResult.SearchMovies] { get }
     var snapshotUpdate: Observable<Bool?> { get }
     var errorMessage: Observable<String?> { get }
     func getSearchResultsMovies(queryString: String)
@@ -21,7 +21,7 @@ protocol SearchViewModelProtocol {
 }
 
 final class SearchViewModel: SearchViewModelProtocol {
-    private(set) var movies: [Movies.Movie] = []
+    private(set) var movies: [SearchResult.SearchMovies] = []
     // MARK: - Binding
     var snapshotUpdate: Observable<Bool?> = Observable(nil)
     var errorMessage: Observable<String?> = Observable(nil)

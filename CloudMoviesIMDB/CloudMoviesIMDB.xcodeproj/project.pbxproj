@@ -92,6 +92,7 @@
 		EDD3B2FC29FC09A100374E8E /* MainViewController + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2FB29FC09A100374E8E /* MainViewController + Delegate.swift */; };
 		EDD3B2FE29FC0A8500374E8E /* SearchViewController + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2FD29FC0A8500374E8E /* SearchViewController + Delegate.swift */; };
 		EDD3B30029FC0B3300374E8E /* MainViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2FF29FC0B3300374E8E /* MainViewController + Extension.swift */; };
+		EDD3B30429FC6FB000374E8E /* TestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B30329FC6FB000374E8E /* TestModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -201,6 +202,7 @@
 		EDD3B2FB29FC09A100374E8E /* MainViewController + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController + Delegate.swift"; sourceTree = "<group>"; };
 		EDD3B2FD29FC0A8500374E8E /* SearchViewController + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController + Delegate.swift"; sourceTree = "<group>"; };
 		EDD3B2FF29FC0B3300374E8E /* MainViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController + Extension.swift"; sourceTree = "<group>"; };
+		EDD3B30329FC6FB000374E8E /* TestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -514,6 +516,7 @@
 				ED653AAF29F85E9600A8FBC1 /* NetworkService.swift */,
 				ED653AC729F8D25A00A8FBC1 /* NetworkError.swift */,
 				ED653AD329F8FEE100A8FBC1 /* Endpoints.swift */,
+				EDD3B30329FC6FB000374E8E /* TestModel.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -699,7 +702,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = " export PATH=\"$PATH:/opt/homebrew/bin\"\n if which swiftlint > /dev/null; then\n  swiftlint\n else\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n   fi\n";
+			shellScript = "#export PATH=\"$PATH:/opt/homebrew/bin\"\n# if which swiftlint > /dev/null; then\n#  swiftlint\n# else\n#  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n #  fi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -747,6 +750,7 @@
 				ED197A1729F9090B006E4DAF /* SearchViewController.swift in Sources */,
 				ED653ABE29F8A99B00A8FBC1 /* Listener.swift in Sources */,
 				EDD3B2F829FC010F00374E8E /* UIActivityIndicator + Extension.swift in Sources */,
+				EDD3B30429FC6FB000374E8E /* TestModel.swift in Sources */,
 				ED653A2429F847A300A8FBC1 /* MainViewController.swift in Sources */,
 				EDD3B2DE29FA9A2200374E8E /* SearchMovieCell + Constraints.swift in Sources */,
 				EDD3B2EA29FAFAD200374E8E /* ImageCacheManager.swift in Sources */,

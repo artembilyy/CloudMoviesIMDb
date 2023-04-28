@@ -48,16 +48,24 @@ final class SearchMovieCell: UICollectionViewCell, IdentifiableCell {
     }
     // MARK: - Configure
     @MainActor
-    func configure(media: Movies.Movie) {
+    func configure(media: SearchResult.SearchMovies) {
         activityIndicatorView.showLoadingIndicator()
         Task {
-            guard let path = media.image else { return }
-            guard let url = URL(string: path) else { return }
-            let result = try await imageLoadingManager?.getSearchImage(from: url)
-            posterImage.image = result
             titleLabel.text = media.title
             descriptionLabel.text = "\(media.description ?? "")"
-            activityIndicatorView.hideLoadingIndicator()
+            guard let path = media.image else {
+                posterImage.image = UIImage(systemName: "eye")
+                activityIndicatorView.hideLoadingIndicator()
+                return
+            }
+            guard let url = URL(string: path) else {
+                posterImage.image = UIImage(systemName: "eye")
+                activityIndicatorView.hideLoadingIndicator()
+                return
+            }
+            let result = try await imageLoadingManager?.getSearchImage(from: url)
+            posterImage.image = result
+
         }
     }
 }
