@@ -69,7 +69,7 @@ final class DetailView: UIView {
     }
     private func configureAttributedText(count: String, data: Movies.Movie) {
         let attributedText = NSMutableAttributedString(string: "  Characters count in the title: ")
-        let charAttr = [NSAttributedString.Key.foregroundColor: UIColor.red]
+        let charAttr = [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
         attributedText.append(NSAttributedString(string: count + "  ", attributes: charAttr))
         mainLabel.attributedText = attributedText
     }

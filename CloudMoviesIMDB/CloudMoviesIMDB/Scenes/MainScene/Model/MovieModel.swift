@@ -9,7 +9,10 @@ import Foundation
 
 // MARK: - Movies
 struct Movies: Decodable, Hashable {
+    let searchType: String?
+    let expression: String?
     let items: [Movie]?
+    let results: [Movie]?
     let errorMessage: String?
 }
 // MARK: - Movie
@@ -41,6 +44,8 @@ extension Movies {
         let directors: String?
         let writers: String?
         let stars: String?
+        let resultType: String?
+        let description: String?
     }
 }
 

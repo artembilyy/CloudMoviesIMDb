@@ -31,7 +31,7 @@ final class SearchPageCoordinator: Coordinator {
 }
 
 extension SearchPageCoordinator: SearchViewModelCoordinatorDelegate {
-    func openDetailController(_ data: SearchResult.Movie) {
+    func openDetailController(_ data: Movies.Movie) {
         let customDetailController = assemblyBuilder?.createCustomDetailController(data: data)
         guard let customDetailController else { return }
         customDetailController.hidesBottomBarWhenPushed = true

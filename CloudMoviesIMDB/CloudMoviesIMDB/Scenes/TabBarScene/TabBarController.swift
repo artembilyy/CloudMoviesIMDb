@@ -17,7 +17,7 @@ final class TabBarController: UITabBarController {
         viewControllers = []
         tabBar.backgroundColor = .white
         tabBar.tintColor = .deepGreen
-        tabBar.unselectedItemTintColor = .black
+        tabBar.unselectedItemTintColor = .darkGray
     }
     deinit {
         print("TabBarController deinit")

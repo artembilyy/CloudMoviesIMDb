@@ -43,9 +43,8 @@ final class SearchViewController: UIViewController {
     
     private func delegate() {
         collectionView.delegate = self
-        searchController.searchResultsUpdater = self
+//        searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
-        searchController.searchBar.searchTextField.delegate = self
         searchController.searchBar.searchTextField.delegate = self
     }
     private func setup() {
@@ -71,25 +70,20 @@ final class SearchViewController: UIViewController {
     }
 }
 
-extension SearchViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        //        guard let query = searchController.searchBar.text, !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
-        //        viewModel.getSearchResultsMovies(queryString: query)
-    }
-}
-
 extension SearchViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        viewModel.reload()
         guard let query = searchBar.text, !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
         viewModel.getSearchResultsMovies(queryString: query)
     }
 }
 
 extension SearchViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.becomeFirstResponder()
+    }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return true
@@ -106,3 +100,10 @@ extension SearchViewController: UICollectionViewDelegate {
         viewModel.openDetailController(selectedItem)
     }
 }
+// MARK: - Don't use this one if you haven't got PREMIUM API ACCESS :)
+//extension SearchViewController: UISearchResultsUpdating {
+//    func updateSearchResults(for searchController: UISearchController) {
+        //        guard let query = searchController.searchBar.text, !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
+        //        viewModel.getSearchResultsMovies(queryString: query)
+//    }
+//}

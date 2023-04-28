@@ -11,7 +11,7 @@ protocol NetworkMainServiceProtocol {
     func getTop250Movies(useCache: Bool) async throws -> Movies
 }
 protocol NetworkSearchServiceProtocol {
-    func getSearchedMovies(query: String) async throws -> SearchResult
+    func getSearchedMovies(query: String) async throws -> [Movies.Movie]
 }
 protocol NetworkCustomDetailServiceProtocol {
     func getDetailScreen(movieID: String) async throws -> Movies.Movie
@@ -61,7 +61,7 @@ extension NetworkService: NetworkMainServiceProtocol {
 }
 
 extension NetworkService: NetworkSearchServiceProtocol {    
-    func getSearchedMovies(query: String) async throws -> SearchResult {
+    func getSearchedMovies(query: String) async throws -> [Movies.Movie] {
         guard let queryPathComponent = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
             throw NetworkError.invalidURL
         }
@@ -71,15 +71,18 @@ extension NetworkService: NetworkSearchServiceProtocol {
         }
         let urlRequest = URLRequest(url: url)
         if let cachedResponse = URLCache.shared.cachedResponse(for: urlRequest),
-           let movies = try? decoder.decode(SearchResult.self, from: cachedResponse.data) {
+           let movies = try? decoder.decode([Movies.Movie].self, from: cachedResponse.data) {
             return movies
         }
         /// for cache if needed?
         let (data, response) = try await URLSession.shared.data(from: url)
         do {
-            let result = try decoder.decode(SearchResult.self, from: data)
+            let result = try decoder.decode(Movies.self, from: data)
             saveDataToCache(with: data, response: response)
-            return result
+            guard let movies = result.results else {
+                throw NetworkError.invalidURL
+            }
+            return movies
         } catch {
             /// add Errors
             print(error.localizedDescription)
@@ -94,15 +97,12 @@ extension NetworkService: NetworkCustomDetailServiceProtocol {
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }
-        let urlRequest = URLRequest(url: url)
+//        let urlRequest = URLRequest(url: url)
         
-        let (data, response) = try await URLSession.shared.data(from: url)
+        let (data, _) = try await URLSession.shared.data(from: url)
         do {
             let result = try decoder.decode(Movies.Movie.self, from: data)
-            guard let items = result.items else {
-                throw NetworkError.invalidURL
-            }
-            return items
+            return result
         } catch {
             throw NetworkError.invalidURL
         }

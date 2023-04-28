@@ -46,31 +46,30 @@ final class ImageLoadingManager: ImageLoadingManagerProtocol {
     }
     @MainActor
     func getSearchImage(from url: URL) async throws -> UIImage? {
-        imageUrlString = url.absoluteString
-        if let cachedImage = getCachedImage(from: url) {
+        imageUrlString = Endpoints.resizeImage + Endpoints.apiKey + Endpoints.size + Endpoints.url + url.absoluteString
+        guard let finalURL = URL(string: imageUrlString) else {
+            throw NetworkError.invalidURL
+        }
+        if let cachedImage = getCachedImage(from: finalURL) {
             self.image = cachedImage
             return image
         }
         do {
-            let (data, response) = try await URLSession.shared.data(from: url)
+            let (data, response) = try await URLSession.shared.data(from: finalURL)
             guard let image = UIImage(data: data) else {
                 throw NetworkError.noImage
             }
-            guard let compressedData = image.jpegData(compressionQuality: 0.1) else {
-                throw NetworkError.invalidURL
-            }
-            let compressedImage = UIImage(data: compressedData)
-            saveDataToCache(with: compressedData, response: response)
+            saveDataToCache(with: data, response: response)
             /// add if need
-            self.image = compressedImage
-            return compressedImage
+            self.image = image
+            return image
         } catch {
             print(error.localizedDescription)
             throw error
         }
     }
     // MARK: Method for get URL with scaled image
-    /// simple solution -> Improve in future
+    ///  Missed scaling by Request Resizing Image  IMDB -> delete that
     private func getURL(resizeFactor: Int, url: String) -> URL? {
         let width = 128
         let height = 176
@@ -94,7 +93,6 @@ final class ImageLoadingManager: ImageLoadingManagerProtocol {
         if let cachedResponse = URLCache.shared.cachedResponse(for: request) {
             return UIImage(data: cachedResponse.data)
         }
-        
         return nil
     }
 }

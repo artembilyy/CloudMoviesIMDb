@@ -43,11 +43,12 @@ final class SearchMovieCell: UICollectionViewCell, IdentifiableCell {
     }
     // MARK: - Configure
     @MainActor
-    func configure(media: SearchResult.Movie) {
+    func configure(media: Movies.Movie) {
         showLoadingIndicator()
         Task {
             guard let path = media.image else { return }
-            let result = try await imageLoadingManager?.getSearchImage(from: path)
+            guard let url = URL(string: path) else { return }
+            let result = try await imageLoadingManager?.getSearchImage(from: url)
             posterImage.image = result
             titleLabel.text = media.title
             descriptionLabel.text = "\(media.description ?? "")"

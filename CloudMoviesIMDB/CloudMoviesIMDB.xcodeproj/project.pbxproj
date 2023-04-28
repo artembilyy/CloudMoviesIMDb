@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		ED0D54C429F9EEF50005FA8C /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0D54C329F9EEF50005FA8C /* SearchModel.swift */; };
 		ED0D54C629F9FE070005FA8C /* SearchViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0D54C529F9FE070005FA8C /* SearchViewController + Extension.swift */; };
 		ED0D54C829FA00A00005FA8C /* SearchViewController + CompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0D54C729FA00A00005FA8C /* SearchViewController + CompositionalLayout.swift */; };
 		ED197A0D29F90367006E4DAF /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED197A0C29F90367006E4DAF /* Task.swift */; };
@@ -87,6 +86,7 @@
 		EDD3B2E629FAAF9800374E8E /* CustomDetailView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2E529FAAF9800374E8E /* CustomDetailView + Extension.swift */; };
 		EDD3B2EA29FAFAD200374E8E /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2E929FAFAD200374E8E /* ImageCacheManager.swift */; };
 		EDD3B2EC29FAFBDA00374E8E /* DetailView + Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2EB29FAFBDA00374E8E /* DetailView + Constraints.swift */; };
+		EDD3B2EE29FB68C400374E8E /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2ED29FB68C400374E8E /* Test.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,7 +107,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		ED0D54C329F9EEF50005FA8C /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 		ED0D54C529F9FE070005FA8C /* SearchViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController + Extension.swift"; sourceTree = "<group>"; };
 		ED0D54C729FA00A00005FA8C /* SearchViewController + CompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController + CompositionalLayout.swift"; sourceTree = "<group>"; };
 		ED197A0C29F90367006E4DAF /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
@@ -191,6 +190,7 @@
 		EDD3B2E529FAAF9800374E8E /* CustomDetailView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomDetailView + Extension.swift"; sourceTree = "<group>"; };
 		EDD3B2E929FAFAD200374E8E /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		EDD3B2EB29FAFBDA00374E8E /* DetailView + Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailView + Constraints.swift"; sourceTree = "<group>"; };
+		EDD3B2ED29FB68C400374E8E /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,7 +255,6 @@
 		ED197A1329F90769006E4DAF /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				ED0D54C329F9EEF50005FA8C /* SearchModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -298,6 +297,7 @@
 			isa = PBXGroup;
 			children = (
 				ED653A3629F847A500A8FBC1 /* CloudMoviesIMDBTests.swift */,
+				EDD3B2ED29FB68C400374E8E /* Test.swift */,
 			);
 			path = CloudMoviesIMDBTests;
 			sourceTree = "<group>";
@@ -316,8 +316,8 @@
 			children = (
 				ED653A7A29F84E4B00A8FBC1 /* MainPageCoordinator.swift */,
 				ED653A5529F849D200A8FBC1 /* Model */,
-				ED653A5429F849C800A8FBC1 /* ViewModels */,
 				ED653A5329F849C300A8FBC1 /* Views */,
+				ED653A5429F849C800A8FBC1 /* ViewModels */,
 			);
 			path = MainScene;
 			sourceTree = "<group>";
@@ -740,7 +740,6 @@
 				ED653A2229F847A300A8FBC1 /* SceneDelegate.swift in Sources */,
 				ED653AC429F8BE3900A8FBC1 /* OnboardingViewController + Constraints.swift in Sources */,
 				EDD3B2E229FAABB600374E8E /* CustomDetailViewController.swift in Sources */,
-				ED0D54C429F9EEF50005FA8C /* SearchModel.swift in Sources */,
 				ED653ABA29F8795300A8FBC1 /* IdentifiableCell.swift in Sources */,
 				ED653A7429F84D1B00A8FBC1 /* MainViewModel.swift in Sources */,
 				EDD3B2E029FAAB7700374E8E /* CustomDetailViewModel.swift in Sources */,
@@ -758,6 +757,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED653A3729F847A500A8FBC1 /* CloudMoviesIMDBTests.swift in Sources */,
+				EDD3B2EE29FB68C400374E8E /* Test.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

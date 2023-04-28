@@ -12,7 +12,7 @@ protocol AssemblyProtocol {
     func createTabBarController() -> UITabBarController
     func createMainController(coordinatorDelegate: MainPageViewModelCoordinatorDelegate) -> UICollectionViewController
     func createDetailController(data: Movies.Movie) -> UIViewController
-    func createCustomDetailController(data: SearchResult.Movie) -> UIViewController
+    func createCustomDetailController(data: Movies.Movie) -> UIViewController
     func createSearchController(coordinatorDelegate: SearchViewModelCoordinatorDelegate) -> UIViewController
 }
 
@@ -40,7 +40,7 @@ final class Assembly: AssemblyProtocol {
         let viewController = DetailViewController(viewModel: viewModel)
         return viewController
     }
-    func createCustomDetailController(data: SearchResult.Movie) -> UIViewController {
+    func createCustomDetailController(data: Movies.Movie) -> UIViewController {
         let networkService = NetworkService()
         let viewModel = CustomDetailViewModel(movie: data, network: networkService)
         let viewController = CustomDetailViewController(viewModel: viewModel)

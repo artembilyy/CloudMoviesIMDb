@@ -25,8 +25,6 @@ final class TabBarCoordinator: TabbarCoordinatorProtocol {
     func start() {
         addFirstPage()
         addSecondPage()
-//        addThirdPage()
-//        addFourthPage()
     }
     func addFirstPage() {
         if let assemblyBuilder {

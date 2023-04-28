@@ -13,11 +13,13 @@ protocol MainPageViewModelCoordinatorDelegate: AnyObject {
 
 protocol MainViewModelProtocol {
     var top250Movies: [Movies.Movie] { get }
+    var textFromSearchBar: String { get set }
     var fetchFinished: Observable<Bool> { get }
     var snapshotUpdate: Observable<Bool> { get }
     var errorMessage: Observable<String?> { get }
     func getMovies(useCache: Bool)
     func addToScreen()
+    func makeSearch()
     func openMainSubController(_ data: Movies.Movie)
 }
 
@@ -30,6 +32,9 @@ final class MainViewModel: MainViewModelProtocol {
     var errorMessage: Observable<String?> = Observable(nil)
     var fetchFinished: Observable<Bool> = Observable(false)
     var snapshotUpdate: Observable<Bool> = Observable(false)
+    
+    var textFromSearchBar: String = ""
+    
     weak var coordinatorDelegate: MainPageViewModelCoordinatorDelegate?
     // MARK: - Init
     init(networkService: NetworkMainServiceProtocol) {
@@ -58,13 +63,17 @@ final class MainViewModel: MainViewModelProtocol {
         }
     }
     func addToScreen() {
-        if !allMovies.isEmpty {
-            for _ in 1...10 {
-                top250Movies.append(allMovies.first!)
-                allMovies.removeFirst()
-            }
-            snapshotUpdate.value = true
+        let top10Movies = allMovies.prefix(10).map { $0 }
+        top250Movies = top10Movies
+        snapshotUpdate.value = true
+    }
+    func makeSearch() {
+        let filteredMovies = allMovies.filter { movie in
+            guard let title = movie.title else { return false }
+            return title.contains(textFromSearchBar)
         }
+        top250Movies = filteredMovies
+        snapshotUpdate.value = true
     }
     func openMainSubController(_ data: Movies.Movie) {
         coordinatorDelegate?.openMainSubControllerDelegate(data)

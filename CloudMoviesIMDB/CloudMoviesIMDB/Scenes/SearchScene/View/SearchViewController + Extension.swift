@@ -8,8 +8,8 @@
 import UIKit
 
 extension SearchViewController {
-    typealias DataSource = UICollectionViewDiffableDataSource<SearchSection, SearchResult.Movie>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<SearchSection, SearchResult.Movie>
+    typealias DataSource = UICollectionViewDiffableDataSource<SearchSection, Movies.Movie>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<SearchSection, Movies.Movie>
     // MARK: - Diffable Data Source
     func setupDataSource() {
         dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, item in

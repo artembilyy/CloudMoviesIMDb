@@ -11,10 +11,14 @@ final class MainViewController: UICollectionViewController {
     enum MainSection: Int, CaseIterable {
         case movies
     }
-    
     var viewModel: MainViewModelProtocol!
     var dataSource: DataSource!
     
+    private let searchController: UISearchController = {
+        let search = UISearchController(searchResultsController: nil)
+        search.searchBar.placeholder = "Find from Top 250 Movies"
+        return search
+    }()
     let refreshControl = UIRefreshControl()
     var isPaginating = false
     // MARK: - Init
@@ -27,12 +31,25 @@ final class MainViewController: UICollectionViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        delegate()
         setupUI()
         observe()
         setupDataSource()
         viewModel.getMovies(useCache: true)
     }
+    private func delegate() {
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        searchController.searchBar.searchTextField.delegate = self
+    }
     private func setupUI() {
+        navigationItem.searchController = searchController
+        searchController.searchBar.keyboardType = .asciiCapable
+        searchController.searchBar.returnKeyType = .search
+        searchController.searchBar.autocapitalizationType = .sentences
+        searchController.hidesNavigationBarDuringPresentation = false
+        
+    
         refreshControl.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         view.addSubview(collectionView)
         collectionView.addSubview(refreshControl)
@@ -64,7 +81,7 @@ final class MainViewController: UICollectionViewController {
     }
     private func perfomanceUI() {
         Task {
-            try await Task.sleep(seconds: 2)
+            try await Task.sleep(seconds: 1.2)
             await MainActor.run {
                 self.refreshControl.endRefreshing()
             }
@@ -94,6 +111,28 @@ final class MainViewController: UICollectionViewController {
         }
     }
 }
+extension MainViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        viewModel.addToScreen()
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let query = searchBar.text, !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
+        viewModel.textFromSearchBar = query
+        viewModel.makeSearch()
+    }
+}
+
+extension MainViewController: UITextFieldDelegate {
+    
+}
+// MARK: - Don't use this one if you haven't got PREMIUM API ACCESS :)
+extension MainViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        //        guard let query = searchController.searchBar.text, !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
+        //        viewModel.getSearchResultsMovies(queryString: query)
+    }
+}
 
 extension MainViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -102,21 +141,21 @@ extension MainViewController {
         viewModel.openMainSubController(movie)
     }
 }
-
-extension MainViewController {
-    override func collectionView(
-        _ collectionView: UICollectionView,
-        willDisplay cell: UICollectionViewCell,
-        forItemAt indexPath: IndexPath
-    ) {
-        let lastElement = viewModel.top250Movies.count - 1
-        if indexPath.item == lastElement {
-            isPaginating = true
-            Task {
-                try await Task.sleep(seconds: 1)
-                self.isPaginating = false
-                viewModel.addToScreen()
-            }
-        }
-    }
-}
+// MARK: - For paggination
+//extension MainViewController {
+//    override func collectionView(
+//        _ collectionView: UICollectionView,
+//        willDisplay cell: UICollectionViewCell,
+//        forItemAt indexPath: IndexPath
+//    ) {
+//        let lastElement = viewModel.top250Movies.count - 1
+//        if indexPath.item == lastElement {
+//            isPaginating = true
+//            Task {
+//                try await Task.sleep(seconds: 1)
+//                self.isPaginating = false
+//                viewModel.addToScreen()
+//            }
+//        }
+//    }
+//}

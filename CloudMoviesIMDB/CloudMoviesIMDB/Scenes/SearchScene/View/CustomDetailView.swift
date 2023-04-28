@@ -43,18 +43,21 @@ final class CustomDetailView: UIView {
         backgroundColor = .white
         addSubview(posterView)
     }
-    func configure(data: SearchResult.Movie?) {
+    func configure(data: Movies.Movie?) {
         Task(priority: .userInitiated) {
-            guard let data else { return }
-            guard let path = data.image else { return }
-//            let result = try await imageLoadingManager.getSearchImage(from: path)
-//            posterView.image = result
+            guard let data,
+                  let path = data.image,
+                  let finalURL = URL(string: path) else {
+                      return
+                  }
+            let result = try await imageLoadingManager.getSearchImage(from: finalURL)
+            posterView.image = result
             descriptionLabel.text = data.description
             /// avoid whitespaces
             configureAttributedText(data: data)
         }
     }
-    private func configureAttributedText(data: SearchResult.Movie) {
+    private func configureAttributedText(data: Movies.Movie) {
         let attributedText = NSMutableAttributedString(string: data.title ?? "")
         mainLabel.attributedText = attributedText
     }
