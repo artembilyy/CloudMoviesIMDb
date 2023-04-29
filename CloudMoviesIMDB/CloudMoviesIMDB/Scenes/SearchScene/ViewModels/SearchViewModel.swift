@@ -12,7 +12,7 @@ protocol SearchViewModelCoordinatorDelegate: AnyObject {
 }
 
 protocol SearchViewModelProtocol {
-    var movies: [SearchResult.SearchMovies] { get }
+    var movies: [Movies.Movie] { get }
     var snapshotUpdate: Observable<Bool?> { get }
     var errorMessage: Observable<String?> { get }
     func getSearchResultsMovies(queryString: String)
@@ -21,16 +21,16 @@ protocol SearchViewModelProtocol {
 }
 
 final class SearchViewModel: SearchViewModelProtocol {
-    private(set) var movies: [SearchResult.SearchMovies] = []
+    private(set) var movies: [Movies.Movie] = []
     // MARK: - Binding
     var snapshotUpdate: Observable<Bool?> = Observable(nil)
     var errorMessage: Observable<String?> = Observable(nil)
     /// delegate
     weak var coordinatorDelegate: SearchViewModelCoordinatorDelegate?
     // MARK: - Network
-    let networkService: NetworkSearchServiceProtocol
+    let networkService: SearchMoviesNetworkServiceProtocol
     // MARK: - Init
-    init(networkService: NetworkSearchServiceProtocol) {
+    init(networkService: SearchMoviesNetworkServiceProtocol) {
         self.networkService = networkService
     }
     func reload() {
@@ -42,9 +42,7 @@ final class SearchViewModel: SearchViewModelProtocol {
         Task {
             do {
                 let result = try await self.networkService.getSearchedMovies(query: queryString)
-                if let result {
-                    self.movies = result
-                }
+                self.movies = result.items ?? result.results!
                 snapshotUpdate.value = true
             } catch {
                 print(error.localizedDescription)

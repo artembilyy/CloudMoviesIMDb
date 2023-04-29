@@ -27,7 +27,7 @@ final class Assembly: AssemblyProtocol {
         TabBarController()
     }
     func createMainController(coordinatorDelegate: MainPageViewModelCoordinatorDelegate) -> UICollectionViewController {
-        let networkService = NetworkService()
+        let networkService = MoviesService()
         let viewModel = MainViewModel(networkService: networkService)
         let layout = UICollectionViewLayout()
         viewModel.coordinatorDelegate = coordinatorDelegate
@@ -43,13 +43,13 @@ final class Assembly: AssemblyProtocol {
         return viewController
     }
     func createCustomDetailController(data: Movies.Movie) -> UIViewController {
-        let networkService = NetworkService()
+        let networkService = MoviesService()
         let viewModel = CustomDetailViewModel(movie: data, network: networkService)
         let viewController = CustomDetailViewController(viewModel: viewModel)
         return viewController
     }
     func createSearchController(coordinatorDelegate: SearchViewModelCoordinatorDelegate) -> UIViewController {
-        let networkService = NetworkService()
+        let networkService = MoviesService()
         let viewModel = SearchViewModel(networkService: networkService)
         viewModel.coordinatorDelegate = coordinatorDelegate
         let viewController = SearchViewController(viewModel: viewModel)

@@ -22,13 +22,12 @@ final class ImageLoadingManager: ImageLoadingManagerProtocol {
         guard let resizedImageURL = getURL(resizeFactor: 2, url: url) else {
             throw NetworkError.invalidURL
         }
-        /// returned from Cache
         if let cachedImage = ImageCacheManager.shared.getImageFromCache(resizedImageURL.absoluteString) {
             self.image = cachedImage
             return image
         }
         do {
-            let (data, response) = try await URLSession.shared.data(from: resizedImageURL)
+            let (data, _) = try await URLSession.shared.data(from: resizedImageURL)
             guard let image = UIImage(data: data) else {
                 throw NetworkError.noImage
             }
@@ -39,7 +38,6 @@ final class ImageLoadingManager: ImageLoadingManagerProtocol {
                 throw NetworkError.noImage
             }
             ImageCacheManager.shared.saveImageToCache(image: compressedImage, resizedImageURL.absoluteString)
-            saveDataToCache(with: compressedData, response: response)
             self.image = compressedImage
             return compressedImage
         } catch {
@@ -53,17 +51,16 @@ final class ImageLoadingManager: ImageLoadingManagerProtocol {
         guard let finalURL = URL(string: imageUrlString) else {
             throw NetworkError.invalidURL
         }
-        if let cachedImage = getCachedImage(from: finalURL) {
+        if let cachedImage = ImageCacheManager.shared.getImageFromCache(finalURL.absoluteString) {
             self.image = cachedImage
             return image
         }
         do {
-            let (data, response) = try await URLSession.shared.data(from: finalURL)
+            let (data, _) = try await URLSession.shared.data(from: finalURL)
             guard let image = UIImage(data: data) else {
                 throw NetworkError.noImage
             }
-            saveDataToCache(with: data, response: response)
-            /// add if need
+            ImageCacheManager.shared.saveImageToCache(image: image, finalURL.absoluteString)
             self.image = image
             return image
         } catch {
@@ -84,18 +81,5 @@ final class ImageLoadingManager: ImageLoadingManagerProtocol {
             .replacingOccurrences(of: String(height), with: String(scaledHeight))
         let finalURL = URL(string: replacedString)
         return finalURL
-    }
-    private func saveDataToCache(with data: Data, response: URLResponse) {
-        guard let url = response.url else { return }
-        let urlRequest = URLRequest(url: url)
-        let cachedResponse = CachedURLResponse(response: response, data: data)
-        URLCache.shared.storeCachedResponse(cachedResponse, for: urlRequest)
-    }
-    private func getCachedImage(from url: URL) -> UIImage? {
-        let request = URLRequest(url: url)
-        if let cachedResponse = URLCache.shared.cachedResponse(for: request) {
-            return UIImage(data: cachedResponse.data)
-        }
-        return nil
     }
 }

@@ -48,7 +48,7 @@ final class SearchMovieCell: UICollectionViewCell, IdentifiableCell {
     }
     // MARK: - Configure
     @MainActor
-    func configure(media: SearchResult.SearchMovies) {
+    func configure(media: Movies.Movie) {
         activityIndicatorView.showLoadingIndicator()
         Task {
             titleLabel.text = media.title

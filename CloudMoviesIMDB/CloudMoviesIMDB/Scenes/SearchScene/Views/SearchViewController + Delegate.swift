@@ -33,12 +33,12 @@ extension SearchViewController: UITextFieldDelegate {
 // MARK: - UICollectionViewDelegate
 extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        collectionView.deselectItem(at: indexPath, animated: true)
-//        searchController.searchBar.searchTextField.endEditing(true)
-//        guard let selectedItem = dataSource.itemIdentifier(for: indexPath) else {
-//            return
-//        }
-//        viewModel.openDetailController(selectedItem)
+        collectionView.deselectItem(at: indexPath, animated: true)
+        searchController.searchBar.searchTextField.endEditing(true)
+        guard let selectedItem = dataSource.itemIdentifier(for: indexPath) else {
+            return
+        }
+        viewModel.openDetailController(selectedItem)
     }
 }
 // MARK: - Don't use this one if you haven't got PREMIUM API ACCESS :)

@@ -14,14 +14,13 @@ protocol CustomDetailViewModelProtocol {
 
 final class CustomDetailViewModel: CustomDetailViewModelProtocol {
     var movie: Movies.Movie
-    let network: NetworkCustomDetailServiceProtocol
+    let network: DetailMovieNetworkServiceProtocol
     // MARK: - Init
-    init(movie: Movies.Movie, network: NetworkCustomDetailServiceProtocol) {
+    init(movie: Movies.Movie, network: DetailMovieNetworkServiceProtocol) {
         self.movie = movie
         self.network = network
         print("CustomDetailViewModel init")
     }
-    @MainActor
     func getMovieInfo() async {
         do {
             guard let movieID = movie.id else { return }

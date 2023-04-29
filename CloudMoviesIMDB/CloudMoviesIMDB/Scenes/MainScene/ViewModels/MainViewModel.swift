@@ -25,7 +25,7 @@ protocol MainViewModelProtocol {
 
 final class MainViewModel: MainViewModelProtocol {
     // MARK: - Network
-    private var networkService: NetworkMainServiceProtocol
+    private var networkService: TopMoviesNetworkServiceProtocol
     // MARK: - Properties
     private(set) var top250Movies: [Movies.Movie] = []
     private var allMovies: [Movies.Movie] = []
@@ -37,10 +37,10 @@ final class MainViewModel: MainViewModelProtocol {
     var textFromSearchBar: String = ""
     // paggination
     var counter: Int = 0
-    /// delegate
+    // MARK: - Delegate
     weak var coordinatorDelegate: MainPageViewModelCoordinatorDelegate?
     // MARK: - Init
-    init(networkService: NetworkMainServiceProtocol) {
+    init(networkService: TopMoviesNetworkServiceProtocol) {
         self.networkService = networkService
     }
     // MARK: - Methods
@@ -58,12 +58,9 @@ final class MainViewModel: MainViewModelProtocol {
                     self.allMovies = movies
                     self.fetchFinished.value = true
                 }
-            } catch NetworkError.invalidURL {
-                print("from catch")
-            } catch NetworkError.noImage {
-                print(NetworkError.noImage.describing)
             } catch {
                 print(error.localizedDescription)
+                self.fetchFinished.value = true
             }
         }
     }

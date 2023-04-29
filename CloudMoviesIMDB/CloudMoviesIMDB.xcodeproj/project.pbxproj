@@ -74,7 +74,9 @@
 		ED653ACA29F8E1D500A8FBC1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653AC929F8E1D500A8FBC1 /* DetailViewController.swift */; };
 		ED653ACC29F8E59600A8FBC1 /* UILabel + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653ACB29F8E59600A8FBC1 /* UILabel + Extension.swift */; };
 		ED653ACE29F8E89200A8FBC1 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653ACD29F8E89200A8FBC1 /* DetailViewModel.swift */; };
-		ED653AD429F8FEE100A8FBC1 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653AD329F8FEE100A8FBC1 /* Endpoints.swift */; };
+		ED653AD429F8FEE100A8FBC1 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653AD329F8FEE100A8FBC1 /* Endpoint.swift */; };
+		EDAB537429FD761200741376 /* RequestMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAB537329FD761200741376 /* RequestMethod.swift */; };
+		EDAB537629FD79BF00741376 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAB537529FD79BF00741376 /* HTTPClient.swift */; };
 		EDD3B2DA29FA999700374E8E /* SearchMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2D929FA999700374E8E /* SearchMovieCell.swift */; };
 		EDD3B2DC29FA99E500374E8E /* SearchMovieCell + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2DB29FA99E500374E8E /* SearchMovieCell + Extension.swift */; };
 		EDD3B2DE29FA9A2200374E8E /* SearchMovieCell + Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2DD29FA9A2200374E8E /* SearchMovieCell + Constraints.swift */; };
@@ -92,7 +94,7 @@
 		EDD3B2FC29FC09A100374E8E /* MainViewController + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2FB29FC09A100374E8E /* MainViewController + Delegate.swift */; };
 		EDD3B2FE29FC0A8500374E8E /* SearchViewController + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2FD29FC0A8500374E8E /* SearchViewController + Delegate.swift */; };
 		EDD3B30029FC0B3300374E8E /* MainViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2FF29FC0B3300374E8E /* MainViewController + Extension.swift */; };
-		EDD3B30429FC6FB000374E8E /* TestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B30329FC6FB000374E8E /* TestModel.swift */; };
+		EDF74B6029FDB4CB0083211F /* MoviesEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF74B5F29FDB4CB0083211F /* MoviesEndpoint.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -184,7 +186,9 @@
 		ED653AC929F8E1D500A8FBC1 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		ED653ACB29F8E59600A8FBC1 /* UILabel + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel + Extension.swift"; sourceTree = "<group>"; };
 		ED653ACD29F8E89200A8FBC1 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
-		ED653AD329F8FEE100A8FBC1 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
+		ED653AD329F8FEE100A8FBC1 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		EDAB537329FD761200741376 /* RequestMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMethod.swift; sourceTree = "<group>"; };
+		EDAB537529FD79BF00741376 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		EDD3B2D929FA999700374E8E /* SearchMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovieCell.swift; sourceTree = "<group>"; };
 		EDD3B2DB29FA99E500374E8E /* SearchMovieCell + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchMovieCell + Extension.swift"; sourceTree = "<group>"; };
 		EDD3B2DD29FA9A2200374E8E /* SearchMovieCell + Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchMovieCell + Constraints.swift"; sourceTree = "<group>"; };
@@ -202,7 +206,7 @@
 		EDD3B2FB29FC09A100374E8E /* MainViewController + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController + Delegate.swift"; sourceTree = "<group>"; };
 		EDD3B2FD29FC0A8500374E8E /* SearchViewController + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController + Delegate.swift"; sourceTree = "<group>"; };
 		EDD3B2FF29FC0B3300374E8E /* MainViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController + Extension.swift"; sourceTree = "<group>"; };
-		EDD3B30329FC6FB000374E8E /* TestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModel.swift; sourceTree = "<group>"; };
+		EDF74B5F29FDB4CB0083211F /* MoviesEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesEndpoint.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -513,10 +517,12 @@
 		ED653AAE29F85E8D00A8FBC1 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				EDAB537529FD79BF00741376 /* HTTPClient.swift */,
+				ED653AD329F8FEE100A8FBC1 /* Endpoint.swift */,
+				EDAB537329FD761200741376 /* RequestMethod.swift */,
 				ED653AAF29F85E9600A8FBC1 /* NetworkService.swift */,
 				ED653AC729F8D25A00A8FBC1 /* NetworkError.swift */,
-				ED653AD329F8FEE100A8FBC1 /* Endpoints.swift */,
-				EDD3B30329FC6FB000374E8E /* TestModel.swift */,
+				EDF74B5F29FDB4CB0083211F /* MoviesEndpoint.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -722,7 +728,7 @@
 				EDD3B2F029FBC4D600374E8E /* UIStackView + Extension.swift in Sources */,
 				ED653AAC29F852F300A8FBC1 /* UIView + Extension.swift in Sources */,
 				ED653ABC29F88B1200A8FBC1 /* MainViewFooter.swift in Sources */,
-				ED653AD429F8FEE100A8FBC1 /* Endpoints.swift in Sources */,
+				ED653AD429F8FEE100A8FBC1 /* Endpoint.swift in Sources */,
 				ED653A7229F84CAB00A8FBC1 /* OnboardingCell.swift in Sources */,
 				EDD3B30029FC0B3300374E8E /* MainViewController + Extension.swift in Sources */,
 				ED653AB029F85E9600A8FBC1 /* NetworkService.swift in Sources */,
@@ -736,6 +742,7 @@
 				ED653A7929F84DD300A8FBC1 /* TabbarCoordinator.swift in Sources */,
 				ED653A5E29F84AE900A8FBC1 /* LocalState.swift in Sources */,
 				EDD3B2FE29FC0A8500374E8E /* SearchViewController + Delegate.swift in Sources */,
+				EDAB537429FD761200741376 /* RequestMethod.swift in Sources */,
 				ED653AC629F8CF6A00A8FBC1 /* ImageLoadingManager.swift in Sources */,
 				ED653A5729F849EB00A8FBC1 /* Coordinator.swift in Sources */,
 				ED197A1529F9084B006E4DAF /* SearchViewModel.swift in Sources */,
@@ -745,12 +752,12 @@
 				EDD3B2FC29FC09A100374E8E /* MainViewController + Delegate.swift in Sources */,
 				ED653A7729F84D7800A8FBC1 /* TabBarController.swift in Sources */,
 				ED0D54C829FA00A00005FA8C /* SearchViewController + CompositionalLayout.swift in Sources */,
+				EDF74B6029FDB4CB0083211F /* MoviesEndpoint.swift in Sources */,
 				ED653A5A29F84A6F00A8FBC1 /* Assembly.swift in Sources */,
 				ED653A6629F84C0200A8FBC1 /* OnboardingViewModel.swift in Sources */,
 				ED197A1729F9090B006E4DAF /* SearchViewController.swift in Sources */,
 				ED653ABE29F8A99B00A8FBC1 /* Listener.swift in Sources */,
 				EDD3B2F829FC010F00374E8E /* UIActivityIndicator + Extension.swift in Sources */,
-				EDD3B30429FC6FB000374E8E /* TestModel.swift in Sources */,
 				ED653A2429F847A300A8FBC1 /* MainViewController.swift in Sources */,
 				EDD3B2DE29FA9A2200374E8E /* SearchMovieCell + Constraints.swift in Sources */,
 				EDD3B2EA29FAFAD200374E8E /* ImageCacheManager.swift in Sources */,
@@ -770,6 +777,7 @@
 				EDD3B2E029FAAB7700374E8E /* CustomDetailViewModel.swift in Sources */,
 				EDD3B2E429FAAE6200374E8E /* CustomDetailView.swift in Sources */,
 				EDD3B2DA29FA999700374E8E /* SearchMovieCell.swift in Sources */,
+				EDAB537629FD79BF00741376 /* HTTPClient.swift in Sources */,
 				ED197A0D29F90367006E4DAF /* Task.swift in Sources */,
 				EDD3B2E629FAAF9800374E8E /* CustomDetailView + Extension.swift in Sources */,
 				ED653AB629F872A500A8FBC1 /* MainViewController + CompositionalLayout.swift in Sources */,
