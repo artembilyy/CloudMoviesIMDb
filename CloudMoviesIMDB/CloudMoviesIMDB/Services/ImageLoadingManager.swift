@@ -47,7 +47,7 @@ final class ImageLoadingManager: ImageLoadingManagerProtocol {
     }
     @MainActor
     func getSearchImage(from url: URL) async throws -> UIImage? {
-        imageUrlString = Endpoints.resizeImage + Endpoints.apiKey + Endpoints.size + Endpoints.url + url.absoluteString
+        imageUrlString = Constants.resizeImage + Constants.apiKey + Constants.size + Constants.url + url.absoluteString
         guard let finalURL = URL(string: imageUrlString) else {
             throw NetworkError.invalidURL
         }

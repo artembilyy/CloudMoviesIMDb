@@ -60,6 +60,7 @@ final class SearchMovieCell: UICollectionViewCell, IdentifiableCell {
                 return
             }
             let result = try await imageLoadingManager?.getSearchImage(from: url)
+            activityIndicatorView.hideLoadingIndicator()
             posterImage.image = result
         }
     }

@@ -21,6 +21,13 @@ final class SearchViewController: UIViewController {
         let indicatorView = UIActivityIndicatorView(style: .medium)
         return indicatorView
     }()
+    private let noResultLabel: UILabel = {
+        $0.text = "No results found"
+        $0.isHidden = true
+        $0.font = UIFont.setFont(name: Poppins.medium.rawValue, size: 16)
+        $0.textAlignment = NSTextAlignment.center
+        return $0
+    }(UILabel())
     let searchController: UISearchController = {
         let search = UISearchController(searchResultsController: nil)
         search.searchBar.placeholder = "Find best movie match"
@@ -60,6 +67,8 @@ final class SearchViewController: UIViewController {
         view.backgroundColor = .white
         navigationController?.navigationBar.tintColor = .deepGreen
         navigationItem.searchController = searchController
+        noResultLabel.frame = view.bounds
+        view.addSubview(noResultLabel)
     }
     // MARK: - Binding
     private func observers() {
@@ -71,11 +80,15 @@ final class SearchViewController: UIViewController {
                     await MainActor.run {
                         self.updateSnapshot()
                         self.activityIndicator.hideLoadingIndicator()
+                        if self.viewModel.movies.isEmpty {
+                            self.noResultLabel.isHidden = false
+                        }
                     }
                 }
             case false:
                 Task {
                     await MainActor.run {
+                        self.noResultLabel.isHidden = true
                         self.activityIndicator.showLoadingIndicator()
                     }
                 }

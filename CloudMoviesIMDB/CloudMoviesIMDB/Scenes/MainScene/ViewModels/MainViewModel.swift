@@ -67,7 +67,7 @@ final class MainViewModel: MainViewModelProtocol {
     func show10Movies() {
         let startIndex = counter * 10
         let endIndex = (counter + 1) * 10
-        let next10Movies = allMovies[startIndex..<endIndex].map { $0 }
+        let next10Movies = allMovies[startIndex..<endIndex]
         top250Movies.append(contentsOf: next10Movies)
         snapshotUpdate.value = true
         counter != 25 ? counter += 1 : nil

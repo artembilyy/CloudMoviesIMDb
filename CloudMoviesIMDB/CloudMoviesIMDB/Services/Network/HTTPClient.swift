@@ -8,7 +8,7 @@
 import Foundation
 
 protocol HTTPClient {
-    func sendRequest<T: Decodable>(endpoint: Endpoint, responseModel: T.Type, useCache: Bool, queryItem: String?, movieID: String?) async throws -> T
+    func sendRequest<T: Decodable>(endpoint: Endpoint, responseModel: T.Type, useCache: Bool, queryItem: String?, movieID: String?, decoder: JSONDecoder) async throws -> T
 }
 
 extension HTTPClient {
@@ -17,30 +17,27 @@ extension HTTPClient {
         responseModel: T.Type,
         useCache: Bool = true,
         queryItem: String? = nil,
-        movieID: String? = nil
+        movieID: String? = nil,
+        decoder: JSONDecoder
     ) async throws -> T {
-        
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
         
         var urlComponents = URLComponents()
         urlComponents.scheme = endpoint.scheme
         urlComponents.host = endpoint.host
         
         if let queryItem {
-            urlComponents.path = "\(endpoint.path)/\(Endpoints.apiKey)/\(queryItem)"
+            urlComponents.path = "\(endpoint.path)/\(Constants.apiKey)/\(queryItem)"
         } else if let movieID {
-            urlComponents.path = "\(endpoint.path)/\(Endpoints.apiKey)/\(movieID)/\(Endpoints.fullDetail)"
+            urlComponents.path = "\(endpoint.path)/\(Constants.apiKey)/\(movieID)/\(Constants.fullDetail)"
         } else {
             urlComponents.path = endpoint.path
             urlComponents.queryItems = [
-                URLQueryItem(name: "apiKey", value: Endpoints.apiKey)
+                URLQueryItem(name: "apiKey", value: Constants.apiKey)
             ]
         }
         guard let url = urlComponents.url else {
             throw NetworkError.invalidURL
         }
-        
         var request = URLRequest(url: url)
         request.httpMethod = endpoint.method.rawValue
         request.allHTTPHeaderFields = endpoint.header
@@ -67,6 +64,8 @@ extension HTTPClient {
                 let cachedResponse = CachedURLResponse(response: response, data: data)
                 URLCache.shared.storeCachedResponse(cachedResponse, for: request)
                 return decodedResponse
+            case 400:
+                throw NetworkError.noInternetConnection
             default:
                 throw NetworkError.unexpectedStatusCode
             }
