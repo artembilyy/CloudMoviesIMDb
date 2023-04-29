@@ -53,7 +53,12 @@ final class MainMovieCell: UICollectionViewCell, IdentifiableCell {
         Task {
             guard let path = media.image else { return }
             let result = try await imageLoadingManager?.getImage(from: path)
-            posterImage.image = result
+            switch result {
+            case .none:
+                posterImage.image = UIImage(named: "PosterNil")
+            case .some(let wrapped):
+                posterImage.image = wrapped
+            }
             titleLabel.text = media.title
             rankLabel.text = "Rank: \(media.rank ?? "")"
             activityIndicatorView.hideLoadingIndicator()

@@ -53,19 +53,14 @@ final class SearchMovieCell: UICollectionViewCell, IdentifiableCell {
         Task {
             titleLabel.text = media.title
             descriptionLabel.text = "\(media.description ?? "")"
-            guard let path = media.image else {
-                posterImage.image = UIImage(systemName: "eye")
-                activityIndicatorView.hideLoadingIndicator()
-                return
-            }
-            guard let url = URL(string: path) else {
-                posterImage.image = UIImage(systemName: "eye")
+            guard let path = media.image,
+                  let url = URL(string: path) else {
+                posterImage.image = UIImage(named: "PosterNil")
                 activityIndicatorView.hideLoadingIndicator()
                 return
             }
             let result = try await imageLoadingManager?.getSearchImage(from: url)
             posterImage.image = result
-
         }
     }
 }

@@ -28,7 +28,7 @@ final class ImageLoadingManager: ImageLoadingManagerProtocol {
             return image
         }
         do {
-            let (data, response) = try await URLSession.shared.data(from: resizedImageURL.absoluteURL)
+            let (data, response) = try await URLSession.shared.data(from: resizedImageURL)
             guard let image = UIImage(data: data) else {
                 throw NetworkError.noImage
             }
@@ -72,7 +72,7 @@ final class ImageLoadingManager: ImageLoadingManagerProtocol {
         }
     }
     // MARK: Method for get URL with scaled image
-    ///  Missed scaling by Request Resizing Image  IMDB -> delete that
+    /// Missed scaling by Request Resizing Image by api IMDb on this request
     private func getURL(resizeFactor: Int, url: String) -> URL? {
         let width = 128
         let height = 176

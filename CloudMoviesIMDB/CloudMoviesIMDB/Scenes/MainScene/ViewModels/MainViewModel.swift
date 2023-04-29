@@ -14,11 +14,11 @@ protocol MainPageViewModelCoordinatorDelegate: AnyObject {
 protocol MainViewModelProtocol {
     var top250Movies: [Movies.Movie] { get }
     var textFromSearchBar: String { get set }
-    var fetchFinished: Observable<Bool> { get }
+    var fetchFinished: Observable<Bool?> { get }
     var snapshotUpdate: Observable<Bool> { get }
     var errorMessage: Observable<String?> { get }
     func getMovies(useCache: Bool)
-    func showFirst10Movies()
+    func show10Movies()
     func makeLocalSearch()
     func openMainSubController(_ data: Movies.Movie)
 }
@@ -31,10 +31,12 @@ final class MainViewModel: MainViewModelProtocol {
     private var allMovies: [Movies.Movie] = []
     // MARK: - Binding
     var errorMessage: Observable<String?> = Observable(nil)
-    var fetchFinished: Observable<Bool> = Observable(false)
+    var fetchFinished: Observable<Bool?> = Observable(nil)
     var snapshotUpdate: Observable<Bool> = Observable(false)
     /// text from searcBar VC
     var textFromSearchBar: String = ""
+    // paggination
+    var counter: Int = 0
     /// delegate
     weak var coordinatorDelegate: MainPageViewModelCoordinatorDelegate?
     // MARK: - Init
@@ -44,8 +46,10 @@ final class MainViewModel: MainViewModelProtocol {
     // MARK: - Methods
     func getMovies(useCache: Bool) {
         /// avoid duplicates
+        self.fetchFinished.value = false
         self.allMovies.removeAll()
         self.top250Movies.removeAll()
+        counter = 0
         snapshotUpdate.value = true
         Task {
             do {
@@ -63,10 +67,13 @@ final class MainViewModel: MainViewModelProtocol {
             }
         }
     }
-    func showFirst10Movies() {
-        let top10Movies = allMovies.prefix(10).map { $0 }
-        top250Movies = top10Movies
+    func show10Movies() {
+        let startIndex = counter * 10
+        let endIndex = (counter + 1) * 10
+        let next10Movies = allMovies[startIndex..<endIndex].map { $0 }
+        top250Movies.append(contentsOf: next10Movies)
         snapshotUpdate.value = true
+        counter != 25 ? counter += 1 : nil
     }
     func makeLocalSearch() {
         let filteredMovies = allMovies.filter { movie in

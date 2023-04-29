@@ -14,8 +14,12 @@ final class MainViewController: UICollectionViewController {
     var viewModel: MainViewModelProtocol!
     var dataSource: DataSource!
     // MARK: - UI
-    lazy var searchController = makeSearchController()
-    let refreshControl = UIRefreshControl()
+    private lazy var searchController = makeSearchController()
+    private let refreshControl = UIRefreshControl()
+    private let activityIndicator: UIActivityIndicatorView = {
+        let indicatorView = UIActivityIndicatorView(style: .medium)
+        return indicatorView
+    }()
     var isPaginating = false
     // MARK: - Init
     override init(collectionViewLayout layout: UICollectionViewLayout) {
@@ -63,11 +67,20 @@ final class MainViewController: UICollectionViewController {
     private func observe() {
         viewModel.fetchFinished.bind { [weak self] value in
             guard let self else { return }
-            if value {
-                self.viewModel.showFirst10Movies()
+            guard let value else { return }
+            switch value {
+            case true:
+                self.viewModel.show10Movies()
                 Task {
                     await MainActor.run {
+                        self.activityIndicator.hideLoadingIndicator()
                         self.updateSnapshot()
+                    }
+                }
+            case false:
+                Task {
+                    await MainActor.run {
+                        self.activityIndicator.showLoadingIndicator()
                     }
                 }
             }
@@ -90,6 +103,8 @@ extension MainViewController {
         navigationItem.searchController = searchController
         refreshControl.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         view.addSubview(collectionView)
+        view.addSubview(activityIndicator)
+        activityIndicator.frame = view.bounds
         collectionView.addSubview(refreshControl)
         collectionView.backgroundColor = .white
         refreshControl.addAction(pullToRefresh(), for: .valueChanged)
@@ -119,20 +134,20 @@ extension MainViewController {
     }
 }
 // MARK: - For paggination
-// extension MainViewController {
-//    override func collectionView(
-//        _ collectionView: UICollectionView,
-//        willDisplay cell: UICollectionViewCell,
-//        forItemAt indexPath: IndexPath
-//    ) {
-//        let lastElement = viewModel.top250Movies.count - 1
-//        if indexPath.item == lastElement {
-//            isPaginating = true
-//            Task {
-//                try await Task.sleep(seconds: 1)
-//                self.isPaginating = false
-//                viewModel.addToScreen()
-//            }
-//        }
-//    }
-// }
+ extension MainViewController {
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        willDisplay cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
+        let lastElement = viewModel.top250Movies.count - 1
+        if indexPath.item == lastElement {
+            isPaginating = true
+            Task {
+                try await Task.sleep(seconds: 1)
+                self.isPaginating = false
+                viewModel.show10Movies()
+            }
+        }
+    }
+ }
