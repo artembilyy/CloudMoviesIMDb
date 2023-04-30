@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		ED0D54C629F9FE070005FA8C /* SearchViewController + DiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0D54C529F9FE070005FA8C /* SearchViewController + DiffableDataSource.swift */; };
 		ED0D54C829FA00A00005FA8C /* SearchViewController + CompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0D54C729FA00A00005FA8C /* SearchViewController + CompositionalLayout.swift */; };
+		ED0E239B29FE7C0900C44F28 /* UICollectionView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0E239A29FE7C0900C44F28 /* UICollectionView + Extension.swift */; };
 		ED197A0D29F90367006E4DAF /* Task + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED197A0C29F90367006E4DAF /* Task + Extension.swift */; };
 		ED197A1029F90676006E4DAF /* SearchPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED197A0F29F90676006E4DAF /* SearchPageCoordinator.swift */; };
 		ED197A1529F9084B006E4DAF /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED197A1429F9084B006E4DAF /* SearchViewModel.swift */; };
@@ -58,7 +59,7 @@
 		ED653AA829F8508100A8FBC1 /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ED653A9629F8508100A8FBC1 /* Poppins-MediumItalic.ttf */; };
 		ED653AAA29F851E400A8FBC1 /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653AA929F851E400A8FBC1 /* UIColor + Extension.swift */; };
 		ED653AAC29F852F300A8FBC1 /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653AAB29F852F200A8FBC1 /* UIView + Extension.swift */; };
-		ED653AB029F85E9600A8FBC1 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653AAF29F85E9600A8FBC1 /* NetworkService.swift */; };
+		ED653AB029F85E9600A8FBC1 /* MoviesNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653AAF29F85E9600A8FBC1 /* MoviesNetworkService.swift */; };
 		ED653AB229F8608900A8FBC1 /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653AB129F8608900A8FBC1 /* MovieModel.swift */; };
 		ED653AB429F8727400A8FBC1 /* MainViewController + DiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653AB329F8727400A8FBC1 /* MainViewController + DiffableDataSource.swift */; };
 		ED653AB629F872A500A8FBC1 /* MainViewController + CompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653AB529F872A500A8FBC1 /* MainViewController + CompositionalLayout.swift */; };
@@ -118,6 +119,7 @@
 /* Begin PBXFileReference section */
 		ED0D54C529F9FE070005FA8C /* SearchViewController + DiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController + DiffableDataSource.swift"; sourceTree = "<group>"; };
 		ED0D54C729FA00A00005FA8C /* SearchViewController + CompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController + CompositionalLayout.swift"; sourceTree = "<group>"; };
+		ED0E239A29FE7C0900C44F28 /* UICollectionView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView + Extension.swift"; sourceTree = "<group>"; };
 		ED197A0C29F90367006E4DAF /* Task + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task + Extension.swift"; sourceTree = "<group>"; };
 		ED197A0F29F90676006E4DAF /* SearchPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPageCoordinator.swift; sourceTree = "<group>"; };
 		ED197A1429F9084B006E4DAF /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
@@ -171,7 +173,7 @@
 		ED653A9629F8508100A8FBC1 /* Poppins-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-MediumItalic.ttf"; sourceTree = "<group>"; };
 		ED653AA929F851E400A8FBC1 /* UIColor + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		ED653AAB29F852F200A8FBC1 /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
-		ED653AAF29F85E9600A8FBC1 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		ED653AAF29F85E9600A8FBC1 /* MoviesNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesNetworkService.swift; sourceTree = "<group>"; };
 		ED653AB129F8608900A8FBC1 /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
 		ED653AB329F8727400A8FBC1 /* MainViewController + DiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController + DiffableDataSource.swift"; sourceTree = "<group>"; };
 		ED653AB529F872A500A8FBC1 /* MainViewController + CompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController + CompositionalLayout.swift"; sourceTree = "<group>"; };
@@ -476,6 +478,7 @@
 				EDD3B2EF29FBC4D600374E8E /* UIStackView + Extension.swift */,
 				EDD3B2F729FC010F00374E8E /* UIActivityIndicator + Extension.swift */,
 				EDD3B2F929FC08EB00374E8E /* UIViewController + Extension.swift */,
+				ED0E239A29FE7C0900C44F28 /* UICollectionView + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -520,10 +523,10 @@
 			children = (
 				EDAB537529FD79BF00741376 /* HTTPClient.swift */,
 				ED653AD329F8FEE100A8FBC1 /* Endpoint.swift */,
-				EDAB537329FD761200741376 /* RequestMethod.swift */,
-				ED653AAF29F85E9600A8FBC1 /* NetworkService.swift */,
-				ED653AC729F8D25A00A8FBC1 /* NetworkError.swift */,
 				EDF74B5F29FDB4CB0083211F /* MoviesEndpoint.swift */,
+				EDAB537329FD761200741376 /* RequestMethod.swift */,
+				ED653AAF29F85E9600A8FBC1 /* MoviesNetworkService.swift */,
+				ED653AC729F8D25A00A8FBC1 /* NetworkError.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -742,7 +745,7 @@
 				ED653AD429F8FEE100A8FBC1 /* Endpoint.swift in Sources */,
 				ED653A7229F84CAB00A8FBC1 /* OnboardingCell.swift in Sources */,
 				EDD3B30029FC0B3300374E8E /* MainViewController + Extension.swift in Sources */,
-				ED653AB029F85E9600A8FBC1 /* NetworkService.swift in Sources */,
+				ED653AB029F85E9600A8FBC1 /* MoviesNetworkService.swift in Sources */,
 				EDD3B2F229FBCB6E00374E8E /* CharactersCountModel.swift in Sources */,
 				EDD3B2DC29FA99E500374E8E /* SearchMovieCell + Extension.swift in Sources */,
 				ED653ACE29F8E89200A8FBC1 /* DetailViewModel.swift in Sources */,
@@ -758,6 +761,7 @@
 				ED653AC629F8CF6A00A8FBC1 /* ImageLoadingManager.swift in Sources */,
 				ED653A5729F849EB00A8FBC1 /* Coordinator.swift in Sources */,
 				ED197A1529F9084B006E4DAF /* SearchViewModel.swift in Sources */,
+				ED0E239B29FE7C0900C44F28 /* UICollectionView + Extension.swift in Sources */,
 				ED653AB829F8745500A8FBC1 /* MainMovieCell.swift in Sources */,
 				ED197A1029F90676006E4DAF /* SearchPageCoordinator.swift in Sources */,
 				ED653AB229F8608900A8FBC1 /* MovieModel.swift in Sources */,

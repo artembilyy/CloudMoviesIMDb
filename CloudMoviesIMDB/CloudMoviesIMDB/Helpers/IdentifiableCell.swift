@@ -8,7 +8,7 @@
 import Foundation
 
 protocol IdentifiableCell {}
-
+// MARK: - Allow us to not write identifier for each section
 extension IdentifiableCell {
     static var identifier: String {
         String(describing: Self.self)

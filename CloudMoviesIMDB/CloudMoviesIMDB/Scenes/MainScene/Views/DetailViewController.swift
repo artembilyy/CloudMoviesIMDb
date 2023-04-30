@@ -53,6 +53,12 @@ final class DetailViewController: UICollectionViewController {
     // MARK: - Delegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        if let cell = collectionView.cellForItem(at: indexPath) {
+            cell.cellScallingPressed()
+        }
+    }
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        cell.cellWillDisplay(Double(indexPath.item))
     }
 }
 // MARK: - Setup Cell

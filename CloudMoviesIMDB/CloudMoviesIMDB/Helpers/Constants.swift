@@ -8,7 +8,7 @@
 import Foundation
 
 struct Constants {
-    static let apiKey = "k_sb1vhjnh" /// <--- Past your own API KEY HERE
+    static let apiKey = "k_wfeimpa7" /// <--- Past your own API KEY HERE
     static let resizeImage = "https://imdb-api.com/API/ResizeImage?apiKey="
     static let size = "&size=192x264"
     static let url = "&url="

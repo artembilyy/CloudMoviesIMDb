@@ -17,6 +17,7 @@ protocol MainViewModelProtocol {
     var fetchFinished: Observable<Bool?> { get }
     var snapshotUpdate: Observable<Bool> { get }
     var errorMessage: Observable<String?> { get }
+    var connectionAlert: Observable<String?> { get }
     func getMovies(useCache: Bool)
     func show10Movies()
     func makeLocalSearch()
@@ -33,6 +34,8 @@ final class MainViewModel: MainViewModelProtocol {
     var errorMessage: Observable<String?> = Observable(nil)
     var fetchFinished: Observable<Bool?> = Observable(nil)
     var snapshotUpdate: Observable<Bool> = Observable(false)
+    
+    var connectionAlert: Observable<String?> = Observable(nil)
     /// text from searcBar VC
     var textFromSearchBar: String = ""
     // paggination
@@ -58,8 +61,25 @@ final class MainViewModel: MainViewModelProtocol {
                     self.allMovies = movies
                     self.fetchFinished.value = true
                 }
-            } catch {
-                print(error.localizedDescription)
+            } catch let error as NetworkError {
+                switch error {
+                case .requestFailed(_):
+                    self.connectionAlert.value = NetworkError.requestFailed(description: "").description
+                case .invalidData:
+                    self.connectionAlert.value = NetworkError.invalidData.description
+                case .responseUnsuccessful(let description):
+                    self.connectionAlert.value = NetworkError.responseUnsuccessful(description: description).description
+                case .jsonDecodingFailure(let description):
+                    self.connectionAlert.value = NetworkError.jsonDecodingFailure(description: description).description
+                case .noInternetConnection:
+                    self.connectionAlert.value = NetworkError.noInternetConnection.description
+                case .unexpectedStatusCode:
+                    self.connectionAlert.value = NetworkError.unexpectedStatusCode.description
+                case .invalidURL:
+                    self.connectionAlert.value = NetworkError.invalidURL.description
+                default:
+                    self.connectionAlert.value = NetworkError.unknown.description
+                }
                 self.fetchFinished.value = true
             }
         }
@@ -67,8 +87,10 @@ final class MainViewModel: MainViewModelProtocol {
     func show10Movies() {
         let startIndex = counter * 10
         let endIndex = (counter + 1) * 10
-        let next10Movies = allMovies[startIndex..<endIndex]
-        top250Movies.append(contentsOf: next10Movies)
+        if !allMovies.isEmpty {
+            let next10Movies = allMovies[startIndex..<endIndex]
+            top250Movies.append(contentsOf: next10Movies)
+        }
         snapshotUpdate.value = true
         counter != 25 ? counter += 1 : nil
     }

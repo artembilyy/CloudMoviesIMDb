@@ -8,7 +8,10 @@
 import UIKit
 
 extension UILabel {
-    func animate(newText: String, characterDelay: TimeInterval) {
+    func animate(
+        newText: String,
+        characterDelay: TimeInterval
+    ) {
         Task {
             self.text = ""
             for (index, character) in newText.enumerated() {

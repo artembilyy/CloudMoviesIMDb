@@ -8,7 +8,7 @@
 import Foundation
 
 protocol HTTPClient {
-    func sendRequest<T: Decodable>(endpoint: Endpoint, responseModel: T.Type, useCache: Bool, queryItem: String?, movieID: String?, decoder: JSONDecoder) async throws -> T
+    func sendRequest<T: Decodable>(endpoint: Endpoint, responseModel: T.Type, useCache: Bool, decoder: JSONDecoder) async throws -> T
 }
 
 extension HTTPClient {
@@ -16,25 +16,14 @@ extension HTTPClient {
         endpoint: Endpoint,
         responseModel: T.Type,
         useCache: Bool = true,
-        queryItem: String? = nil,
-        movieID: String? = nil,
         decoder: JSONDecoder
     ) async throws -> T {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = endpoint.scheme
         urlComponents.host = endpoint.host
+        urlComponents.path = endpoint.path
         
-        if let queryItem {
-            urlComponents.path = "\(endpoint.path)/\(Constants.apiKey)/\(queryItem)"
-        } else if let movieID {
-            urlComponents.path = "\(endpoint.path)/\(Constants.apiKey)/\(movieID)/\(Constants.fullDetail)"
-        } else {
-            urlComponents.path = endpoint.path
-            urlComponents.queryItems = [
-                URLQueryItem(name: "apiKey", value: Constants.apiKey)
-            ]
-        }
         guard let url = urlComponents.url else {
             throw NetworkError.invalidURL
         }
@@ -50,7 +39,6 @@ extension HTTPClient {
         if let body = endpoint.body {
             request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
         }
-        
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
             guard let response = response as? HTTPURLResponse else {
@@ -64,8 +52,6 @@ extension HTTPClient {
                 let cachedResponse = CachedURLResponse(response: response, data: data)
                 URLCache.shared.storeCachedResponse(cachedResponse, for: request)
                 return decodedResponse
-            case 400:
-                throw NetworkError.noInternetConnection
             default:
                 throw NetworkError.unexpectedStatusCode
             }

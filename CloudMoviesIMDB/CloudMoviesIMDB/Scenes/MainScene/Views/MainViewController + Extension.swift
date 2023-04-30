@@ -17,4 +17,15 @@ extension MainViewController {
         searchController.hidesNavigationBarDuringPresentation = true
         return searchController
     }
+    func showAlert(_ errorMessage: String) {
+        var dialogMessage = UIAlertController()
+        var button = UIAlertAction()
+        dialogMessage = UIAlertController(title: "", message: errorMessage, preferredStyle: .alert)
+        button = UIAlertAction(title: "Ok", style: .default) { _ in
+        }
+        dialogMessage.view.tintColor = .deepGreen
+        dialogMessage.addAction(button)
+        present(dialogMessage, animated: true, completion: nil)
+    }
+    
 }

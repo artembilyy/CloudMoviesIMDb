@@ -27,16 +27,14 @@ struct MoviesService: HTTPClient, MoviesServiceProtocol {
     func getTop250Movies(useCache: Bool) async throws -> Movies {
         do {
             return try await sendRequest(endpoint: MoviesEndpoint.top250, responseModel: Movies.self, useCache: useCache, decoder: decoder)
-        } catch NetworkError.invalidURL {
-            throw NetworkError.invalidURL
         } catch {
-            throw NetworkError.noInternetConnection
+            throw error
         }
     }
     func getSearchedMovies(query: String) async throws -> Movies {
-        return try await sendRequest(endpoint: MoviesEndpoint.search, responseModel: Movies.self, useCache: true, queryItem: query, decoder: decoder)
+        return try await sendRequest(endpoint: MoviesEndpoint.search(query: query), responseModel: Movies.self, useCache: true, decoder: decoder)
     }
     func getDetailScreen(movieID: String) async throws -> Movies.Movie {
-        return try await sendRequest(endpoint: MoviesEndpoint.detail, responseModel: Movies.Movie.self, useCache: true, movieID: movieID, decoder: decoder)
+        return try await sendRequest(endpoint: MoviesEndpoint.detail(id: movieID), responseModel: Movies.Movie.self, useCache: true, decoder: decoder)
     }
 }

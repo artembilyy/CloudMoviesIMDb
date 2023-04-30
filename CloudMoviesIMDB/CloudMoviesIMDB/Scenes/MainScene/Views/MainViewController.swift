@@ -95,8 +95,18 @@ final class MainViewController: UICollectionViewController {
                 }
             }
         }
+        viewModel.connectionAlert.bind { [weak self] value in
+            guard let self else { return}
+            guard let value else { return }
+            Task {
+                await MainActor.run {
+                    self.showAlert(value)
+                }
+            }
+        }
     }
 }
+
 // MARK: - UI Setup
 extension MainViewController {
     private func setupUI() {
@@ -134,7 +144,7 @@ extension MainViewController {
     }
 }
 // MARK: - For paggination
- extension MainViewController {
+extension MainViewController {
     override func collectionView(
         _ collectionView: UICollectionView,
         willDisplay cell: UICollectionViewCell,
@@ -150,4 +160,4 @@ extension MainViewController {
             }
         }
     }
- }
+}

@@ -9,19 +9,19 @@ import Foundation
 
 enum MoviesEndpoint {
     case top250
-    case detail
-    case search
+    case detail(id: String)
+    case search(query: String)
 }
 
 extension MoviesEndpoint: Endpoint {
     var path: String {
         switch self {
         case .top250:
-            return "/en/API/Top250Movies"
-        case .detail:
-            return "/en/API/Title"
-        case .search:
-            return "/en/API/SearchMovie"
+            return "/en/API/Top250Movies/\(Constants.apiKey)"
+        case .detail(let id):
+            return "/en/API/Title/\(Constants.apiKey)/\(id)/\(Constants.fullDetail)"
+        case .search(let query):
+            return "/en/API/SearchMovie/\(Constants.apiKey)/\(query)"
         }
     }
     
