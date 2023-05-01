@@ -28,7 +28,7 @@ final class ImageLoadingManager: ImageLoadingManagerProtocol {
         urlComponents.path = endpoint.path
         urlComponents.queryItems = [
             URLQueryItem(name: "apiKey", value: Constants.apiKey),
-            URLQueryItem(name: "size", value: Constants.size),
+            URLQueryItem(name: "size", value: "256x352"),
             URLQueryItem(name: "url", value: source) // check it
         ]
         guard let url = urlComponents.url else {

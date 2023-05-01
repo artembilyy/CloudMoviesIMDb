@@ -20,7 +20,7 @@ extension MoviesEndpoint: Endpoint {
         case .top250:
             return "/en/API/Top250Movies/\(Constants.apiKey)"
         case .detail(let id):
-            return "/en/API/Title/\(Constants.apiKey)/\(id)/\(Constants.fullDetail)"
+            return "/en/API/Title/\(Constants.apiKey)/\(id)/FullActor,FullCast,Posters,Images,Trailer,Ratings"
         case .search(let query):
             return "/en/API/SearchMovie/\(Constants.apiKey)/\(query)"
         case .resizeImage:

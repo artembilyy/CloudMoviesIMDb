@@ -379,10 +379,10 @@
 			children = (
 				EDD3B2D729FA8F5900374E8E /* Cells */,
 				ED653A2329F847A300A8FBC1 /* MainViewController.swift */,
-				EDD3B2FF29FC0B3300374E8E /* MainViewController + Extension.swift */,
 				EDD3B2FB29FC09A100374E8E /* MainViewController + Delegate.swift */,
 				ED653AB329F8727400A8FBC1 /* MainViewController + DiffableDataSource.swift */,
 				ED653AB529F872A500A8FBC1 /* MainViewController + CompositionalLayout.swift */,
+				EDD3B2FF29FC0B3300374E8E /* MainViewController + Extension.swift */,
 				ED653AC929F8E1D500A8FBC1 /* DetailViewController.swift */,
 				EDD3B2F529FBF48D00374E8E /* DetailViewController + Layout.swift */,
 			);

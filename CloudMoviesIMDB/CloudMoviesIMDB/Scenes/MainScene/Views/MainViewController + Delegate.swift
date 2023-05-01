@@ -26,8 +26,15 @@ extension MainViewController: UITextFieldDelegate {
 // MARK: - Use care if you haven't got PREMIUM API ACCESS :)
 extension MainViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        //        guard let query = searchController.searchBar.text,
-        //        !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
-        //        viewModel.getSearchResultsMovies(queryString: query)
+        guard let query = searchController.searchBar.text,
+              !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
+        var searchTimer: Timer?
+        searchTimer?.invalidate()
+        /// Throttling
+        searchTimer = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { [weak self] _ in
+            guard let self else { return }
+            self.viewModel.textFromSearchBar = query
+            self.viewModel.makeLocalSearch()
+        }
     }
 }

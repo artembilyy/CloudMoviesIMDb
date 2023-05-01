@@ -54,7 +54,7 @@ final class SearchViewController: UIViewController {
     // MARK: - Methods
     private func delegate() {
         collectionView.delegate = self
-        //        searchController.searchResultsUpdater = self
+        searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.searchBar.searchTextField.delegate = self
     }
