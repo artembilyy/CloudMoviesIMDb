@@ -11,8 +11,8 @@ final class MainMovieCell: UICollectionViewCell, IdentifiableCell {
     // MARK: - MovieCell UI Elements
     lazy var container = makeContainer()
     lazy var activityIndicatorView = makeActivityIndicatorView()
-    lazy var titleLabel = makeLabel(font: UIFont.setFont(name: Poppins.semiBold.rawValue, size: 16))
-    lazy var rankLabel = makeLabel(font: UIFont.setFont(name: Poppins.medium.rawValue, size: 16))
+    lazy var titleLabel = makeLabel(font: Fonts.semiBold(.size3).font)
+    lazy var rankLabel = makeLabel(font: Fonts.medium(.size3).font)
     lazy var posterImage: UIImageView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.contentMode = .scaleAspectFill
@@ -23,7 +23,8 @@ final class MainMovieCell: UICollectionViewCell, IdentifiableCell {
     private var imageLoadingManager: ImageLoadingManagerProtocol?
     // MARK: Init
     override init(frame: CGRect) {
-        imageLoadingManager = ImageLoadingManager()
+        let imageCacheManager = ImageCacheManager.shared
+        imageLoadingManager = ImageLoadingManager(cache: imageCacheManager)
         super.init(frame: frame)
         setup()
     }
@@ -51,17 +52,19 @@ final class MainMovieCell: UICollectionViewCell, IdentifiableCell {
     func configure(media: Movies.Movie) {
         activityIndicatorView.showLoadingIndicator()
         Task {
-            guard let path = media.image else { return }
-            let result = try await imageLoadingManager?.getImage(from: path)
-            switch result {
-            case .none:
-                posterImage.image = UIImage(named: "PosterNil")
-            case .some(let wrapped):
-                posterImage.image = wrapped
-            }
             titleLabel.text = media.title
             rankLabel.text = "Rank: \(media.rank ?? "")"
+            guard let path = media.image else { return }
+            do {
+                let result = try await imageLoadingManager?.getImage(from: path)
+                posterImage.image = result
+            } catch {
+                posterImage.image = UIImage(named: "PosterNil")
+            }
             activityIndicatorView.hideLoadingIndicator()
         }
+    }
+    deinit {
+        print("MainMovieCell deinit")
     }
 }

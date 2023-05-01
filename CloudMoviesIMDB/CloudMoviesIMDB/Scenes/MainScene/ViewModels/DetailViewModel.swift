@@ -15,13 +15,11 @@ protocol DetailViewModelProtocol {
 final class DetailViewModel: DetailViewModelProtocol {
     let movie: Movies.Movie?
     var charactersData: CharactersCountModel?
+    // MARK: - Init
     init(movie: Movies.Movie) {
         self.movie = movie
         self.charactersData = eachCharactersCount()
         print("DetailViewModel init")
-    }
-    deinit {
-        print("DetailViewModel deinit")
     }
     /// if i understand task correctly
     func eachCharactersCount() -> CharactersCountModel? {
@@ -33,5 +31,8 @@ final class DetailViewModel: DetailViewModelProtocol {
             }
         }
         return CharactersCountModel(data: charCount)
+    }
+    deinit {
+        print("DetailViewModel deinit")
     }
 }

@@ -21,11 +21,11 @@ final class CustomDetailViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .clear
         setup()
     }
     // MARK: - Setup
     private func setup() {
+        view.backgroundColor = .white
         view.addSubview(customDetailView)
         customDetailView.frame = view.bounds
         Task {

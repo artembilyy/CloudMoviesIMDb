@@ -11,16 +11,15 @@ final class OnboardingCell: UICollectionViewCell, IdentifiableCell {
     // MARK: - UI
     private lazy var titleLabel = makeLabel(
         text: nil,
-        font: UIFont.setFont(
-            name: Poppins.bold.rawValue,
-            size: 28
-        ), color: .black, aligment: .left)
+        font: Fonts.bold(.size1).font,
+        color: .black,
+        aligment: .left)
     private lazy var descriptionLabel = makeLabel(
         text: nil,
-        font: UIFont.setFont(
-            name: Poppins.medium.rawValue,
-            size: 18
-        ), color: .black, aligment: .left)
+        font: Fonts.medium(.size3).font,
+        color: .black,
+        aligment: .left
+    )
     private lazy var topImage: UIImageView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.contentMode = .scaleAspectFit
@@ -49,6 +48,7 @@ final class OnboardingCell: UICollectionViewCell, IdentifiableCell {
         addSubview(titleLabel)
         addSubview(descriptionLabel)
     }
+    // MARK: - Constraints
     private func layout() {
         NSLayoutConstraint.activate([
             topImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: frame.height / 8),

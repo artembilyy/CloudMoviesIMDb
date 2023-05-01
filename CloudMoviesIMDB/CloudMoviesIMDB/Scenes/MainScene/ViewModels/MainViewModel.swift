@@ -15,11 +15,12 @@ protocol MainViewModelProtocol {
     var top250Movies: [Movies.Movie] { get }
     var textFromSearchBar: String { get set }
     var fetchFinished: Observable<Bool?> { get }
-    var snapshotUpdate: Observable<Bool> { get }
+    var snapshotUpdate: Observable<Bool?> { get }
     var errorMessage: Observable<String?> { get }
-    var connectionAlert: Observable<String?> { get }
+    var errorAlert: Observable<String?> { get }
+    var emptyResults: Observable<Bool?> { get }
     func getMovies(useCache: Bool)
-    func show10Movies()
+    func show10Movies(_ begin: Bool)
     func makeLocalSearch()
     func openMainSubController(_ data: Movies.Movie)
 }
@@ -28,14 +29,23 @@ final class MainViewModel: MainViewModelProtocol {
     // MARK: - Network
     private var networkService: TopMoviesNetworkServiceProtocol
     // MARK: - Properties
-    private(set) var top250Movies: [Movies.Movie] = []
+    private(set) var top250Movies: [Movies.Movie] = [] {
+        didSet {
+            switch top250Movies.isEmpty {
+            case true:
+                emptyResults.value = true
+            case false:
+                emptyResults.value = false
+            }
+        }
+    }
     private var allMovies: [Movies.Movie] = []
     // MARK: - Binding
     var errorMessage: Observable<String?> = Observable(nil)
     var fetchFinished: Observable<Bool?> = Observable(nil)
-    var snapshotUpdate: Observable<Bool> = Observable(false)
-    
-    var connectionAlert: Observable<String?> = Observable(nil)
+    var snapshotUpdate: Observable<Bool?> = Observable(nil)
+    var errorAlert: Observable<String?> = Observable(nil)
+    var emptyResults: Observable<Bool?> = Observable(nil)
     /// text from searcBar VC
     var textFromSearchBar: String = ""
     // paggination
@@ -49,9 +59,10 @@ final class MainViewModel: MainViewModelProtocol {
     // MARK: - Methods
     func getMovies(useCache: Bool) {
         /// avoid duplicates
-        self.fetchFinished.value = false
-        self.allMovies.removeAll()
-        self.top250Movies.removeAll()
+        fetchFinished.value = false
+        allMovies.removeAll()
+        top250Movies.removeAll()
+        emptyResults.value = false
         counter = 0
         snapshotUpdate.value = true
         Task {
@@ -62,29 +73,17 @@ final class MainViewModel: MainViewModelProtocol {
                     self.fetchFinished.value = true
                 }
             } catch let error as NetworkError {
-                switch error {
-                case .requestFailed(_):
-                    self.connectionAlert.value = NetworkError.requestFailed(description: "").description
-                case .invalidData:
-                    self.connectionAlert.value = NetworkError.invalidData.description
-                case .responseUnsuccessful(let description):
-                    self.connectionAlert.value = NetworkError.responseUnsuccessful(description: description).description
-                case .jsonDecodingFailure(let description):
-                    self.connectionAlert.value = NetworkError.jsonDecodingFailure(description: description).description
-                case .noInternetConnection:
-                    self.connectionAlert.value = NetworkError.noInternetConnection.description
-                case .unexpectedStatusCode:
-                    self.connectionAlert.value = NetworkError.unexpectedStatusCode.description
-                case .invalidURL:
-                    self.connectionAlert.value = NetworkError.invalidURL.description
-                default:
-                    self.connectionAlert.value = NetworkError.unknown.description
-                }
+                handleError(error)
                 self.fetchFinished.value = true
             }
         }
     }
-    func show10Movies() {
+    /// Pagination
+    func show10Movies(_ begin: Bool) {
+        if begin {
+            top250Movies.removeAll()
+            counter = 0
+        }
         let startIndex = counter * 10
         let endIndex = (counter + 1) * 10
         if !allMovies.isEmpty {
@@ -94,6 +93,7 @@ final class MainViewModel: MainViewModelProtocol {
         snapshotUpdate.value = true
         counter != 25 ? counter += 1 : nil
     }
+    /// Search from SearchBar local
     func makeLocalSearch() {
         let filteredMovies = allMovies.filter { movie in
             guard let title = movie.title else { return false }
@@ -107,5 +107,28 @@ final class MainViewModel: MainViewModelProtocol {
     }
     deinit {
         print("MainViewModel deinit")
+    }
+}
+// MARK: - Error handling
+extension MainViewModel {
+    func handleError(_ error: NetworkError) {
+        switch error {
+        case .requestFailed(let description):
+            self.errorAlert.value = NetworkError.requestFailed(description: description).description
+        case .invalidData:
+            self.errorAlert.value = NetworkError.invalidData.description
+        case .responseUnsuccessful(let description):
+            self.errorAlert.value = NetworkError.responseUnsuccessful(description: description).description
+        case .jsonDecodingFailure(let description):
+            self.errorAlert.value = NetworkError.jsonDecodingFailure(description: description).description
+        case .noInternetConnection:
+            self.errorAlert.value = NetworkError.noInternetConnection.description
+        case .unexpectedStatusCode:
+            self.errorAlert.value = NetworkError.unexpectedStatusCode.description
+        case .invalidURL:
+            self.errorAlert.value = NetworkError.invalidURL.description
+        default:
+            self.errorAlert.value = NetworkError.unknown.description
+        }
     }
 }

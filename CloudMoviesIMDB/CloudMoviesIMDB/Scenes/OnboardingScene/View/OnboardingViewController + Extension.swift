@@ -38,8 +38,14 @@ extension OnboardingViewController {
     }
     func makeAttributedString(fullText: String, boldText: String? = "") -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString(string: fullText)
-        attributedString.addAttribute(.font, value: UIFont.setFont(name: Poppins.medium.rawValue, size: 16),
-                                      range: NSRange(location: 0, length: fullText.count))
+        attributedString.addAttribute(
+            .font,
+            value: Fonts.medium(.size3).font,
+            range: NSRange(
+                location: 0,
+                length: fullText.count
+            )
+        )
         return attributedString
     }
     func makeButton(

@@ -8,6 +8,7 @@
 import UIKit
 
 final class OnboardingCoordinator: Coordinator {
+    // MARK: - Properties
     var childCoordinators: [Coordinator] = []
     var assemblyBuilder: AssemblyProtocol?
     var parentCoordinator: Coordinator?

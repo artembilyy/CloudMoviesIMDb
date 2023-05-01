@@ -20,6 +20,13 @@ final class MainViewController: UICollectionViewController {
         let indicatorView = UIActivityIndicatorView(style: .medium)
         return indicatorView
     }()
+    let noResultLabel: UILabel = {
+        $0.text = "No results found"
+        $0.isHidden = true
+        $0.font = Fonts.medium(.size3).font
+        $0.textAlignment = NSTextAlignment.center
+        return $0
+    }(UILabel())
     var isPaginating = false
     // MARK: - Init
     override init(collectionViewLayout layout: UICollectionViewLayout) {
@@ -35,7 +42,7 @@ final class MainViewController: UICollectionViewController {
         setupUI()
         observe()
         setupDataSource()
-        setupDismissKeyboardGesture()
+        setupDismissKeyboardGesture(for: searchController)
         viewModel.getMovies(useCache: true)
     }
     // MARK: - Methods
@@ -64,43 +71,56 @@ final class MainViewController: UICollectionViewController {
             }
         }
     }
+    // MARK: - Observers
     private func observe() {
+        observeFetchFinished()
+        observeSnapshotUpdate()
+        observeErrorAlert()
+        observeEmptyResults()
+    }
+    private func observeFetchFinished() {
         viewModel.fetchFinished.bind { [weak self] value in
-            guard let self else { return }
-            guard let value else { return }
-            switch value {
-            case true:
-                self.viewModel.show10Movies()
-                Task {
-                    await MainActor.run {
+            guard let self = self, let value = value else { return }
+            Task {
+                await MainActor.run {
+                    switch value {
+                    case true:
+                        self.viewModel.show10Movies(false)
                         self.activityIndicator.hideLoadingIndicator()
                         self.updateSnapshot()
-                    }
-                }
-            case false:
-                Task {
-                    await MainActor.run {
+                    default:
                         self.activityIndicator.showLoadingIndicator()
                     }
                 }
             }
         }
+    }
+    private func observeSnapshotUpdate() {
         viewModel.snapshotUpdate.bind { [weak self] value in
-            guard let self else { return }
-            if value {
-                Task {
-                    await MainActor.run {
-                        self.updateSnapshot()
-                    }
+            guard let self = self, let value = value, value else { return }
+            Task {
+                await MainActor.run {
+                    self.updateSnapshot()
                 }
             }
         }
-        viewModel.connectionAlert.bind { [weak self] value in
-            guard let self else { return}
-            guard let value else { return }
+    }
+    private func observeErrorAlert() {
+        viewModel.errorAlert.bind { [weak self] value in
+            guard let self = self, let value = value else { return }
             Task {
                 await MainActor.run {
                     self.showAlert(value)
+                }
+            }
+        }
+    }
+    private func observeEmptyResults() {
+        viewModel.emptyResults.bind { [weak self] value in
+            guard let self = self, let value = value else { return }
+            Task {
+                await MainActor.run {
+                    self.noResultLabel.isHidden = !value
                 }
             }
         }
@@ -114,6 +134,8 @@ extension MainViewController {
         refreshControl.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         view.addSubview(collectionView)
         view.addSubview(activityIndicator)
+        view.addSubview(noResultLabel)
+        noResultLabel.frame = view.bounds
         activityIndicator.frame = view.bounds
         collectionView.addSubview(refreshControl)
         collectionView.backgroundColor = .white
@@ -127,7 +149,6 @@ extension MainViewController {
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
             withReuseIdentifier: MainViewFooter.identifier
         )
-        setupDataSource()
         collectionView.collectionViewLayout = createLayout()
         collectionView.dataSource = dataSource
         navigationItem.backButtonTitle = ""
@@ -156,7 +177,7 @@ extension MainViewController {
             Task {
                 try await Task.sleep(seconds: 1)
                 self.isPaginating = false
-                viewModel.show10Movies()
+                viewModel.show10Movies(false)
             }
         }
     }

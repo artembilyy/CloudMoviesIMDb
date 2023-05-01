@@ -7,79 +7,57 @@
 import UIKit
 
 protocol ImageLoadingManagerProtocol {
-    func getImage(from url: String) async throws -> UIImage?
-    func getSearchImage(from url: URL) async throws -> UIImage?
+    func getImage(from source: String) async throws -> UIImage
 }
 
 final class ImageLoadingManager: ImageLoadingManagerProtocol {
-    ///
+    /// Prevent reusable
     private var image: UIImage?
     private var imageUrlString: String = ""
-    /// Prevent reusable
-    @MainActor
-    func getImage(from url: String) async throws -> UIImage? {
-        imageUrlString = url
-        guard let resizedImageURL = getURL(resizeFactor: 2, url: url) else {
-            throw NetworkError.invalidURL
-        }
-        if let cachedImage = ImageCacheManager.shared.getImageFromCache(resizedImageURL.absoluteString) {
-            self.image = cachedImage
-            return image
-        }
-        do {
-            let (data, _) = try await URLSession.shared.data(from: resizedImageURL)
-            guard let image = UIImage(data: data) else {
-                throw NetworkError.noImage
-            }
-            guard let compressedData = image.jpegData(compressionQuality: 0.7) else {
-                throw NetworkError.invalidURL
-            }
-            guard let compressedImage = UIImage(data: compressedData) else {
-                throw NetworkError.noImage
-            }
-            ImageCacheManager.shared.saveImageToCache(image: compressedImage, resizedImageURL.absoluteString)
-            self.image = compressedImage
-            return compressedImage
-        } catch {
-            print(error.localizedDescription)
-            throw error
-        }
+    var cache: ImageCacheProtocol
+    // MARK: - Init
+    init(cache: ImageCacheProtocol) {
+        self.cache = ImageCacheManager.shared
     }
-    @MainActor
-    func getSearchImage(from url: URL) async throws -> UIImage? {
-        imageUrlString = Constants.resizeImage + Constants.apiKey + Constants.size + Constants.url + url.absoluteString
-        guard let finalURL = URL(string: imageUrlString) else {
+    func getImage(from source: String) async throws -> UIImage {
+        imageUrlString = source
+        let endpoint = MoviesEndpoint.resizeImage
+        var urlComponents = URLComponents()
+        urlComponents.scheme = endpoint.scheme
+        urlComponents.host = endpoint.host
+        urlComponents.path = endpoint.path
+        urlComponents.queryItems = [
+            URLQueryItem(name: "apiKey", value: Constants.apiKey),
+            URLQueryItem(name: "size", value: Constants.size),
+            URLQueryItem(name: "url", value: source) // check it
+        ]
+        guard let url = urlComponents.url else {
             throw NetworkError.invalidURL
         }
-        if let cachedImage = ImageCacheManager.shared.getImageFromCache(finalURL.absoluteString) {
-            self.image = cachedImage
-            return image
-        }
-        do {
-            let (data, _) = try await URLSession.shared.data(from: finalURL)
-            guard let image = UIImage(data: data) else {
-                throw NetworkError.noImage
-            }
-            ImageCacheManager.shared.saveImageToCache(image: image, finalURL.absoluteString)
+        if let image = ImageCacheManager.shared[imageUrlString] {
             self.image = image
             return image
+        }
+
+        let request = URLRequest(url: url)
+        if let cachedImage = cache[source] {
+            return cachedImage
+        }
+        do {
+            let (data, _) = try await URLSession.shared.data(for: request)
+            guard let image = UIImage(data: data) else {
+                throw NetworkError.noImage
+            }
+            setImage(image, forKey: imageUrlString, compressionQuality: 0.7)
+            return image
         } catch {
-            print(error.localizedDescription)
             throw error
         }
     }
-    // MARK: Method for get URL with scaled image
-    /// Missed scaling by Request Resizing Image by api IMDb on this request
-    private func getURL(resizeFactor: Int, url: String) -> URL? {
-        let width = 128
-        let height = 176
-        let scaledWidth = width * resizeFactor
-        let scaledHeight = height * resizeFactor
-        let originalString = url
-        let replacedString = originalString
-            .replacingOccurrences(of: String(width), with: String(scaledWidth))
-            .replacingOccurrences(of: String(height), with: String(scaledHeight))
-        let finalURL = URL(string: replacedString)
-        return finalURL
+    private func setImage(_ image: UIImage, forKey key: String, compressionQuality: CGFloat = 0.5) {
+        guard let compressedImageData = image.jpegData(compressionQuality: compressionQuality) else {
+            return
+        }
+        cache[key] = UIImage(data: compressedImageData)
     }
 }

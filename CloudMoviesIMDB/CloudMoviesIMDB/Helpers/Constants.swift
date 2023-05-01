@@ -8,9 +8,9 @@
 import Foundation
 
 struct Constants {
-    static let apiKey = "k_wfeimpa7" /// <--- Past your own API KEY HERE
-    static let resizeImage = "https://imdb-api.com/API/ResizeImage?apiKey="
-    static let size = "&size=192x264"
-    static let url = "&url="
+    static let apiKey = "k_l7vmnrru" /// <--- Past your own API KEY HERE
+    /// size for image  dowloading will paste into url
+    static let size = "256x352"
+    /// QueryItem but cant use with url components  - api rules
     static let fullDetail = "FullActor,FullCast,Posters,Images,Trailer,Ratings"
 }

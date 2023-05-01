@@ -73,13 +73,11 @@
 		ED653AC629F8CF6A00A8FBC1 /* ImageLoadingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653AC529F8CF6A00A8FBC1 /* ImageLoadingManager.swift */; };
 		ED653AC829F8D25A00A8FBC1 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653AC729F8D25A00A8FBC1 /* NetworkError.swift */; };
 		ED653ACA29F8E1D500A8FBC1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653AC929F8E1D500A8FBC1 /* DetailViewController.swift */; };
-		ED653ACC29F8E59600A8FBC1 /* UILabel + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653ACB29F8E59600A8FBC1 /* UILabel + Extension.swift */; };
 		ED653ACE29F8E89200A8FBC1 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653ACD29F8E89200A8FBC1 /* DetailViewModel.swift */; };
 		ED653AD429F8FEE100A8FBC1 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653AD329F8FEE100A8FBC1 /* Endpoint.swift */; };
 		EDAB537429FD761200741376 /* RequestMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAB537329FD761200741376 /* RequestMethod.swift */; };
 		EDAB537629FD79BF00741376 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAB537529FD79BF00741376 /* HTTPClient.swift */; };
 		EDB8E64929FDCD9E00F1CEFD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB8E64829FDCD9E00F1CEFD /* Constants.swift */; };
-		EDB8E64C29FDD32000F1CEFD /* AssemblyBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB8E64B29FDD32000F1CEFD /* AssemblyBuilderTests.swift */; };
 		EDD3B2DA29FA999700374E8E /* SearchMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2D929FA999700374E8E /* SearchMovieCell.swift */; };
 		EDD3B2DC29FA99E500374E8E /* SearchMovieCell + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2DB29FA99E500374E8E /* SearchMovieCell + Extension.swift */; };
 		EDD3B2DE29FA9A2200374E8E /* SearchMovieCell + Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2DD29FA9A2200374E8E /* SearchMovieCell + Constraints.swift */; };
@@ -187,13 +185,11 @@
 		ED653AC529F8CF6A00A8FBC1 /* ImageLoadingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadingManager.swift; sourceTree = "<group>"; };
 		ED653AC729F8D25A00A8FBC1 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		ED653AC929F8E1D500A8FBC1 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		ED653ACB29F8E59600A8FBC1 /* UILabel + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel + Extension.swift"; sourceTree = "<group>"; };
 		ED653ACD29F8E89200A8FBC1 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		ED653AD329F8FEE100A8FBC1 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		EDAB537329FD761200741376 /* RequestMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMethod.swift; sourceTree = "<group>"; };
 		EDAB537529FD79BF00741376 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		EDB8E64829FDCD9E00F1CEFD /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		EDB8E64B29FDD32000F1CEFD /* AssemblyBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssemblyBuilderTests.swift; sourceTree = "<group>"; };
 		EDD3B2D929FA999700374E8E /* SearchMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovieCell.swift; sourceTree = "<group>"; };
 		EDD3B2DB29FA99E500374E8E /* SearchMovieCell + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchMovieCell + Extension.swift"; sourceTree = "<group>"; };
 		EDD3B2DD29FA9A2200374E8E /* SearchMovieCell + Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchMovieCell + Constraints.swift"; sourceTree = "<group>"; };
@@ -319,7 +315,6 @@
 			isa = PBXGroup;
 			children = (
 				ED653A3629F847A500A8FBC1 /* CloudMoviesIMDBTests.swift */,
-				EDB8E64B29FDD32000F1CEFD /* AssemblyBuilderTests.swift */,
 			);
 			path = CloudMoviesIMDBTests;
 			sourceTree = "<group>";
@@ -474,7 +469,6 @@
 				ED653A7D29F84F1800A8FBC1 /* UIFont + Extension.swift */,
 				ED653AA929F851E400A8FBC1 /* UIColor + Extension.swift */,
 				ED653AAB29F852F200A8FBC1 /* UIView + Extension.swift */,
-				ED653ACB29F8E59600A8FBC1 /* UILabel + Extension.swift */,
 				EDD3B2EF29FBC4D600374E8E /* UIStackView + Extension.swift */,
 				EDD3B2F729FC010F00374E8E /* UIActivityIndicator + Extension.swift */,
 				EDD3B2F929FC08EB00374E8E /* UIViewController + Extension.swift */,
@@ -722,7 +716,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#export PATH=\"$PATH:/opt/homebrew/bin\"\n# if which swiftlint > /dev/null; then\n#  swiftlint\n# else\n#  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n #  fi\n";
+			shellScript = "# export PATH=\"$PATH:/opt/homebrew/bin\"\n# if which swiftlint > /dev/null; then\n#  swiftlint\n# else\n#  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n#   fi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -749,7 +743,6 @@
 				EDD3B2F229FBCB6E00374E8E /* CharactersCountModel.swift in Sources */,
 				EDD3B2DC29FA99E500374E8E /* SearchMovieCell + Extension.swift in Sources */,
 				ED653ACE29F8E89200A8FBC1 /* DetailViewModel.swift in Sources */,
-				ED653ACC29F8E59600A8FBC1 /* UILabel + Extension.swift in Sources */,
 				ED653A6C29F84C7100A8FBC1 /* OnboardingViewController + DataSource.swift in Sources */,
 				EDB8E64929FDCD9E00F1CEFD /* Constants.swift in Sources */,
 				EDD3B2F629FBF48D00374E8E /* DetailViewController + Layout.swift in Sources */,
@@ -805,7 +798,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED653A3729F847A500A8FBC1 /* CloudMoviesIMDBTests.swift in Sources */,
-				EDB8E64C29FDD32000F1CEFD /* AssemblyBuilderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

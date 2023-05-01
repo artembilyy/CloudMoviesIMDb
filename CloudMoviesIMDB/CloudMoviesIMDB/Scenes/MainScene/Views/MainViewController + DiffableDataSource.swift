@@ -20,11 +20,7 @@ extension MainViewController {
                     withReuseIdentifier: MainMovieCell.identifier,
                     for: indexPath
                 ) as? MainMovieCell else { return UICollectionViewCell() }
-                Task {
-                    await MainActor.run {
-                        cell.configure(media: item)
-                    }
-                }
+                cell.configure(media: item)
                 return cell
             }
         }

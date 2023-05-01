@@ -11,31 +11,22 @@ final class CustomDetailView: UIView {
     private var imageLoadingManager: ImageLoadingManagerProtocol
     private lazy var posterView = createPosterView()
     private lazy var titleLabel = makeLabel(
-        font: UIFont.setFont(
-            name: Poppins.semiBold.rawValue,
-            size: 24
-        ),
+        font: Fonts.medium(.size1).font,
         color: .black,
         aligment: .left
     )
     private lazy var genreLabel = makeLabel(
-        font: UIFont.setFont(
-            name: Poppins.medium.rawValue,
-            size: 18),
+        font: Fonts.medium(.size3).font,
         color: .black,
         aligment: .left
     )
     private lazy var releaseLabel = makeLabel(
-        font: UIFont.setFont(
-            name: Poppins.medium.rawValue,
-            size: 18),
+        font: Fonts.medium(.size3).font,
         color: .black,
         aligment: .left
     )
     private lazy var descriptionLabel = makeLabel(
-        font: UIFont.setFont(
-            name: Poppins.medium.rawValue,
-            size: 18),
+        font: Fonts.medium(.size3).font,
         color: .black,
         aligment: .left)
     private let stackView = UIStackView(axis: .vertical, spacing: 8, distribution: .equalSpacing)
@@ -46,8 +37,15 @@ final class CustomDetailView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    private let activityIndicator: UIActivityIndicatorView = {
+        let indicatorView = UIActivityIndicatorView(style: .medium)
+        indicatorView.translatesAutoresizingMaskIntoConstraints = false
+        return indicatorView
+    }()
+    // MARK: - Init
     override init(frame: CGRect) {
-        imageLoadingManager = ImageLoadingManager()
+        let imageCacheManager = ImageCacheManager.shared
+        imageLoadingManager = ImageLoadingManager(cache: imageCacheManager)
         super.init(frame: frame)
         setup()
     }
@@ -58,7 +56,10 @@ final class CustomDetailView: UIView {
         super.layoutSubviews()
         layout()
     }
+    // MARK: - Methods Setup UI
     private func setup() {
+        backgroundColor = .white
+        addSubview(activityIndicator)
         addSubview(backgroundView)
         backgroundView.addSubview(blur)
         backgroundView.addSubview(posterView)
@@ -70,8 +71,22 @@ final class CustomDetailView: UIView {
     @MainActor
     func configure(data: Movies.Movie?) {
         Task(priority: .userInitiated) {
+            guard let path = data?.image else {
+                activityIndicator.hideLoadingIndicator()
+                return
+            }
+            var imageInCache: Bool = false
+            if let image = ImageCacheManager.shared[path] {
+                backgroundView.image = image
+                posterView.image = image
+                imageInCache = true
+            }
+            if imageInCache == false {
+                bringSubviewToFront(activityIndicator)
+                activityIndicator.startAnimating()
+                try await Task.sleep(seconds: 0.5)
+            }
             guard let data else { return }
-            guard let path = data.image else { return }
             let result = try await imageLoadingManager.getImage(from: path)
             posterView.image = result
             backgroundView.image = result
@@ -80,13 +95,24 @@ final class CustomDetailView: UIView {
             guard let formattedString = formattedDateFromString(
                 dateString: data.releaseDate ?? "",
                 withFormat: "MMM dd, yyyy"
-            ) else { return }
+            ) else {
+                self.activityIndicator.hideLoadingIndicator()
+                return
+            }
             releaseLabel.text = String(describing: formattedString)
             descriptionLabel.text = String(describing: data.plot ?? "")
+            activityIndicator.hideLoadingIndicator()
         }
     }
+    // MARK: - Layout
     private func layout() {
         NSLayoutConstraint.activate([
+            //
+            activityIndicator.topAnchor.constraint(equalTo: topAnchor),
+            activityIndicator.leadingAnchor.constraint(equalTo: leadingAnchor),
+            activityIndicator.trailingAnchor.constraint(equalTo: trailingAnchor),
+            activityIndicator.bottomAnchor.constraint(equalTo: bottomAnchor),
+            //
             backgroundView.topAnchor.constraint(equalTo: topAnchor),
             backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),

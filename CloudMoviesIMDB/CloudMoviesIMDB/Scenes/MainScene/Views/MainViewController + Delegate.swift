@@ -10,10 +10,12 @@ import UIKit
 extension MainViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
-        viewModel.show10Movies()
+        noResultLabel.isHidden = true
+        viewModel.show10Movies(true)
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let query = searchBar.text, !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
+        noResultLabel.isHidden = true
         viewModel.textFromSearchBar = query
         viewModel.makeLocalSearch()
     }
@@ -21,11 +23,11 @@ extension MainViewController: UISearchBarDelegate {
 // MARK: - UITextFieldDelegate
 extension MainViewController: UITextFieldDelegate {
 }
-// MARK: - Don't use this one if you haven't got PREMIUM API ACCESS :)
+// MARK: - Use care if you haven't got PREMIUM API ACCESS :)
 extension MainViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         //        guard let query = searchController.searchBar.text,
-//        !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
+        //        !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
         //        viewModel.getSearchResultsMovies(queryString: query)
     }
 }

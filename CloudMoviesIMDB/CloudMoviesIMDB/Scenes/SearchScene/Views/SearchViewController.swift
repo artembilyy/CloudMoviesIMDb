@@ -24,7 +24,7 @@ final class SearchViewController: UIViewController {
     private let noResultLabel: UILabel = {
         $0.text = "No results found"
         $0.isHidden = true
-        $0.font = UIFont.setFont(name: Poppins.medium.rawValue, size: 16)
+        $0.font = Fonts.medium(.size3).font
         $0.textAlignment = NSTextAlignment.center
         return $0
     }(UILabel())
@@ -49,12 +49,12 @@ final class SearchViewController: UIViewController {
         setupDataSource()
         delegate()
         observers()
-        setupDismissKeyboardGesture()
+        setupDismissKeyboardGesture(for: searchController)
     }
     // MARK: - Methods
     private func delegate() {
         collectionView.delegate = self
-//        searchController.searchResultsUpdater = self
+        //        searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.searchBar.searchTextField.delegate = self
     }
@@ -67,27 +67,23 @@ final class SearchViewController: UIViewController {
         view.backgroundColor = .white
         navigationController?.navigationBar.tintColor = .deepGreen
         navigationItem.searchController = searchController
-        noResultLabel.frame = view.bounds
+        noResultLabel.frame = collectionView.bounds
         view.addSubview(noResultLabel)
     }
     // MARK: - Binding
     private func observers() {
         viewModel.snapshotUpdate.bind { [weak self] value in
             guard let self, let value else { return }
-            switch value {
-            case true:
-                Task {
-                    await MainActor.run {
+            Task {
+                await MainActor.run {
+                    switch value {
+                    case true:
                         self.updateSnapshot()
                         self.activityIndicator.hideLoadingIndicator()
                         if self.viewModel.movies.isEmpty {
                             self.noResultLabel.isHidden = false
                         }
-                    }
-                }
-            case false:
-                Task {
-                    await MainActor.run {
+                    case false:
                         self.noResultLabel.isHidden = true
                         self.activityIndicator.showLoadingIndicator()
                     }

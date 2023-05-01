@@ -27,5 +27,12 @@ extension MainViewController {
         dialogMessage.addAction(button)
         present(dialogMessage, animated: true, completion: nil)
     }
-    
+    func makeNoResultsLabel() -> UILabel {
+        let noResultLabel = UILabel()
+        noResultLabel.text = "No results found"
+        noResultLabel.isHidden = true
+        noResultLabel.font = Fonts.medium(.size3).font
+        noResultLabel.textAlignment = NSTextAlignment.center
+        return noResultLabel
+    }
 }

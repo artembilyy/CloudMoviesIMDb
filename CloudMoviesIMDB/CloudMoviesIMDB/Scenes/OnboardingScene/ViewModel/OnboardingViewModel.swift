@@ -18,9 +18,12 @@ protocol OnboardingViewModelProtocol {
 }
 
 final class OnboardingViewModel: OnboardingViewModelProtocol {
+    // MARK: - Properties
     var slides: [OnboardingSlide] = OnboardingSlide.onboardingData
     var currentPage = 0
+    // MARK: - Delegate
     weak var coordinatorDelegate: OnboardingViewModelCoordinatorDelegate?
+    // MARK: - Methods
     /// switch hasOnboarded to prevent present Onboarding
     func onboardingFinished() {
         LocalState.hasOnboarded = true

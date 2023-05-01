@@ -11,8 +11,8 @@ final class SearchMovieCell: UICollectionViewCell, IdentifiableCell {
     // MARK: - MovieCell UI Elements
     lazy var container = makeContainer()
     lazy var activityIndicatorView = makeActivityIndicatorView()
-    lazy var titleLabel = makeLabel(font: UIFont.setFont(name: Poppins.semiBold.rawValue, size: 16))
-    lazy var descriptionLabel = makeLabel(font: UIFont.setFont(name: Poppins.medium.rawValue, size: 16))
+    lazy var titleLabel = makeLabel(font: Fonts.semiBold(.size3).font)
+    lazy var descriptionLabel = makeLabel(font: Fonts.medium(.size3).font)
     lazy var posterImage: UIImageView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.contentMode = .scaleAspectFill
@@ -23,7 +23,8 @@ final class SearchMovieCell: UICollectionViewCell, IdentifiableCell {
     private var imageLoadingManager: ImageLoadingManagerProtocol?
     // MARK: Init
     override init(frame: CGRect) {
-        imageLoadingManager = ImageLoadingManager()
+        let imageCacheManager = ImageCacheManager.shared
+        imageLoadingManager = ImageLoadingManager(cache: imageCacheManager)
         super.init(frame: frame)
         setup()
     }
@@ -53,15 +54,18 @@ final class SearchMovieCell: UICollectionViewCell, IdentifiableCell {
         Task {
             titleLabel.text = media.title
             descriptionLabel.text = "\(media.description ?? "")"
-            guard let path = media.image,
-                  let url = URL(string: path) else {
+            guard let path = media.image else {
                 posterImage.image = UIImage(named: "PosterNil")
                 activityIndicatorView.hideLoadingIndicator()
                 return
             }
-            let result = try await imageLoadingManager?.getSearchImage(from: url)
+            do {
+                let result = try await imageLoadingManager?.getImage(from: path)
+                posterImage.image = result
+            } catch {
+                posterImage.image = UIImage(named: "PosterNil")
+            }
             activityIndicatorView.hideLoadingIndicator()
-            posterImage.image = result
         }
     }
 }

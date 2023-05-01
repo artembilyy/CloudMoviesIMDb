@@ -7,18 +7,26 @@
 
 import UIKit
 
-final class ImageCacheManager {
-    // MARK: - Singleton
+protocol ImageCacheProtocol {
+    subscript(key: String) -> UIImage? { get set }
+    func clearCache()
+}
+
+final class ImageCacheManager: ImageCacheProtocol {
     static let shared = ImageCacheManager()
     private let cache = NSCache<NSString, UIImage>()
-    /// lock
-    private init() { }
     // MARK: - Methods
-    func saveImageToCache(image: UIImage, _ key: String) {
-        cache.setObject(image, forKey: key as NSString)
-    }
-    func getImageFromCache(_ key: String) -> UIImage? {
-        cache.object(forKey: key as NSString)
+    subscript(key: String) -> UIImage? {
+        get {
+            return cache.object(forKey: key as NSString)
+        }
+        set {
+            if let image = newValue {
+                cache.setObject(image, forKey: key as NSString)
+            } else {
+                cache.removeObject(forKey: key as NSString)
+            }
+        }
     }
     func clearCache() {
         cache.removeAllObjects()

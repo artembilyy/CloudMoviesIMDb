@@ -17,7 +17,7 @@ enum NetworkError: Error {
     case invalidURL
     case noImage
     case unknown
-    
+    /// description
     var description: String {
         switch self {
         case .requestFailed(let description):
@@ -41,4 +41,3 @@ enum NetworkError: Error {
         }
     }
 }
-

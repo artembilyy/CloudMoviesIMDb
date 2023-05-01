@@ -15,12 +15,16 @@ extension UICollectionViewCell {
         })
     }
     func cellScallingPressed() {
-        UIView.animate(withDuration: 0.2, animations: {
+        UIView.animate(
+            withDuration: 0.2,
+            animations: {
             self.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
-        }) { (_) in
-            UIView.animate(withDuration: 0.2, animations: {
+        },
+            completion: { _ in
+            UIView.animate(withDuration: 0.2) {
                 self.transform = .identity
-            })
+            }
         }
+        )
     }
 }

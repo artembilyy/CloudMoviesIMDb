@@ -24,7 +24,7 @@ extension SearchViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.becomeFirstResponder()
     }
-
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return true
@@ -39,6 +39,9 @@ extension SearchViewController: UICollectionViewDelegate {
             return
         }
         viewModel.openDetailController(selectedItem)
+    }
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        searchController.searchBar.endEditing(true)
     }
 }
 // MARK: - Don't use this one if you haven't got PREMIUM API ACCESS :)

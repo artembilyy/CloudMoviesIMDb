@@ -8,7 +8,12 @@
 import Foundation
 
 protocol HTTPClient {
-    func sendRequest<T: Decodable>(endpoint: Endpoint, responseModel: T.Type, useCache: Bool, decoder: JSONDecoder) async throws -> T
+    func sendRequest<T: Decodable>(
+        endpoint: Endpoint,
+        responseModel: T.Type,
+        useCache: Bool,
+        decoder: JSONDecoder
+    ) async throws -> T
 }
 
 extension HTTPClient {
@@ -18,12 +23,10 @@ extension HTTPClient {
         useCache: Bool = true,
         decoder: JSONDecoder
     ) async throws -> T {
-        
         var urlComponents = URLComponents()
         urlComponents.scheme = endpoint.scheme
         urlComponents.host = endpoint.host
         urlComponents.path = endpoint.path
-        
         guard let url = urlComponents.url else {
             throw NetworkError.invalidURL
         }

@@ -24,8 +24,8 @@ final class CustomDetailViewModel: CustomDetailViewModelProtocol {
     func getMovieInfo() async {
         do {
             guard let movieID = movie.id else { return }
-            let result = try await network.getDetailScreen(movieID: movieID)
-            self.movie = result
+            let movie = try await network.getDetailScreen(movieID: movieID)
+            self.movie = movie
         } catch {
             print(error.localizedDescription)
         }

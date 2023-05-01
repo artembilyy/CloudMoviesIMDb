@@ -26,7 +26,7 @@ final class AppCoordinator: AppCoordinatorProtocol {
         self.assemblyBuilder = assemblyBuilder
         print("App Coordinator init")
     }
-    // MARK: - Load Flow
+    // MARK: - Setup Flow
     func start() {
         if LocalState.hasOnboarded {
             showMainFlow()
