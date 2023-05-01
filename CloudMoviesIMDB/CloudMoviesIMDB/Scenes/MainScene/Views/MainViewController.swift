@@ -97,7 +97,7 @@ final class MainViewController: UICollectionViewController {
     }
     private func observeSnapshotUpdate() {
         viewModel.snapshotUpdate.bind { [weak self] value in
-            guard let self = self, let value = value, value else { return }
+            guard let self, let value, value else { return }
             Task {
                 await MainActor.run {
                     self.updateSnapshot()
@@ -107,7 +107,7 @@ final class MainViewController: UICollectionViewController {
     }
     private func observeErrorAlert() {
         viewModel.errorAlert.bind { [weak self] value in
-            guard let self = self, let value = value else { return }
+            guard let self, let value else { return }
             Task {
                 await MainActor.run {
                     self.showAlert(value)
@@ -117,7 +117,7 @@ final class MainViewController: UICollectionViewController {
     }
     private func observeEmptyResults() {
         viewModel.emptyResults.bind { [weak self] value in
-            guard let self = self, let value = value else { return }
+            guard let self, let value else { return }
             Task {
                 await MainActor.run {
                     self.noResultLabel.isHidden = !value
@@ -172,7 +172,7 @@ extension MainViewController {
         forItemAt indexPath: IndexPath
     ) {
         let lastElement = viewModel.top250Movies.count - 1
-        if indexPath.item == lastElement {
+        if indexPath.item == lastElement && !searchController.isActive {
             isPaginating = true
             Task {
                 try await Task.sleep(seconds: 1)

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED0A2DCC29FF51F80004B79C /* Poppins.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0A2DCB29FF51F80004B79C /* Poppins.swift */; };
 		ED0D54C629F9FE070005FA8C /* SearchViewController + DiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0D54C529F9FE070005FA8C /* SearchViewController + DiffableDataSource.swift */; };
 		ED0D54C829FA00A00005FA8C /* SearchViewController + CompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0D54C729FA00A00005FA8C /* SearchViewController + CompositionalLayout.swift */; };
 		ED0E239B29FE7C0900C44F28 /* UICollectionView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0E239A29FE7C0900C44F28 /* UICollectionView + Extension.swift */; };
@@ -115,6 +116,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		ED0A2DCB29FF51F80004B79C /* Poppins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poppins.swift; sourceTree = "<group>"; };
 		ED0D54C529F9FE070005FA8C /* SearchViewController + DiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController + DiffableDataSource.swift"; sourceTree = "<group>"; };
 		ED0D54C729FA00A00005FA8C /* SearchViewController + CompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController + CompositionalLayout.swift"; sourceTree = "<group>"; };
 		ED0E239A29FE7C0900C44F28 /* UICollectionView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView + Extension.swift"; sourceTree = "<group>"; };
@@ -480,6 +482,7 @@
 		ED653A8429F8508100A8FBC1 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				ED0A2DCB29FF51F80004B79C /* Poppins.swift */,
 				ED653A8529F8508100A8FBC1 /* Poppins-ExtraLight.ttf */,
 				ED653A8629F8508100A8FBC1 /* Poppins-ThinItalic.ttf */,
 				ED653A8729F8508100A8FBC1 /* Poppins-ExtraLightItalic.ttf */,
@@ -566,7 +569,6 @@
 				ED653A1829F847A300A8FBC1 /* Sources */,
 				ED653A1929F847A300A8FBC1 /* Frameworks */,
 				ED653A1A29F847A300A8FBC1 /* Resources */,
-				ED197A1929F97C1B006E4DAF /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -700,26 +702,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		ED197A1929F97C1B006E4DAF /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# export PATH=\"$PATH:/opt/homebrew/bin\"\n# if which swiftlint > /dev/null; then\n#  swiftlint\n# else\n#  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n#   fi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		ED653A1829F847A300A8FBC1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -728,6 +710,7 @@
 				ED653AC029F8B6E600A8FBC1 /* MainMovieCell + Extension.swift in Sources */,
 				ED653AAA29F851E400A8FBC1 /* UIColor + Extension.swift in Sources */,
 				ED653AB429F8727400A8FBC1 /* MainViewController + DiffableDataSource.swift in Sources */,
+				ED0A2DCC29FF51F80004B79C /* Poppins.swift in Sources */,
 				ED653A7E29F84F1800A8FBC1 /* UIFont + Extension.swift in Sources */,
 				ED653ACA29F8E1D500A8FBC1 /* DetailViewController.swift in Sources */,
 				ED653A6829F84C2500A8FBC1 /* OnboardingSlide.swift in Sources */,

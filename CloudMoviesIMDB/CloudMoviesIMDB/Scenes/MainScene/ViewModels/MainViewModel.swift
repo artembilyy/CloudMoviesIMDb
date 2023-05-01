@@ -61,7 +61,9 @@ final class MainViewModel: MainViewModelProtocol {
         /// avoid duplicates
         fetchFinished.value = false
         allMovies.removeAll()
-        top250Movies.removeAll()
+        if !top250Movies.isEmpty {
+            top250Movies.removeAll()
+        }
         emptyResults.value = false
         counter = 0
         snapshotUpdate.value = true
