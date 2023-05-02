@@ -22,12 +22,15 @@ final class CustomDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        configure()
     }
     // MARK: - Setup
     private func setup() {
         view.backgroundColor = .white
         view.addSubview(customDetailView)
         customDetailView.frame = view.bounds
+    }
+    private func configure() {
         Task {
             await viewModel.getMovieInfo()
             customDetailView.configure(data: viewModel.movie)

@@ -95,6 +95,7 @@
 		EDD3B2FC29FC09A100374E8E /* MainViewController + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2FB29FC09A100374E8E /* MainViewController + Delegate.swift */; };
 		EDD3B2FE29FC0A8500374E8E /* SearchViewController + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2FD29FC0A8500374E8E /* SearchViewController + Delegate.swift */; };
 		EDD3B30029FC0B3300374E8E /* MainViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2FF29FC0B3300374E8E /* MainViewController + Extension.swift */; };
+		EDED69CC2A0129BC005CCD2A /* TransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDED69CB2A0129BC005CCD2A /* TransitionAnimator.swift */; };
 		EDF74B6029FDB4CB0083211F /* MoviesEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF74B5F29FDB4CB0083211F /* MoviesEndpoint.swift */; };
 /* End PBXBuildFile section */
 
@@ -208,6 +209,7 @@
 		EDD3B2FB29FC09A100374E8E /* MainViewController + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController + Delegate.swift"; sourceTree = "<group>"; };
 		EDD3B2FD29FC0A8500374E8E /* SearchViewController + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController + Delegate.swift"; sourceTree = "<group>"; };
 		EDD3B2FF29FC0B3300374E8E /* MainViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController + Extension.swift"; sourceTree = "<group>"; };
+		EDED69CB2A0129BC005CCD2A /* TransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAnimator.swift; sourceTree = "<group>"; };
 		EDF74B5F29FDB4CB0083211F /* MoviesEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesEndpoint.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -301,6 +303,7 @@
 		ED653A1E29F847A300A8FBC1 /* CloudMoviesIMDB */ = {
 			isa = PBXGroup;
 			children = (
+				EDED69CA2A012979005CCD2A /* Animator */,
 				ED653A5829F84A4500A8FBC1 /* Builder */,
 				ED653A5229F849A800A8FBC1 /* Scenes */,
 				ED653AAD29F85E8600A8FBC1 /* Services */,
@@ -559,6 +562,14 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		EDED69CA2A012979005CCD2A /* Animator */ = {
+			isa = PBXGroup;
+			children = (
+				EDED69CB2A0129BC005CCD2A /* TransitionAnimator.swift */,
+			);
+			path = Animator;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -710,6 +721,7 @@
 				ED653AC029F8B6E600A8FBC1 /* MainMovieCell + Extension.swift in Sources */,
 				ED653AAA29F851E400A8FBC1 /* UIColor + Extension.swift in Sources */,
 				ED653AB429F8727400A8FBC1 /* MainViewController + DiffableDataSource.swift in Sources */,
+				EDED69CC2A0129BC005CCD2A /* TransitionAnimator.swift in Sources */,
 				ED0A2DCC29FF51F80004B79C /* Poppins.swift in Sources */,
 				ED653A7E29F84F1800A8FBC1 /* UIFont + Extension.swift in Sources */,
 				ED653ACA29F8E1D500A8FBC1 /* DetailViewController.swift in Sources */,

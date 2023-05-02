@@ -42,7 +42,7 @@ final class SearchViewModel: SearchViewModelProtocol {
         Task {
             do {
                 let result = try await self.networkService.getSearchedMovies(query: queryString)
-                self.movies = result.items ?? result.results!
+                self.movies = result.items ?? result.results ?? []
                 snapshotUpdate.value = true
             } catch {
                 print(error.localizedDescription)

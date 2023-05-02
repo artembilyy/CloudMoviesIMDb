@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SearchPageCoordinator: Coordinator {
+final class SearchPageCoordinator: NSObject, Coordinator {
     let navigationController: UINavigationController?
     var childCoordinators: [Coordinator] = []
     var assemblyBuilder: AssemblyProtocol?
@@ -21,7 +21,7 @@ final class SearchPageCoordinator: Coordinator {
         let searchViewController = assemblyBuilder?.createSearchController(coordinatorDelegate: self)
         guard let navigationController,
               let searchViewController else { return }
-        navigationController.navigationItem.largeTitleDisplayMode = .automatic
+        navigationController.navigationItem.largeTitleDisplayMode = .always
         navigationController.navigationBar.prefersLargeTitles = true
         searchViewController.title = "Search"
         navigationController.setViewControllers([searchViewController], animated: true)

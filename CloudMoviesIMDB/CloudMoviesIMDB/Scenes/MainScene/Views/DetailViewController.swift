@@ -25,6 +25,8 @@ final class DetailViewController: UICollectionViewController {
         setup()
     }
     private func setup() {
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.largeTitleDisplayMode = .never
         title = viewModel.movie?.title
         collectionView.collectionViewLayout = createLayout()
         collectionView.register(UICollectionViewListCell.self, forCellWithReuseIdentifier: "def")

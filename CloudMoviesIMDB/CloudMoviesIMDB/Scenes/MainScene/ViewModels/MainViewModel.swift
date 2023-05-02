@@ -70,6 +70,9 @@ final class MainViewModel: MainViewModelProtocol {
         Task {
             do {
                 let result = try await networkService.getTop250Movies(useCache: useCache)
+                if result.errorMessage != "" {
+                    self.errorAlert.value = result.errorMessage
+                }
                 if let movies = result.items {
                     self.allMovies = movies
                     self.fetchFinished.value = true

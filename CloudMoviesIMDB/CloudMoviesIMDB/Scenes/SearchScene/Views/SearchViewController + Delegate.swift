@@ -48,11 +48,12 @@ extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let query = searchController.searchBar.text,
               !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
-        var searchTimer: Timer?
-        searchTimer?.invalidate()
-        /// Throttling
-        searchTimer = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { [weak self] _ in
-            self?.viewModel.getSearchResultsMovies(queryString: query)
+        searchWorkItem?.cancel()
+        let workItem = DispatchWorkItem { [weak self] in
+            guard let self else { return }
+            self.viewModel.getSearchResultsMovies(queryString: query)
         }
+        searchWorkItem = workItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: workItem)
     }
 }

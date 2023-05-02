@@ -13,6 +13,8 @@ final class MainViewController: UICollectionViewController {
     }
     var viewModel: MainViewModelProtocol!
     var dataSource: DataSource!
+    
+    var searchWorkItem: DispatchWorkItem?
     // MARK: - UI
     private lazy var searchController = makeSearchController()
     private let refreshControl = UIRefreshControl()

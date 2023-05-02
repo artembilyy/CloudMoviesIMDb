@@ -34,6 +34,8 @@ final class SearchViewController: UIViewController {
         return search
     }()
     let viewModel: SearchViewModelProtocol
+    //
+    var searchWorkItem: DispatchWorkItem?
     // MARK: - Init
     init(viewModel: SearchViewModelProtocol) {
         self.viewModel = viewModel
