@@ -44,16 +44,16 @@ extension SearchViewController: UICollectionViewDelegate {
     }
 }
 // MARK: - Don't use this one if you haven't got PREMIUM API ACCESS :)
-extension SearchViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let query = searchController.searchBar.text,
-              !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
-        searchWorkItem?.cancel()
-        let workItem = DispatchWorkItem { [weak self] in
-            guard let self else { return }
-            self.viewModel.getSearchResultsMovies(queryString: query)
-        }
-        searchWorkItem = workItem
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: workItem)
-    }
-}
+//extension SearchViewController: UISearchResultsUpdating {
+//    func updateSearchResults(for searchController: UISearchController) {
+//        guard let query = searchController.searchBar.text,
+//              !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
+//        searchWorkItem?.cancel()
+//        let workItem = DispatchWorkItem { [weak self] in
+//            guard let self else { return }
+//            self.viewModel.getSearchResultsMovies(queryString: query)
+//        }
+//        searchWorkItem = workItem
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: workItem)
+//    }
+//}

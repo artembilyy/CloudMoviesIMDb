@@ -15,6 +15,8 @@ protocol ImageCacheProtocol {
 final class ImageCacheManager: ImageCacheProtocol {
     static let shared = ImageCacheManager()
     private let cache = NSCache<NSString, UIImage>()
+    
+    private init() { }
     // MARK: - Methods
     subscript(key: String) -> UIImage? {
         get {

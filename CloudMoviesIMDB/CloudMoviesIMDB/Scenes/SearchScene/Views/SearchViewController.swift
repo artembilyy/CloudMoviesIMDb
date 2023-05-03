@@ -35,7 +35,7 @@ final class SearchViewController: UIViewController {
     }()
     let viewModel: SearchViewModelProtocol
     //
-    var searchWorkItem: DispatchWorkItem?
+    weak var searchWorkItem: DispatchWorkItem?
     // MARK: - Init
     init(viewModel: SearchViewModelProtocol) {
         self.viewModel = viewModel
@@ -56,7 +56,7 @@ final class SearchViewController: UIViewController {
     // MARK: - Methods
     private func delegate() {
         collectionView.delegate = self
-        searchController.searchResultsUpdater = self
+//        searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.searchBar.searchTextField.delegate = self
     }

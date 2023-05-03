@@ -19,17 +19,15 @@ final class CustomDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     // MARK: - Lifecycle
+    override func loadView() {
+        super.loadView()
+        view = customDetailView
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
         configure()
     }
     // MARK: - Setup
-    private func setup() {
-        view.backgroundColor = .white
-        view.addSubview(customDetailView)
-        customDetailView.frame = view.bounds
-    }
     private func configure() {
         Task {
             await viewModel.getMovieInfo()

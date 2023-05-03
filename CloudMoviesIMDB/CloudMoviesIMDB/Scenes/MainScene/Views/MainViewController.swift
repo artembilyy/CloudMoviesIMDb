@@ -49,7 +49,7 @@ final class MainViewController: UICollectionViewController {
     }
     // MARK: - Methods
     private func delegate() {
-        searchController.searchResultsUpdater = self
+//        searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.searchBar.searchTextField.delegate = self
     }

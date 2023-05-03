@@ -18,7 +18,6 @@ class CustomTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning 
               let toVC = transitionContext.viewController(forKey: .to) else {
             return
         }
-        
         let containerView = transitionContext.containerView
         containerView.addSubview(toVC.view)
         if let snapshot = fromVC.view.snapshotView(afterScreenUpdates: false) {
