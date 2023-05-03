@@ -12,6 +12,7 @@ protocol TabbarCoordinatorProtocol: Coordinator {
 }
 
 final class TabBarCoordinator: TabbarCoordinatorProtocol {
+    
     var tabBarController: UITabBarController
     var childCoordinators: [Coordinator] = []
     var assemblyBuilder: AssemblyProtocol?
@@ -23,32 +24,29 @@ final class TabBarCoordinator: TabbarCoordinatorProtocol {
         self.assemblyBuilder = assemblyBuilder
     }
     func start() {
-        addFirstPage()
-        addSecondPage()
+        addTab(.home)
+        addTab(.search)
     }
-    func addFirstPage() {
-        guard let assemblyBuilder else { return }
-        let coordinator = MainPageCoordinator(
-            navigationController: UINavigationController(),
-            assemblyBuilder: assemblyBuilder
-        )
+    func addTab(_ tab: Tab) {
+        guard let assemblyBuilder = assemblyBuilder else { return }
+        let coordinator: Coordinator
+        switch tab {
+        case .home:
+            coordinator = MainPageCoordinator(
+                navigationController: UINavigationController(),
+                assemblyBuilder: assemblyBuilder
+            )
+        case .search:
+            coordinator = SearchPageCoordinator(
+                navigationController: UINavigationController(),
+                assemblyBuilder: assemblyBuilder
+            )
+        }
         guard let navigation = coordinator.navigationController else { return }
-        let image = UIImage(systemName: "house.fill")?.withTintColor(.deepGreen)
-        navigation.tabBarItem = UITabBarItem(title: "Home", image: image, tag: 0)
-        navigation.navigationController?.navigationBar.tintColor = .deepGreen
-        tabBarController.viewControllers?.append(navigation)
-        addChildCoordinator(coordinator)
-        coordinator.start()
-    }
-    func addSecondPage() {
-        guard let assemblyBuilder else { return }
-        let coordinator = SearchPageCoordinator(
-            navigationController: UINavigationController(),
-            assemblyBuilder: assemblyBuilder
-        )
-        guard let navigation = coordinator.navigationController else { return }
-        let image = UIImage(systemName: "magnifyingglass")
-        navigation.tabBarItem = UITabBarItem(title: "Search", image: image, tag: 1)
+        navigation.tabBarItem = UITabBarItem(title: tab.title, image: tab.image, tag: tab.tag)
+        if let navBar = navigation.navigationController?.navigationBar {
+            navBar.tintColor = .deepGreen
+        }
         tabBarController.viewControllers?.append(navigation)
         addChildCoordinator(coordinator)
         coordinator.start()
@@ -58,5 +56,40 @@ final class TabBarCoordinator: TabbarCoordinatorProtocol {
     }
     deinit {
         print("TabBaCoordinator deinit")
+    }
+}
+
+extension TabBarCoordinator {
+    
+    enum Tab {
+        case home
+        case search
+        
+        var title: String {
+            switch self {
+            case .home:
+                return "Home"
+            case .search:
+                return "Search"
+            }
+        }
+        
+        var image: UIImage? {
+            switch self {
+            case .home:
+                return UIImage(systemName: "house.fill")?.withTintColor(.deepGreen)
+            case .search:
+                return UIImage(systemName: "magnifyingglass")
+            }
+        }
+        
+        var tag: Int {
+            switch self {
+            case .home:
+                return 0
+            case .search:
+                return 1
+            }
+        }
     }
 }

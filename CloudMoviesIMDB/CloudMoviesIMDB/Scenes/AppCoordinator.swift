@@ -14,46 +14,51 @@ protocol AppCoordinatorProtocol: Coordinator {
     func showOnboarding()
 }
 
-final class AppCoordinator: AppCoordinatorProtocol {
-    var parentCoordinator: Coordinator?
-    var navigationController: UINavigationController?
+final class AppCoordinator: Coordinator {
+    
+    enum AppFlow {
+        case onboarding
+        case main
+    }
+    
     var childCoordinators: [Coordinator] = []
     var assemblyBuilder: AssemblyProtocol?
-    var window: UIWindow?
-    // MARK: - Init
+    var navigationController: UINavigationController?
+    weak var parentCoordinator: Coordinator?
+    let window: UIWindow?
+    
     init(window: UIWindow?, assemblyBuilder: AssemblyProtocol) {
         self.window = window
         self.assemblyBuilder = assemblyBuilder
-        print("App Coordinator init")
     }
-    // MARK: - Setup Flow
+    
     func start() {
-        if LocalState.hasOnboarded {
-            showMainFlow()
-        } else {
-            showOnboarding()
+        LocalState.hasOnboarded ?
+        show(appFlow: .main) :
+        show(appFlow: .onboarding)
+    }
+    
+    func show(appFlow: AppFlow) {
+        guard let assemblyBuilder = assemblyBuilder else { return }
+        switch appFlow {
+        case .onboarding:
+            let navigationController = UINavigationController()
+            let onboardingCoordinator = OnboardingCoordinator(
+                navigationController: navigationController,
+                assemblyBuilder: assemblyBuilder
+            )
+            addChildCoordinator(onboardingCoordinator)
+            onboardingCoordinator.start()
+            window?.rootViewController = navigationController
+        case .main:
+            let tabBar = assemblyBuilder.createTabBarController()
+            let tabBarContollerCoordinator = TabBarCoordinator(
+                tabBarController: tabBar,
+                assemblyBuilder: assemblyBuilder
+            )
+            addChildCoordinator(tabBarContollerCoordinator)
+            tabBarContollerCoordinator.start()
+            window?.rootViewController = tabBarContollerCoordinator.tabBarController
         }
-    }
-    func showMainFlow() {
-        guard let assemblyBuilder else { return }
-        let tabBar = assemblyBuilder.createTabBarController()
-        let tabBarContollerCoordinator = TabBarCoordinator(
-            tabBarController: tabBar,
-            assemblyBuilder: assemblyBuilder
-        )
-        addChildCoordinator(tabBarContollerCoordinator)
-        tabBarContollerCoordinator.start()
-        window?.rootViewController = tabBarContollerCoordinator.tabBarController
-    }
-    func showOnboarding() {
-        guard let assemblyBuilder else { return }
-        let navigationController = UINavigationController()
-        let onboardingCoordinator = OnboardingCoordinator(
-            navigationController: navigationController,
-            assemblyBuilder: assemblyBuilder
-        )
-        addChildCoordinator(onboardingCoordinator)
-        onboardingCoordinator.start()
-        window?.rootViewController = navigationController
     }
 }
