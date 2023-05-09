@@ -34,6 +34,7 @@ final class MainViewController: UICollectionViewController {
     override init(collectionViewLayout layout: UICollectionViewLayout) {
         super.init(collectionViewLayout: layout)
     }
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -88,10 +89,10 @@ final class MainViewController: UICollectionViewController {
                     switch value {
                     case true:
                         self.viewModel.show10Movies(false)
-                        self.activityIndicator.hideLoadingIndicator()
+                        self.activityIndicator.stopAnimating()
                         self.updateSnapshot()
                     default:
-                        self.activityIndicator.showLoadingIndicator()
+                        self.activityIndicator.startAnimating()
                     }
                 }
             }

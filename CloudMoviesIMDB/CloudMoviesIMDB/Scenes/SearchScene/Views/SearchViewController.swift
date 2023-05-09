@@ -35,12 +35,13 @@ final class SearchViewController: UIViewController {
     }()
     let viewModel: SearchViewModelProtocol
     //
-    weak var searchWorkItem: DispatchWorkItem?
+    var searchWorkItem: DispatchWorkItem?
     // MARK: - Init
     init(viewModel: SearchViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -56,7 +57,7 @@ final class SearchViewController: UIViewController {
     // MARK: - Methods
     private func delegate() {
         collectionView.delegate = self
-//        searchController.searchResultsUpdater = self
+        searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.searchBar.searchTextField.delegate = self
     }
@@ -81,13 +82,13 @@ final class SearchViewController: UIViewController {
                     switch value {
                     case true:
                         self.updateSnapshot()
-                        self.activityIndicator.hideLoadingIndicator()
+                        self.activityIndicator.stopAnimating()
                         if self.viewModel.movies.isEmpty {
                             self.noResultLabel.isHidden = false
                         }
                     case false:
                         self.noResultLabel.isHidden = true
-                        self.activityIndicator.showLoadingIndicator()
+                        self.activityIndicator.startAnimating()
                     }
                 }
             }

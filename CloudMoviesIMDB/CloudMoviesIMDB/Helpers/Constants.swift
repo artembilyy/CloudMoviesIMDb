@@ -8,5 +8,7 @@
 import Foundation
 
 struct Constants {
-    static let apiKey = "k_l342t1pj" /// <--- Past your own API KEY HERE from "https://imdb-api.com"
+    struct API {
+        static let apiKey = "k_l342t1pj" /// <--- Past your own API KEY HERE from "https://imdb-api.com"
+    }
 }

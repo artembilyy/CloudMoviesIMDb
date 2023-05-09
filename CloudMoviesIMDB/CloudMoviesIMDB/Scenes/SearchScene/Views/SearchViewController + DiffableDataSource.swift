@@ -12,11 +12,12 @@ extension SearchViewController {
     typealias Snapshot = NSDiffableDataSourceSnapshot<SearchSection, Movies.Movie>
     // MARK: - Diffable Data Source
     func setupDataSource() {
-        dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, item in
-            guard let section = SearchSection(rawValue: indexPath.section) else { return UICollectionViewCell() }
+        dataSource = DataSource(collectionView: collectionView) { [weak self] collectionView, indexPath, item in
+            guard let section = SearchSection(rawValue: indexPath.section),
+            let self else { return UICollectionViewCell() }
             switch section {
             case .movies:
-                guard let cell = collectionView.dequeueReusableCell(
+                guard let cell = self.collectionView.dequeueReusableCell(
                     withReuseIdentifier: SearchMovieCell.identifier,
                     for: indexPath
                 ) as? SearchMovieCell else { return UICollectionViewCell() }

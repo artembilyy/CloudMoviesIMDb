@@ -27,7 +27,7 @@ final class ImageLoadingManager: ImageLoadingManagerProtocol {
         urlComponents.host = endpoint.host
         urlComponents.path = endpoint.path
         urlComponents.queryItems = [
-            URLQueryItem(name: "apiKey", value: Constants.apiKey),
+            URLQueryItem(name: "apiKey", value: Constants.API.apiKey),
             URLQueryItem(name: "size", value: "256x352"),
             URLQueryItem(name: "url", value: source) // check it
         ]

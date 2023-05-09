@@ -28,6 +28,7 @@ final class MainMovieCell: UICollectionViewCell, IdentifiableCell {
         super.init(frame: frame)
         setup()
     }
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         fatalError("init(coder:) has not been implemented - not using storyboards")
@@ -50,7 +51,7 @@ final class MainMovieCell: UICollectionViewCell, IdentifiableCell {
     // MARK: - Configure
     @MainActor
     func configure(media: Movies.Movie) {
-        activityIndicatorView.showLoadingIndicator()
+        activityIndicatorView.startAnimating()
         Task {
             titleLabel.text = media.title
             rankLabel.text = "Rank: \(media.rank ?? "")"
@@ -61,7 +62,7 @@ final class MainMovieCell: UICollectionViewCell, IdentifiableCell {
             } catch {
                 posterImage.image = UIImage(named: "PosterNil")
             }
-            activityIndicatorView.hideLoadingIndicator()
+            activityIndicatorView.stopAnimating()
         }
     }
     deinit {

@@ -49,6 +49,7 @@ final class CustomDetailView: UIView {
         super.init(frame: frame)
         setup()
     }
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -72,7 +73,7 @@ final class CustomDetailView: UIView {
     func configure(data: Movies.Movie?) {
         Task(priority: .userInitiated) {
             guard let path = data?.image else {
-                activityIndicator.hideLoadingIndicator()
+                activityIndicator.stopAnimating()
                 return
             }
             var imageInCache: Bool = false
@@ -96,12 +97,12 @@ final class CustomDetailView: UIView {
                 dateString: data.releaseDate ?? "",
                 withFormat: "MMM dd, yyyy"
             ) else {
-                self.activityIndicator.hideLoadingIndicator()
+                self.activityIndicator.stopAnimating()
                 return
             }
             releaseLabel.text = String(describing: formattedString)
             descriptionLabel.text = String(describing: data.plot ?? "")
-            activityIndicator.hideLoadingIndicator()
+            activityIndicator.stopAnimating()
         }
     }
     // MARK: - Layout

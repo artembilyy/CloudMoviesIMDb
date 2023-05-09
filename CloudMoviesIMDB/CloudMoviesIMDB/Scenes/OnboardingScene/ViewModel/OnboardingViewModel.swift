@@ -14,6 +14,7 @@ protocol OnboardingViewModelCoordinatorDelegate: AnyObject {
 protocol OnboardingViewModelProtocol {
     var slides: [OnboardingSlide] { get }
     var currentPage: Int { get }
+    var coordinatorDelegate: OnboardingViewModelCoordinatorDelegate? { get set }
     func onboardingFinished()
 }
 

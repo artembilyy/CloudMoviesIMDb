@@ -28,6 +28,7 @@ final class SearchMovieCell: UICollectionViewCell, IdentifiableCell {
         super.init(frame: frame)
         setup()
     }
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         fatalError("init(coder:) has not been implemented - not using storyboards")
@@ -50,13 +51,13 @@ final class SearchMovieCell: UICollectionViewCell, IdentifiableCell {
     // MARK: - Configure
     @MainActor
     func configure(media: Movies.Movie) {
-        activityIndicatorView.showLoadingIndicator()
+        activityIndicatorView.startAnimating()
         Task {
             titleLabel.text = media.title
             descriptionLabel.text = "\(media.description ?? "")"
             guard let path = media.image else {
                 posterImage.image = UIImage(named: "PosterNil")
-                activityIndicatorView.hideLoadingIndicator()
+                activityIndicatorView.stopAnimating()
                 return
             }
             do {
@@ -65,7 +66,7 @@ final class SearchMovieCell: UICollectionViewCell, IdentifiableCell {
             } catch {
                 posterImage.image = UIImage(named: "PosterNil")
             }
-            activityIndicatorView.hideLoadingIndicator()
+            activityIndicatorView.stopAnimating()
         }
     }
 }

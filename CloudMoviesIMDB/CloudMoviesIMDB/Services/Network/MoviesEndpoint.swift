@@ -18,11 +18,11 @@ extension MoviesEndpoint: Endpoint {
     var path: String {
         switch self {
         case .top250:
-            return "/en/API/Top250Movies/\(Constants.apiKey)"
+            return "/en/API/Top250Movies/\(Constants.API.apiKey)"
         case .detail(let id):
-            return "/en/API/Title/\(Constants.apiKey)/\(id)/FullActor,FullCast,Posters,Images,Trailer,Ratings"
+            return "/en/API/Title/\(Constants.API.apiKey)/\(id)/FullActor,FullCast,Posters,Images,Trailer,Ratings"
         case .search(let query):
-            return "/en/API/SearchMovie/\(Constants.apiKey)/\(query)"
+            return "/en/API/SearchMovie/\(Constants.API.apiKey)/\(query)"
         case .resizeImage:
             return "/API/ResizeImage/"
         }
