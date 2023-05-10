@@ -28,7 +28,8 @@ final class Assembly: AssemblyProtocol {
     }
     func createMainController(coordinatorDelegate: MainPageViewModelCoordinatorDelegate) -> UICollectionViewController {
         let networkService = MoviesService()
-        let viewModel = MainViewModel(networkService: networkService)
+        let dataStorage = FavoritesMoviesStorage.shared
+        let viewModel = MainViewModel(networkService: networkService, dataStorage: dataStorage)
         let layout = UICollectionViewLayout()
         viewModel.coordinatorDelegate = coordinatorDelegate
         let viewController = MainViewController(collectionViewLayout: layout)
@@ -50,7 +51,8 @@ final class Assembly: AssemblyProtocol {
     }
     func createSearchController(coordinatorDelegate: SearchViewModelCoordinatorDelegate) -> UIViewController {
         let networkService = MoviesService()
-        let viewModel = SearchViewModel(networkService: networkService)
+        let dataStorage = FavoritesMoviesStorage.shared
+        let viewModel = SearchViewModel(networkService: networkService, dataStorage: dataStorage)
         viewModel.coordinatorDelegate = coordinatorDelegate
         let viewController = SearchViewController(viewModel: viewModel)
         return viewController

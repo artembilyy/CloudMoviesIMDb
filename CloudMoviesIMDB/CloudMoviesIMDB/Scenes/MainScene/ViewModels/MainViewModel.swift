@@ -21,13 +21,18 @@ protocol MainViewModelProtocol {
     var emptyResults: Observable<Bool?> { get }
     func getMovies(useCache: Bool)
     func show10Movies(_ begin: Bool)
+    func saveToFavorites(movie: Movies.Movie)
+    func deleteFromFavorites(movie: Movies.Movie)
+    func checkIsFavorite(movie: Movies.Movie) -> Bool
     func makeLocalSearch()
     func openMainSubController(_ data: Movies.Movie)
 }
 
 final class MainViewModel: MainViewModelProtocol {
     // MARK: - Network
-    private var networkService: TopMoviesNetworkServiceProtocol
+    private let networkService: TopMoviesNetworkServiceProtocol
+    // MARK: - DataStorage
+    private let dataStorage: FavoritesMoviesStorageProtocol
     // MARK: - Properties
     private(set) var top250Movies: [Movies.Movie] = [] {
         didSet {
@@ -53,8 +58,9 @@ final class MainViewModel: MainViewModelProtocol {
     // MARK: - Delegate
     weak var coordinatorDelegate: MainPageViewModelCoordinatorDelegate?
     // MARK: - Init
-    init(networkService: TopMoviesNetworkServiceProtocol) {
+    init(networkService: TopMoviesNetworkServiceProtocol, dataStorage: FavoritesMoviesStorageProtocol) {
         self.networkService = networkService
+        self.dataStorage = dataStorage
     }
     // MARK: - Methods
     func getMovies(useCache: Bool) {
@@ -106,6 +112,15 @@ final class MainViewModel: MainViewModelProtocol {
         }
         top250Movies = filteredMovies
         snapshotUpdate.value = true
+    }
+    func saveToFavorites(movie: Movies.Movie) {
+        dataStorage.saveMovie(movie)
+    }
+    func deleteFromFavorites(movie: Movies.Movie) {
+        dataStorage.deleteMovie(movie)
+    }
+    func checkIsFavorite(movie: Movies.Movie) -> Bool {
+        dataStorage.checkIsFavorite(movie: movie)
     }
     func openMainSubController(_ data: Movies.Movie) {
         coordinatorDelegate?.openMainSubControllerDelegate(data)

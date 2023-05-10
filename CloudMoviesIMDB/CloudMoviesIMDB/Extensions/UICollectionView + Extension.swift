@@ -8,6 +8,13 @@
 import UIKit
 
 extension UICollectionViewCell {
+    func makeSaveButton(action: UIAction) -> UIButton {
+        let saveButton = UIButton(type: .custom, primaryAction: action)
+        saveButton.setImage(UIImage(named: "addwatchlist"), for: .normal)
+        saveButton.setImage(UIImage(named: "checkmark"), for: .selected)
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        return saveButton
+    }
     func cellWillDisplay(_ delay: Double) {
         self.alpha = 0.0
         UIView.animate(withDuration: 0.5, delay: 0.1 * delay, options: [.curveEaseInOut], animations: {

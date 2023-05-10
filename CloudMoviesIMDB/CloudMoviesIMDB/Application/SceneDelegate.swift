@@ -7,8 +7,8 @@
 
 import UIKit
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    
     var window: UIWindow?
     var appCoordinator: AppCoordinator?
     func scene(
@@ -24,19 +24,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.overrideUserInterfaceStyle = .light
         window?.makeKeyAndVisible()
     }
-
-    func sceneDidDisconnect(_ scene: UIScene) {
-    }
-
-    func sceneDidBecomeActive(_ scene: UIScene) {
-    }
-
-    func sceneWillResignActive(_ scene: UIScene) {
-    }
-
-    func sceneWillEnterForeground(_ scene: UIScene) {
-    }
-
+    
+    func sceneDidDisconnect(_ scene: UIScene) { }
+    
+    func sceneDidBecomeActive(_ scene: UIScene) { }
+    
+    func sceneWillResignActive(_ scene: UIScene) { }
+    
+    func sceneWillEnterForeground(_ scene: UIScene) { }
+    
     func sceneDidEnterBackground(_ scene: UIScene) {
+        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
 }

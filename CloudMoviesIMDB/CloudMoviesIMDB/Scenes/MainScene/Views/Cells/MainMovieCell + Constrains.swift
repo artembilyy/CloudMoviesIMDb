@@ -14,12 +14,17 @@ extension MainMovieCell {
             container.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             container.centerYAnchor.constraint(equalTo: centerYAnchor),
             container.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1),
-            container.widthAnchor.constraint(equalTo: container.heightAnchor, multiplier: 0.66),
+            container.widthAnchor.constraint(equalTo: container.heightAnchor, multiplier: 0.7),
             //
             posterImage.topAnchor.constraint(equalTo: container.topAnchor),
             posterImage.bottomAnchor.constraint(equalTo: container.bottomAnchor),
             posterImage.leadingAnchor.constraint(equalTo: container.leadingAnchor),
             posterImage.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            //
+            saveButton.topAnchor.constraint(equalTo: posterImage.topAnchor),
+            saveButton.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            saveButton.heightAnchor.constraint(equalToConstant: 40),
+            saveButton.widthAnchor.constraint(equalToConstant: 32),
             //
             titleLabel.leadingAnchor.constraint(equalTo: container.trailingAnchor, constant: 16),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),

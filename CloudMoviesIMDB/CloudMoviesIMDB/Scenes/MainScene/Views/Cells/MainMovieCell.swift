@@ -15,10 +15,12 @@ final class MainMovieCell: UICollectionViewCell, IdentifiableCell {
     lazy var rankLabel = makeLabel(font: Fonts.medium(.size3).font)
     lazy var posterImage: UIImageView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.contentMode = .scaleAspectFill
+        $0.contentMode = .scaleToFill
         $0.addSubview(activityIndicatorView)
         return $0
     }(UIImageView())
+    lazy var saveButton = makeSaveButton(action: saveButtonAction())
+    var callBack: ((Bool) -> Void)?
     /// LoadingManager
     private var imageLoadingManager: ImageLoadingManagerProtocol?
     // MARK: Init
@@ -42,18 +44,21 @@ final class MainMovieCell: UICollectionViewCell, IdentifiableCell {
         posterImage.image = nil
         titleLabel.text = nil
         rankLabel.text = nil
+        saveButton.isSelected = false
     }
     private func setup() {
         addSubview(titleLabel)
         addSubview(rankLabel)
         container.addSubview(posterImage)
+        container.addSubview(saveButton)
     }
     // MARK: - Configure
     @MainActor
-    func configure(media: Movies.Movie) {
+    func configure(media: Movies.Movie, isSaved: Bool) {
         activityIndicatorView.startAnimating()
         Task {
             titleLabel.text = media.title
+            saveButton.isSelected = isSaved
             rankLabel.text = "Rank: \(media.rank ?? "")"
             guard let path = media.image else { return }
             do {
@@ -63,6 +68,14 @@ final class MainMovieCell: UICollectionViewCell, IdentifiableCell {
                 posterImage.image = UIImage(named: "PosterNil")
             }
             activityIndicatorView.stopAnimating()
+        }
+    }
+    private func saveButtonAction() -> UIAction {
+        UIAction { [weak self] action in
+            guard let self,
+                  let buttonAction = action.sender as? UIButton else { return }
+            buttonAction.isSelected.toggle()
+            self.callBack?(buttonAction.isSelected)
         }
     }
     deinit {

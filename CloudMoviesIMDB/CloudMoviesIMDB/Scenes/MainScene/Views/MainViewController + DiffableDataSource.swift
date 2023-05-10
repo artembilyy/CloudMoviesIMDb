@@ -14,13 +14,23 @@ extension MainViewController {
     func setupDataSource() {
         dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, item in
             guard let section = MainSection(rawValue: indexPath.section) else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: MainMovieCell.identifier,
+                for: indexPath
+            ) as? MainMovieCell else { return UICollectionViewCell() }
             switch section {
             case .movies:
-                guard let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: MainMovieCell.identifier,
-                    for: indexPath
-                ) as? MainMovieCell else { return UICollectionViewCell() }
-                cell.configure(media: item)
+                let inFavoriteList = self.viewModel.checkIsFavorite(movie: item)
+                cell.configure(media: item, isSaved: inFavoriteList)
+                cell.callBack = { [weak self] isSelected in
+                    guard let self else { return }
+                    switch isSelected {
+                    case true:
+                        self.viewModel.saveToFavorites(movie: item)
+                    case false:
+                        self.viewModel.deleteFromFavorites(movie: item)
+                    }
+                }
                 return cell
             }
         }

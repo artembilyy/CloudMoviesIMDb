@@ -17,6 +17,8 @@ protocol SearchViewModelProtocol {
     var errorMessage: Observable<String?> { get }
     func getSearchResultsMovies(queryString: String)
     func openDetailController(_ data: Movies.Movie)
+    func saveToFavorites(movie: Movies.Movie)
+    func deleteFromFavorites(movie: Movies.Movie)
     func reload()
 }
 
@@ -29,9 +31,12 @@ final class SearchViewModel: SearchViewModelProtocol {
     weak var coordinatorDelegate: SearchViewModelCoordinatorDelegate?
     // MARK: - Network
     let networkService: SearchMoviesNetworkServiceProtocol
+    // MARK: - DataStorage
+    let dataStorage: FavoritesMoviesStorageProtocol
     // MARK: - Init
-    init(networkService: SearchMoviesNetworkServiceProtocol) {
+    init(networkService: SearchMoviesNetworkServiceProtocol, dataStorage: FavoritesMoviesStorageProtocol) {
         self.networkService = networkService
+        self.dataStorage = dataStorage
     }
     func reload() {
         movies.removeAll()
@@ -52,5 +57,11 @@ final class SearchViewModel: SearchViewModelProtocol {
     }
     func openDetailController(_ data: Movies.Movie) {
         coordinatorDelegate?.openDetailController(data)
+    }
+    func saveToFavorites(movie: Movies.Movie) {
+        dataStorage.saveMovie(movie)
+    }
+    func deleteFromFavorites(movie: Movies.Movie) {
+        dataStorage.deleteMovie(movie)
     }
 }
