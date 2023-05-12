@@ -10,7 +10,6 @@ import Foundation
 protocol MainPageViewModelCoordinatorDelegate: AnyObject {
     func openMainSubControllerDelegate(_ data: Movies.Movie)
 }
-
 protocol MainViewModelProtocol {
     var top250Movies: [Movies.Movie] { get }
     var textFromSearchBar: String { get set }

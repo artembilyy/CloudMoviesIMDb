@@ -1,13 +1,13 @@
 //
-//  SearchViewController + CompositionalLayout.swift
+//  FavoritesViewController + CompositionalLayout.swift
 //  CloudMoviesIMDB
 //
-//  Created by Artem Bilyi on 27.04.2023.
+//  Created by Artem Bilyi on 12.05.2023.
 //
 
 import UIKit
 
-extension SearchViewController {
+extension FavoritesViewController {
     func createLayout() -> UICollectionViewCompositionalLayout {
         UICollectionViewCompositionalLayout { [weak self] (sectionNumber, _) -> NSCollectionLayoutSection? in
             guard let self else { return nil }

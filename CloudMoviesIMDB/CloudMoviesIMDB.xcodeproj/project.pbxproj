@@ -77,6 +77,11 @@
 		ED653AD429F8FEE100A8FBC1 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED653AD329F8FEE100A8FBC1 /* Endpoint.swift */; };
 		EDAB537429FD761200741376 /* RequestMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAB537329FD761200741376 /* RequestMethod.swift */; };
 		EDAB537629FD79BF00741376 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAB537529FD79BF00741376 /* HTTPClient.swift */; };
+		EDB560D12A0E67DA00A68234 /* FavoritesPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB560D02A0E67DA00A68234 /* FavoritesPageCoordinator.swift */; };
+		EDB560D32A0E689100A68234 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB560D22A0E689100A68234 /* FavoritesViewController.swift */; };
+		EDB560D52A0E689D00A68234 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB560D42A0E689D00A68234 /* FavoritesViewModel.swift */; };
+		EDB560D72A0EA15C00A68234 /* FavoritesViewController + DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB560D62A0EA15C00A68234 /* FavoritesViewController + DataSource.swift */; };
+		EDB560D92A0EA89B00A68234 /* FavoritesViewController + CompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB560D82A0EA89B00A68234 /* FavoritesViewController + CompositionalLayout.swift */; };
 		EDB7568D2A02485B0079A0C1 /* LocalStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB7568C2A02485B0079A0C1 /* LocalStateTests.swift */; };
 		EDB8E64929FDCD9E00F1CEFD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB8E64829FDCD9E00F1CEFD /* Constants.swift */; };
 		EDD3B2DA29FA999700374E8E /* SearchMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3B2D929FA999700374E8E /* SearchMovieCell.swift */; };
@@ -198,6 +203,11 @@
 		ED653AD329F8FEE100A8FBC1 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		EDAB537329FD761200741376 /* RequestMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMethod.swift; sourceTree = "<group>"; };
 		EDAB537529FD79BF00741376 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		EDB560D02A0E67DA00A68234 /* FavoritesPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesPageCoordinator.swift; sourceTree = "<group>"; };
+		EDB560D22A0E689100A68234 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		EDB560D42A0E689D00A68234 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
+		EDB560D62A0EA15C00A68234 /* FavoritesViewController + DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoritesViewController + DataSource.swift"; sourceTree = "<group>"; };
+		EDB560D82A0EA89B00A68234 /* FavoritesViewController + CompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoritesViewController + CompositionalLayout.swift"; sourceTree = "<group>"; };
 		EDB7568C2A02485B0079A0C1 /* LocalStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStateTests.swift; sourceTree = "<group>"; };
 		EDB8E64829FDCD9E00F1CEFD /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		EDD3B2D929FA999700374E8E /* SearchMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovieCell.swift; sourceTree = "<group>"; };
@@ -386,6 +396,7 @@
 				ED653A7529F84D5400A8FBC1 /* TabBarScene */,
 				ED653A4F29F848B500A8FBC1 /* MainScene */,
 				ED197A0E29F9066A006E4DAF /* SearchScene */,
+				EDB560CF2A0E677F00A68234 /* FavoritesScene */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -542,6 +553,18 @@
 				ED653AC729F8D25A00A8FBC1 /* NetworkError.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		EDB560CF2A0E677F00A68234 /* FavoritesScene */ = {
+			isa = PBXGroup;
+			children = (
+				EDB560D02A0E67DA00A68234 /* FavoritesPageCoordinator.swift */,
+				EDB560D22A0E689100A68234 /* FavoritesViewController.swift */,
+				EDB560D42A0E689D00A68234 /* FavoritesViewModel.swift */,
+				EDB560D62A0EA15C00A68234 /* FavoritesViewController + DataSource.swift */,
+				EDB560D82A0EA89B00A68234 /* FavoritesViewController + CompositionalLayout.swift */,
+			);
+			path = FavoritesScene;
 			sourceTree = "<group>";
 		};
 		EDB8E64A29FDCE6F00F1CEFD /* Helpers */ = {
@@ -752,6 +775,7 @@
 				ED653AC229F8BB1900A8FBC1 /* MainMovieCell + Constrains.swift in Sources */,
 				EDD3B2F029FBC4D600374E8E /* UIStackView + Extension.swift in Sources */,
 				ED653AAC29F852F300A8FBC1 /* UIView + Extension.swift in Sources */,
+				EDB560D12A0E67DA00A68234 /* FavoritesPageCoordinator.swift in Sources */,
 				ED653ABC29F88B1200A8FBC1 /* MainViewFooter.swift in Sources */,
 				ED653AD429F8FEE100A8FBC1 /* Endpoint.swift in Sources */,
 				ED653A7229F84CAB00A8FBC1 /* OnboardingCell.swift in Sources */,
@@ -767,6 +791,7 @@
 				ED653A7B29F84E4B00A8FBC1 /* MainPageCoordinator.swift in Sources */,
 				ED653A7929F84DD300A8FBC1 /* TabbarCoordinator.swift in Sources */,
 				ED653A5E29F84AE900A8FBC1 /* LocalState.swift in Sources */,
+				EDB560D72A0EA15C00A68234 /* FavoritesViewController + DataSource.swift in Sources */,
 				EDD3B2FE29FC0A8500374E8E /* SearchViewController + Delegate.swift in Sources */,
 				EDAB537429FD761200741376 /* RequestMethod.swift in Sources */,
 				ED653AC629F8CF6A00A8FBC1 /* ImageLoadingManager.swift in Sources */,
@@ -780,6 +805,7 @@
 				ED653A7729F84D7800A8FBC1 /* TabBarController.swift in Sources */,
 				ED0D54C829FA00A00005FA8C /* SearchViewController + CompositionalLayout.swift in Sources */,
 				EDF74B6029FDB4CB0083211F /* MoviesEndpoint.swift in Sources */,
+				EDB560D92A0EA89B00A68234 /* FavoritesViewController + CompositionalLayout.swift in Sources */,
 				ED653A5A29F84A6F00A8FBC1 /* Assembly.swift in Sources */,
 				ED653A6629F84C0200A8FBC1 /* OnboardingViewModel.swift in Sources */,
 				ED197A1729F9090B006E4DAF /* SearchViewController.swift in Sources */,
@@ -794,8 +820,10 @@
 				ED653A7029F84C9200A8FBC1 /* OnboardingViewController + Extension.swift in Sources */,
 				ED653A6A29F84C5900A8FBC1 /* OnboardingViewController.swift in Sources */,
 				ED653AC829F8D25A00A8FBC1 /* NetworkError.swift in Sources */,
+				EDB560D52A0E689D00A68234 /* FavoritesViewModel.swift in Sources */,
 				ED653A2229F847A300A8FBC1 /* SceneDelegate.swift in Sources */,
 				ED653AC429F8BE3900A8FBC1 /* OnboardingViewController + Constraints.swift in Sources */,
+				EDB560D32A0E689100A68234 /* FavoritesViewController.swift in Sources */,
 				EDD3B2E229FAABB600374E8E /* CustomDetailViewController.swift in Sources */,
 				ED653ABA29F8795300A8FBC1 /* IdentifiableCell.swift in Sources */,
 				EDD3B2FA29FC08EB00374E8E /* UIViewController + Extension.swift in Sources */,

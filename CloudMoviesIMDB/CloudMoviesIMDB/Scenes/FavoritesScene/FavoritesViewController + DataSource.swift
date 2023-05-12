@@ -1,19 +1,19 @@
 //
-//  SearchViewController + Extension.swift
+//  FavoritesViewController + DataSource.swift
 //  CloudMoviesIMDB
 //
-//  Created by Artem Bilyi on 27.04.2023.
+//  Created by Artem Bilyi on 12.05.2023.
 //
 
 import UIKit
 
-extension SearchViewController {
-    typealias DataSource = UICollectionViewDiffableDataSource<SearchSection, Movies.Movie>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<SearchSection, Movies.Movie>
+extension FavoritesViewController {
+    typealias DataSource = UICollectionViewDiffableDataSource<FavoritesSection, FavoritesMovies>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<FavoritesSection, FavoritesMovies>
     // MARK: - Diffable Data Source
     func setupDataSource() {
         dataSource = DataSource(collectionView: collectionView) { [weak self] collectionView, indexPath, item in
-            guard let section = SearchSection(rawValue: indexPath.section),
+            guard let section = FavoritesSection(rawValue: indexPath.section),
                   let self else { return UICollectionViewCell() }
             switch section {
             case .movies:
@@ -21,15 +21,15 @@ extension SearchViewController {
                     withReuseIdentifier: SearchMovieCell.identifier,
                     for: indexPath
                 ) as? SearchMovieCell else { return UICollectionViewCell() }
-                let isSaved = self.viewModel.checkIsFavorite(movie: item)
-                cell.configure(media: item, isSaved: isSaved)
+                guard let isSaved = self.viewModel?.checkIsFavorite(movie: item) else { return UICollectionViewCell() }
+                cell.configureWithData(media: item, isSaved: isSaved)
                 cell.callBack = { [weak self] isSelected in
                     guard let self else { return }
                     switch isSelected {
                     case true:
-                        self.viewModel.saveToFavorites(movie: item)
+                        print("add in Future")
                     case false:
-                        self.viewModel.deleteFromFavorites(movie: item)
+                        self.viewModel?.deleteFromFavorites(item)
                     }
                 }
                 return cell
@@ -41,7 +41,8 @@ extension SearchViewController {
     func applySnapshot() {
         var snapshot = Snapshot()
         snapshot.appendSections([.movies])
-        snapshot.appendItems(viewModel.movies, toSection: .movies)
+        guard let movies = viewModel?.favoriteMovies else { return }
+        snapshot.appendItems(movies, toSection: .movies)
         dataSource.apply(snapshot)
         dataSource.apply(snapshot, animatingDifferences: true)
     }

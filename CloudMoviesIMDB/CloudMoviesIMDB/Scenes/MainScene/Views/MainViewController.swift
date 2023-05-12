@@ -18,6 +18,7 @@ final class MainViewController: UICollectionViewController {
     // MARK: - UI
     private lazy var searchController = makeSearchController()
     private let refreshControl = UIRefreshControl()
+    private lazy var scrollUpButton = makeScrollUpButton(action: scrollUpButtonPressed())
     private let activityIndicator: UIActivityIndicatorView = {
         let indicatorView = UIActivityIndicatorView(style: .medium)
         return indicatorView
@@ -48,9 +49,17 @@ final class MainViewController: UICollectionViewController {
         setupDismissKeyboardGesture(for: searchController)
         viewModel.getMovies(useCache: true)
     }
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        setupConstraints()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView.reloadData()
+    }
     // MARK: - Methods
     private func delegate() {
-//        searchController.searchResultsUpdater = self
+        //        searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.searchBar.searchTextField.delegate = self
     }
@@ -63,6 +72,14 @@ final class MainViewController: UICollectionViewController {
             Task {
                 try await Task.sleep(seconds: 1)
                 self.viewModel.getMovies(useCache: false)
+            }
+        }
+    }
+    private func scrollUpButtonPressed() -> UIAction {
+        UIAction { [weak self] _ in
+            guard let self else { return }
+            if !self.viewModel.top250Movies.isEmpty {
+                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
             }
         }
     }
@@ -90,7 +107,7 @@ final class MainViewController: UICollectionViewController {
                     case true:
                         self.viewModel.show10Movies(false)
                         self.activityIndicator.stopAnimating()
-                        self.updateSnapshot()
+                        self.applySnapshot()
                     default:
                         self.activityIndicator.startAnimating()
                     }
@@ -103,7 +120,7 @@ final class MainViewController: UICollectionViewController {
             guard let self, let value, value else { return }
             Task {
                 await MainActor.run {
-                    self.updateSnapshot()
+                    self.applySnapshot()
                 }
             }
         }
@@ -131,7 +148,7 @@ final class MainViewController: UICollectionViewController {
 }
 
 // MARK: - UI Setup
-extension MainViewController {
+private extension MainViewController {
     private func setupUI() {
         navigationItem.searchController = searchController
         refreshControl.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
@@ -157,6 +174,21 @@ extension MainViewController {
         navigationItem.backButtonTitle = ""
         view.backgroundColor = .white
         navigationController?.navigationBar.tintColor = .deepGreen
+        view.addSubview(scrollUpButton)
+    }
+}
+extension MainViewController {
+    func setupConstraints() {
+        NSLayoutConstraint.activate([
+            scrollUpButton.widthAnchor.constraint(equalToConstant: 40),
+            scrollUpButton.heightAnchor.constraint(equalToConstant: 40),
+            scrollUpButton.bottomAnchor.constraint(
+                equalTo: view.bottomAnchor, constant: -(view.frame.height * 0.15)),
+            scrollUpButton.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -(view.frame.width * 0.05)
+            )
+        ])
     }
 }
 // MARK: - Did select cell

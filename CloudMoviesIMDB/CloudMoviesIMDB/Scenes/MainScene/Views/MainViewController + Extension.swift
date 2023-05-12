@@ -35,4 +35,12 @@ extension MainViewController {
         noResultLabel.textAlignment = NSTextAlignment.center
         return noResultLabel
     }
+    func makeScrollUpButton(action: UIAction) -> UIButton {
+        let button = UIButton(type: .custom, primaryAction: action)
+        button.backgroundColor = .clear
+        let image = UIImage(named: "downarrow")
+        button.setImage(image, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }
 }

@@ -11,7 +11,13 @@ import UIKit
 protocol FavoritesMoviesStorageProtocol {
     func saveMovie(_ movie: Movies.Movie)
     func deleteMovie(_ movie: Movies.Movie)
+    func deleteFavoriteMovieEntity(_ movie: FavoritesMovies)
+    func getFavoritesMovies() -> [FavoritesMovies]?
     func checkIsFavorite(movie: Movies.Movie) -> Bool
+    func checkIsFavorite(movie: FavoritesMovies) -> Bool
+}
+
+protocol FavoritesMoviesEntityProtocol {
 }
 final class FavoritesMoviesStorage: FavoritesMoviesStorageProtocol {
     static let shared = FavoritesMoviesStorage()
@@ -39,6 +45,8 @@ final class FavoritesMoviesStorage: FavoritesMoviesStorageProtocol {
         }
         let movieObject = NSManagedObject(entity: entity, insertInto: managedObjectContext)
         movieObject.setValue(movie.title, forKey: "title")
+        movieObject.setValue(movie.description, forKey: "overview")
+        movieObject.setValue(movie.image, forKey: "image")
         do {
             try managedObjectContext.save()
             print("Movie saved to CoreData")
@@ -47,6 +55,34 @@ final class FavoritesMoviesStorage: FavoritesMoviesStorageProtocol {
         }
     }
     func deleteMovie(_ movie: Movies.Movie) {
+        let fetchRequest = NSFetchRequest<FavoritesMovies>(entityName: "FavoritesMovies")
+        fetchRequest.predicate = NSPredicate(format: "title == %@", movie.title ?? "")
+        do {
+            guard let managedObjectContext else { return }
+            let movies = try managedObjectContext.fetch(fetchRequest)
+            guard let movieObject = movies.first else {
+                print("Movie with title '\(movie.title ?? "")' does not exist in CoreData, skipping delete.")
+                return
+            }
+            managedObjectContext.delete(movieObject)
+            try managedObjectContext.save()
+            print("Movie deleted from CoreData")
+        } catch let error {
+            print("Failed to delete movie: \(error)")
+        }
+    }
+    func getFavoritesMovies() -> [FavoritesMovies]? {
+        let fetchRequest = NSFetchRequest<FavoritesMovies>(entityName: "FavoritesMovies")
+        do {
+            guard let managedObjectContext else { return nil }
+            let savedMovies = try managedObjectContext.fetch(fetchRequest)
+            return savedMovies
+        } catch let error {
+            print("Failed to fetch movies: \(error)")
+        }
+        return nil
+    }
+    func deleteFavoriteMovieEntity(_ movie: FavoritesMovies) {
         let fetchRequest = NSFetchRequest<FavoritesMovies>(entityName: "FavoritesMovies")
         fetchRequest.predicate = NSPredicate(format: "title == %@", movie.title ?? "")
         do {
@@ -75,13 +111,24 @@ final class FavoritesMoviesStorage: FavoritesMoviesStorageProtocol {
         }
     }
     func checkIsFavorite(movie: Movies.Movie) -> Bool {
+        guard let title = movie.title else { return false }
+        let fetchRequest = NSFetchRequest<FavoritesMovies>(entityName: "FavoritesMovies")
+        fetchRequest.predicate = NSPredicate(format: "title == %@", title)
+        do {
+            guard let managedObjectContext else { return false }
+            let savedMovies = try managedObjectContext.fetch(fetchRequest)
+            return !savedMovies.isEmpty
+        } catch let error {
+            print("Failed to fetch movies: \(error)")
+        }
+        return false
+    }
+    func checkIsFavorite(movie: FavoritesMovies) -> Bool {
         let fetchRequest = NSFetchRequest<FavoritesMovies>(entityName: "FavoritesMovies")
         do {
             guard let managedObjectContext else { return false }
             let savedMovies = try managedObjectContext.fetch(fetchRequest)
-            for savedMovie in savedMovies where savedMovie.title == movie.title {
-                return true
-            }
+            return !savedMovies.isEmpty
         } catch let error {
             print("Failed to fetch movies: \(error)")
         }

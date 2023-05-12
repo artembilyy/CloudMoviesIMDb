@@ -14,6 +14,7 @@ protocol AssemblyProtocol {
     func createDetailController(data: Movies.Movie) -> UIViewController
     func createCustomDetailController(data: Movies.Movie) -> UIViewController
     func createSearchController(coordinatorDelegate: SearchViewModelCoordinatorDelegate) -> UIViewController
+    func createFavoritesController() -> UIViewController
 }
 
 final class Assembly: AssemblyProtocol {
@@ -55,6 +56,14 @@ final class Assembly: AssemblyProtocol {
         let viewModel = SearchViewModel(networkService: networkService, dataStorage: dataStorage)
         viewModel.coordinatorDelegate = coordinatorDelegate
         let viewController = SearchViewController(viewModel: viewModel)
+        return viewController
+    }
+    func createFavoritesController() -> UIViewController {
+        let dataStorage = FavoritesMoviesStorage.shared
+        let viewModel = FavoritesViewModel(dataSource: dataStorage)
+        let layout = UICollectionViewLayout()
+        let viewController = FavoritesViewController(collectionViewLayout: layout)
+        viewController.viewModel = viewModel
         return viewController
     }
 }

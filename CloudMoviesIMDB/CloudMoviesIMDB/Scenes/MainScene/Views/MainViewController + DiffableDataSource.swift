@@ -46,7 +46,7 @@ extension MainViewController {
     }
     // MARK: - Snapshot
     @MainActor
-    func updateSnapshot() {
+    func applySnapshot() {
         var snapshot = Snapshot()
         snapshot.appendSections([.movies])
         snapshot.appendItems(viewModel.top250Movies, toSection: .movies)

@@ -54,6 +54,10 @@ final class SearchViewController: UIViewController {
         observers()
         setupDismissKeyboardGesture(for: searchController)
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView.reloadData()
+    }
     // MARK: - Methods
     private func delegate() {
         collectionView.delegate = self
@@ -72,6 +76,7 @@ final class SearchViewController: UIViewController {
         navigationItem.searchController = searchController
         noResultLabel.frame = collectionView.bounds
         view.addSubview(noResultLabel)
+        collectionView.dataSource = dataSource
     }
     // MARK: - Binding
     private func observers() {
@@ -81,7 +86,7 @@ final class SearchViewController: UIViewController {
                 await MainActor.run {
                     switch value {
                     case true:
-                        self.updateSnapshot()
+                        self.applySnapshot()
                         self.activityIndicator.stopAnimating()
                         if self.viewModel.movies.isEmpty {
                             self.noResultLabel.isHidden = false

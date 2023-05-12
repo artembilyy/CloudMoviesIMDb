@@ -26,6 +26,7 @@ final class TabBarCoordinator: TabbarCoordinatorProtocol {
     func start() {
         addTab(.home)
         addTab(.search)
+        addTab(.favorites)
     }
     func addTab(_ tab: Tab) {
         guard let assemblyBuilder = assemblyBuilder else { return }
@@ -38,6 +39,11 @@ final class TabBarCoordinator: TabbarCoordinatorProtocol {
             )
         case .search:
             coordinator = SearchPageCoordinator(
+                navigationController: UINavigationController(),
+                assemblyBuilder: assemblyBuilder
+            )
+        case .favorites:
+            coordinator = FavoritesPageCoordinator(
                 navigationController: UINavigationController(),
                 assemblyBuilder: assemblyBuilder
             )
@@ -64,6 +70,7 @@ extension TabBarCoordinator {
     enum Tab {
         case home
         case search
+        case favorites
         
         var title: String {
             switch self {
@@ -71,6 +78,8 @@ extension TabBarCoordinator {
                 return "Home"
             case .search:
                 return "Search"
+            case .favorites:
+                return "Favorites"
             }
         }
         
@@ -79,7 +88,9 @@ extension TabBarCoordinator {
             case .home:
                 return UIImage(systemName: "house.fill")?.withTintColor(.deepGreen)
             case .search:
-                return UIImage(systemName: "magnifyingglass")
+                return UIImage(systemName: "magnifyingglass")?.withTintColor(.deepGreen)
+            case .favorites:
+                return UIImage(systemName: "text.book.closed")?.withTintColor(.deepGreen)
             }
         }
         
@@ -89,6 +100,8 @@ extension TabBarCoordinator {
                 return 0
             case .search:
                 return 1
+            case .favorites:
+                return 2
             }
         }
     }
