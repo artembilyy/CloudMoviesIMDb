@@ -12,6 +12,7 @@ final class MainMovieCell: UICollectionViewCell, IdentifiableCell {
     lazy var container = makeContainer()
     lazy var activityIndicatorView = makeActivityIndicatorView()
     lazy var titleLabel = makeLabel(font: Fonts.semiBold(.size3).font)
+    lazy var yearLabel = makeLabel(font: Fonts.regular(.size3).font)
     lazy var rankLabel = makeLabel(font: Fonts.medium(.size3).font)
     lazy var posterImage: UIImageView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -43,11 +44,13 @@ final class MainMovieCell: UICollectionViewCell, IdentifiableCell {
         super.prepareForReuse()
         posterImage.image = nil
         titleLabel.text = nil
+        yearLabel.text = nil
         rankLabel.text = nil
         saveButton.isSelected = false
     }
     private func setup() {
         addSubview(titleLabel)
+        addSubview(yearLabel)
         addSubview(rankLabel)
         container.addSubview(posterImage)
         container.addSubview(saveButton)
@@ -57,8 +60,10 @@ final class MainMovieCell: UICollectionViewCell, IdentifiableCell {
     func configure(media: Movies.Movie, isSaved: Bool) {
         activityIndicatorView.startAnimating()
         Task {
+            dump(media)
             titleLabel.text = media.title
             saveButton.isSelected = isSaved
+            yearLabel.text = "Year: \(media.year ?? "Unknown")"
             rankLabel.text = "Rank: \(media.rank ?? "")"
             guard let path = media.image else { return }
             do {

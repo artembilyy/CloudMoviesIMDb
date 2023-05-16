@@ -35,6 +35,10 @@ extension MainMovieCell {
             rankLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
             rankLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
             //
+            yearLabel.bottomAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
+            yearLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            yearLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+            //
             activityIndicatorView.centerXAnchor.constraint(equalTo: posterImage.centerXAnchor),
             activityIndicatorView.centerYAnchor.constraint(equalTo: posterImage.centerYAnchor)
         ])
